@@ -533,7 +533,7 @@
 <!-- HEADER -->
 <div class="header">
   <div class="logo">Re<span>Wake</span></div>
-  <div class="trial-badge">✦ 12일 남음</div>
+  <div class="trial-badge" onclick="window.open('rewake_pro.html','_blank')" style="cursor:pointer;">✦ 12일 남음</div>
 </div>
 
 <!-- HERO -->
@@ -549,7 +549,7 @@
     <strong>⚡ 무료체험 12일 남음</strong>
     <p>전체 14개 루틴 · 월 4,900원</p>
   </div>
-  <button class="manage-btn">관리 →</button>
+  <button class="manage-btn" onclick="window.open('rewake_pro.html','_blank')">관리 →</button>
 </div>
 
 <!-- GRID -->
@@ -683,7 +683,7 @@
       <strong>✦ 무료체험 중</strong>
       <p>12일 후 월 4,900원 · 언제든 해지 가능</p>
     </div>
-    <button class="upgrade-btn">구독하기</button>
+    <button class="upgrade-btn" onclick="window.open('rewake_pro.html','_blank')">구독하기</button>
   </div>
 
   <!-- 컨디션 DNA -->
@@ -923,7 +923,7 @@ function renderGrid() {
       <div class="card-mode">${r.mode}</div>
       <div class="card-footer">
         <div class="card-duration">⏱ ${r.duration}</div>
-        <div class="tier-badge ${r.free ? 'free-badge' : 'premium-badge'}">${r.free ? 'FREE' : 'PRO'}</div>
+        <div class="tier-badge ${r.free ? 'free-badge' : 'premium-badge'}" ${!r.free ? "onclick=\"window.open('rewake_pro.html','_blank')\"" : ''}>${r.free ? 'FREE' : 'PRO'}</div>
       </div>
     </div>
   `).join('');
@@ -942,7 +942,7 @@ function openRoutine(id) {
   document.getElementById('modalEffect').textContent = currentRoutine.effect;
   document.getElementById('modalTierChip').innerHTML = currentRoutine.free 
     ? '<span style="color:#34d399">✓ 무료</span>' 
-    : '<span style="color:#f59e0b">★ 프리미엄</span>';
+    : '<span style="color:#f59e0b;cursor:pointer;" onclick="window.open(\'rewake_pro.html\',\'_blank\')">★ 프리미엄 — 업그레이드 →</span>';
 
   // 오디오 로드
   const url = CLOUD + currentRoutine.file + '.mp3';
