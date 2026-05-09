@@ -2289,30 +2289,30 @@ updateSliderTrack(3);
 
   // 세션 저장 (루틴 열 때)
   window.rwSaveSession = async function(routineId, routineName, isAiMode) {
-    if (!window._rwUID) return;
     try {
       await addDoc(collection(db, 'sessions'), {
-        uid:          window._rwUID,
+        uid:          window._rwUID || 'anonymous',
         routine_id:   routineId,
         routine_name: routineName,
         ai_mode:      isAiMode,
         started_at:   serverTimestamp(),
       });
+      console.log('세션 저장 완료:', routineId);
     } catch(e) { console.warn('세션 저장 실패:', e); }
   };
 
   // 피드백 저장 (별점+감도)
   window.rwSaveFeedback = async function(routineId, routineName, starRating, sensitivity) {
-    if (!window._rwUID) return;
     try {
       await addDoc(collection(db, 'feedback'), {
-        uid:          window._rwUID,
+        uid:          window._rwUID || 'anonymous',
         routine_id:   routineId,
         routine_name: routineName,
         star_rating:  starRating,
         sensitivity:  sensitivity,
         saved_at:     serverTimestamp(),
       });
+      console.log('피드백 저장 완료 ⭐', starRating, '감도:', sensitivity);
     } catch(e) { console.warn('피드백 저장 실패:', e); }
   };
 </script>
