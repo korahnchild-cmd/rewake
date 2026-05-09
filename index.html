@@ -4,6 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>ReWake — 못 잔 아침도, AI가 깨워준다</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#7c6fff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ReWake">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- SEO / 공유 -->
+<meta name="description" content="상황별 바이노럴 비트로 아침 컨디션을 회복시켜주는 앱. 수면 부족, 숙취, 스트레스 — 14가지 맞춤 루틴.">
+<meta property="og:title" content="ReWake — 못 잔 아침도, AI가 깨워준다">
+<meta property="og:description" content="상황별 바이노럴 비트로 아침 컨디션을 회복시켜주는 앱">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://korahnchild-cmd.github.io/rewake/">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -2253,6 +2268,17 @@ renderGrid();
 // 슬라이더 초기 트랙 렌더링
 updateSliderTrack(3);
 </script>
+<!-- Service Worker 등록 -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/rewake/service-worker.js')
+        .then(reg => console.log('SW 등록 완료:', reg.scope))
+        .catch(err => console.warn('SW 등록 실패:', err));
+    });
+  }
+</script>
+
 <!-- Firebase SDK -->
 <script type="module">
   import { initializeApp }        from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
