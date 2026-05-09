@@ -1700,7 +1700,20 @@ let dreamgateTimer  = null;
 
 function getAudioCtx() {
   if (!audioCtx || audioCtx.state === 'closed') {
+    // 매번 새로 생성 — 블루투스 연결 후 오디오 라우팅 갱신
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // mp3 audio 태그를 AudioContext에 연결 (블루투스 출력 확보)
+    if (!audio._mediaSource) {
+      try {
+        audio._mediaSource = audioCtx.createMediaElementSource(audio);
+        audio._mediaSource.connect(audioCtx.destination);
+      } catch(e) {
+        console.warn('MediaElementSource 연결 실패:', e);
+      }
+    } else {
+      // 기존 소스를 새 컨텍스트 destination에 재연결
+      try { audio._mediaSource.connect(audioCtx.destination); } catch(e) {}
+    }
   }
   if (audioCtx.state === 'suspended') audioCtx.resume();
   return audioCtx;
@@ -2025,14 +2038,18 @@ function togglePlay() {
   } else {
     // ── mp3 모드 ──
     if (audio.paused) {
-      audio.play().then(() => {
-        isPlaying = true;
-        playBtn.textContent = '⏸';
-        playBtn.setAttribute('aria-label', '일시정지');
-        playBtn.setAttribute('aria-pressed', 'true');
-        startWave();
-      }).catch(e => {
-        console.error('재생 오류:', e);
+      // 재생 시점에 AudioContext 초기화 → 블루투스 라우팅 확보
+      const ctx = getAudioCtx();
+      ctx.resume().then(() => {
+        audio.play().then(() => {
+          isPlaying = true;
+          playBtn.textContent = '⏸';
+          playBtn.setAttribute('aria-label', '일시정지');
+          playBtn.setAttribute('aria-pressed', 'true');
+          startWave();
+        }).catch(e => {
+          console.error('재생 오류:', e);
+        });
       });
     } else {
       audio.pause();
