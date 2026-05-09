@@ -2378,29 +2378,21 @@ function updateWaveUI(playing) {
 // ─────────────────────────────────────────────
 // PWA 설치 배너
 // ─────────────────────────────────────────────
-let deferredPrompt = null; // Android 설치 프롬프트 저장
+let deferredPrompt = null;
 
-// Android: 설치 가능 이벤트 감지
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  showPwaBanner();
-});
-
-// iOS 감지
 function isIOS() {
   return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
 }
-// 이미 설치됐는지 감지
 function isInstalled() {
   return window.matchMedia('(display-mode: standalone)').matches
     || window.navigator.standalone === true;
 }
+function isDismissed() {
+  return !!localStorage.getItem('rw_pwa_dismissed');
+}
 
 function showPwaBanner() {
-  // 이미 설치됐거나 닫은 적 있으면 표시 안 함
-  if (isInstalled()) return;
-  if (localStorage.getItem('rw_pwa_dismissed')) return;
+  if (isInstalled() || isDismissed()) return;
   const banner = document.getElementById('pwaBanner');
   if (banner) banner.style.display = 'flex';
 }
@@ -2413,15 +2405,19 @@ function closePwaBanner() {
 
 function handlePwaInstall() {
   if (deferredPrompt) {
-    // Android — 시스템 설치 다이얼로그 띄우기
+    // Android Chrome — 시스템 설치 다이얼로그
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(result => {
       if (result.outcome === 'accepted') closePwaBanner();
       deferredPrompt = null;
     });
   } else if (isIOS()) {
-    // iOS — 안내 모달 표시
+    // iOS Safari — 안내 모달
     document.getElementById('iosGuideOverlay').classList.add('open');
+  } else {
+    // Android인데 deferredPrompt 없음 → Chrome 메뉴 안내
+    alert('Chrome 메뉴(⋮) → "홈 화면에 추가"를 선택해주세요.');
+    closePwaBanner();
   }
 }
 
@@ -2432,14 +2428,19 @@ function closeIosGuide(e) {
   }
 }
 
-// iOS는 페이지 로드 후 3초 뒤 배너 표시 (너무 즉각적이면 거슬림)
-window.addEventListener('load', () => {
-  if (isIOS() && !isInstalled() && !localStorage.getItem('rw_pwa_dismissed')) {
-    setTimeout(showPwaBanner, 3000);
-  }
+// Android: beforeinstallprompt 이벤트 → 배너 표시
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  showPwaBanner(); // 이때만 배너 표시
 });
 
-// Android: 설치 완료 감지 → 배너 숨김
+// iOS: 3초 후 배너 표시
+if (isIOS() && !isInstalled() && !isDismissed()) {
+  window.addEventListener('load', () => setTimeout(showPwaBanner, 3000));
+}
+
+// 설치 완료
 window.addEventListener('appinstalled', () => {
   closePwaBanner();
   console.log('PWA 설치 완료 🎉');
