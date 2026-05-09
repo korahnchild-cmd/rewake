@@ -641,6 +641,23 @@
   }
   .blend-indicator.show { animation: blend-pulse 2s ease-in-out infinite; }
 
+  /* ── DISCLAIMER BANNER ── */
+  .disclaimer-banner {
+    margin: 0 20px 20px;
+    background: #ffffff06;
+    border: 1px solid #ffffff14;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: var(--text2);
+    line-height: 1.6;
+    text-align: center;
+  }
+  .disclaimer-banner strong {
+    color: #aaaabf;
+    font-weight: 600;
+  }
+
   /* ── LOADING FEEDBACK ── */
   .loading-overlay {
     position: absolute; inset: 0; background: #0a0a0fcc;
@@ -902,7 +919,7 @@
         </div>
         <div class="ob-chip">ReWake</div>
         <div class="ob-title">못 잔 아침도,<br><span>AI가 깨워준다</span></div>
-        <div class="ob-desc">전날 상태를 선택하면 AI가<br>최적의 뇌파 주파수를 실시간으로 분석해<br>지금 이 순간 당신의 뇌를 깨웁니다</div>
+        <div class="ob-desc">전날 상태를 선택하면<br>상황 기반 적응형 주파수 엔진이<br>지금 이 순간 최적의 루틴을 제공합니다</div>
       </div>
 
       <!-- SLIDE 2 : 14가지 루틴 -->
@@ -933,22 +950,22 @@
           <div class="ob-feature-item">
             <div class="ob-feature-emoji">⚡</div>
             <div class="ob-feature-text">
-              <strong>OscillatorNode 실시간 생성</strong>
-              <span>mp3가 아닌 브라우저가 직접 뇌파를<br>실시간으로 만들어냅니다</span>
+              <strong>OscillatorNode 실시간 합성</strong>
+              <span>mp3 파일 없이 브라우저가 직접<br>바이노럴 주파수를 실시간으로 만들어냅니다</span>
             </div>
           </div>
           <div class="ob-feature-item">
             <div class="ob-feature-emoji">🎛️</div>
             <div class="ob-feature-text">
               <strong>복합 주파수 블렌딩</strong>
-              <span>두 가지 상태를 동시에 선택하면<br>AI가 최적 주파수를 혼합합니다</span>
+              <span>두 가지 상태의 주파수를 동시에 합성해<br>상황에 맞는 최적 조합을 제공합니다</span>
             </div>
           </div>
           <div class="ob-feature-item">
             <div class="ob-feature-emoji">🌙</div>
             <div class="ob-feature-text">
               <strong>드림게이트 점진 전환</strong>
-              <span>알파파에서 델타파로 30분간 자연스럽게<br>전환되며 수면을 유도합니다</span>
+              <span>알파파(10Hz)에서 델타파(2Hz)로<br>30분간 자연스럽게 전환하며 수면을 보조합니다</span>
             </div>
           </div>
         </div>
@@ -965,10 +982,10 @@
           <div class="ob-hp-icon">💡</div>
           <div class="ob-hp-text">
             <strong>바이노럴 비트란?</strong>
-            <span>왼쪽과 오른쪽 귀에 미세하게 다른 주파수를 들려줘 뇌가 그 차이를 인식하는 원리입니다. 반드시 <strong style="color:#f59e0b">헤드폰 또는 이어폰</strong>을 착용해야 효과가 있습니다.</span>
+            <span>왼쪽과 오른쪽 귀에 미세하게 다른 주파수를 들려줘 뇌가 그 차이를 인식하는 원리입니다. <strong style="color:#f59e0b">헤드폰 또는 이어폰</strong>을 착용하면 효과가 극대화됩니다.</span>
           </div>
         </div>
-        <div class="ob-desc">이어폰·헤드폰 없이도 사용할 수 있지만<br>뇌파 유도 효과는 크게 줄어듭니다</div>
+        <div class="ob-desc">이어폰·헤드폰 없이도 사용할 수 있지만<br>바이노럴 비트 효과는 크게 줄어듭니다</div>
       </div>
 
     </div><!-- /ob-track -->
@@ -1003,7 +1020,7 @@
 <div class="hero">
   <div class="hero-time">TODAY MORNING</div>
   <div class="hero-title">오늘 아침,<br><span>어떤 상태인가요?</span></div>
-  <div class="hero-sub">상태를 선택하면 AI가 최적의 뇌파를 분석합니다</div>
+  <div class="hero-sub">상태를 선택하면 상황 기반 적응형 주파수 엔진이 최적 루틴을 추천합니다</div>
 </div>
 
 <!-- TRIAL BANNER -->
@@ -1013,6 +1030,12 @@
     <p>7일이면 충분히 효과를 느낄 수 있어요 · 전체 14개 루틴 · 월 4,900원</p>
   </div>
   <button class="manage-btn" onclick="window.open('rewake_pro.html','_blank')" aria-label="구독 관리 페이지로 이동">관리 →</button>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-banner" role="note" aria-label="서비스 안내">
+  <strong>본 서비스는 의료기기가 아니며, 질병 치료·예방을 목적으로 하지 않습니다.</strong><br>
+  바이노럴 비트 효과는 개인차가 크며 주관적 경험을 보조하는 도구입니다.
 </div>
 
 <!-- GRID -->
@@ -1308,7 +1331,7 @@
     <div class="modal-effect" id="modalEffect"></div>
 
     <div class="headphone-note" style="background:#7c6fff15; border-left-color:#7c6fff; margin-bottom:8px;">
-      ⚡ <strong>전체 재생 시 효과 극대화</strong> — 뇌파 동조는 마지막 1분에 완성됩니다
+      ⚡ <strong>전체 재생 시 효과 극대화</strong> — 주파수 동조는 마지막 1분에 완성됩니다
     </div>
     <div class="headphone-note">
       🎧 바이노럴 비트는 <strong>헤드폰 착용</strong> 시 효과가 극대화됩니다
@@ -1323,8 +1346,8 @@
             AI 실시간 블렌딩
             <span class="ai-pro-badge">PRO</span>
           </div>
-          <div class="ai-mode-sub" id="aiModeSub">OscillatorNode로 뇌파를 실시간 생성합니다</div>
-          <div class="ai-loading-msg" id="aiLoadingMsg" aria-live="polite">주파수 생성 중...</div>
+          <div class="ai-mode-sub" id="aiModeSub">OscillatorNode로 바이노럴 주파수를 실시간 합성합니다</div>
+          <div class="ai-loading-msg" id="aiLoadingMsg" aria-live="polite">주파수 합성 중...</div>
         </div>
         <div class="ai-mode-switch">
           <div class="ai-mode-knob"></div>
@@ -1400,20 +1423,20 @@ const CLOUD = 'https://res.cloudinary.com/drgnydx6p/video/upload/';
 // dreamgate: true 시 알파→델타 점진 전환
 // ─────────────────────────────────────────────
 const routines = [
-  { id:'01', situation:'수면 부족',        mode:'알파 웨이크 프로토콜', emoji:'😴', freq:'감마 40Hz',      duration:'7분',  durationSec:420,  effect:'강한 각성 — 감마파로 뇌를 빠르게 깨웁니다',                          file:'01_sleep_deprived_y7zy2d',    free:true,  binaural:{carrier:200, beat:40} },
-  { id:'02', situation:'과음/숙취',        mode:'젠틀 리부트',          emoji:'🍺', freq:'알파 8Hz',       duration:'10분', durationSec:600,  effect:'자극 없이 부드럽게 깨움 — 민감한 컨디션을 배려합니다',               file:'02_hangover_z2gjvp',          free:true,  binaural:{carrier:180, beat:8} },
-  { id:'03', situation:'밤샘 작업',        mode:'제로 슬립 오버라이드', emoji:'🖥️', freq:'베타 30Hz',      duration:'8분',  durationSec:480,  effect:'강제 각성 모드 — 극한의 피로를 돌파합니다',                          file:'03_all_nighter_ydbwkq',       free:false, binaural:{carrier:200, beat:30} },
-  { id:'04', situation:'과한 운동 후',     mode:'바디 리커버리 웨이브', emoji:'💪', freq:'세타 6Hz',       duration:'10분', durationSec:600,  effect:'몸 회복 + 부드러운 깨우기 — 근육 피로를 완화합니다',                 file:'04_over_exercise_r8pezq',     free:false, binaural:{carrier:180, beat:6} },
-  { id:'05', situation:'몸살/감기',        mode:'이뮨 리스토어',        emoji:'🤒', freq:'델타 4Hz',       duration:'10분', durationSec:600,  effect:'면역 회복 — 무리 없이 하루를 시작합니다',                            file:'05_sick_e0rbn0',              free:false, binaural:{carrier:160, beat:4} },
-  { id:'06', situation:'스트레스/불안',    mode:'캄 포커스 트랜지션',   emoji:'😰', freq:'알파 10Hz',      duration:'8분',  durationSec:480,  effect:'진정 후 집중 유도 — 불안을 가라앉히고 몰입합니다',                   file:'06_stressed_a285jw',          free:true,  binaural:{carrier:200, beat:10} },
-  { id:'07', situation:'꿈을 많이 꿈',     mode:'드림 클리어',          emoji:'💭', freq:'베타 14Hz',      duration:'7분',  durationSec:420,  effect:'몽롱함 제거 — 렘수면 잔재를 빠르게 씻어냅니다',                      file:'07_too_many_dreams_eedwb0',   free:false, binaural:{carrier:200, beat:14} },
-  { id:'08', situation:'두통',             mode:'텐션 릴리즈',          emoji:'🤕', freq:'알파 9Hz',       duration:'10분', durationSec:600,  effect:'긴장 완화 — 두통을 부드럽게 경감시킵니다',                           file:'08_headache_w5aqbt',          free:false, binaural:{carrier:180, beat:9} },
-  { id:'09', situation:'우울/무기력',      mode:'모멘텀 라이즈',        emoji:'😔', freq:'베타 18Hz',      duration:'8분',  durationSec:480,  effect:'기분 끌어올리기 — 무기력한 아침을 반전시킵니다',                     file:'09_low_mood_kxa9hj',          free:false, binaural:{carrier:200, beat:18} },
-  { id:'10', situation:'컨디션 정상',      mode:'데일리 부스터',        emoji:'😊', freq:'감마 40Hz',      duration:'5분',  durationSec:300,  effect:'하루 스타트 부스터 — 이미 좋은 컨디션을 최고로',                     file:'10_normal_xynric',            free:true,  binaural:{carrier:200, beat:40} },
-  { id:'11', situation:'집중이 필요할 때', mode:'딥 포커스 모드',       emoji:'🎯', freq:'베타 21Hz',      duration:'10분', durationSec:600,  effect:'논리 회로 풀가동 — 장시간 집중을 위한 최적 세팅',                    file:'11_deep_focus_mode_wv0lnp',   free:true,  binaural:{carrier:200, beat:21} },
-  { id:'12', situation:'시험/발표 직전',   mode:'제로아워',             emoji:'📝', freq:'알파-베타 12Hz', duration:'5분',  durationSec:300,  effect:'긴장 내려놓고 집중력 최고로 — 결정적 순간을 위해',                   file:'12_zero_hour_e6c5yw',         free:false, binaural:{carrier:200, beat:10}, beat2:{carrier:220, beat:14} },
-  { id:'13', situation:'잠들고 싶을 때',   mode:'드림게이트',           emoji:'🌙', freq:'알파→델타',      duration:'30분', durationSec:1800, effect:'꿀잠 유도 — 30분 자동 페이드아웃으로 자연스럽게',                    file:'13_dreamgate_zefzyd',         free:false, binaural:{carrier:180, beat:10}, dreamgate:true },
-  { id:'14', situation:'운동 전 각성',     mode:'프리워크아웃 부스트',  emoji:'🔥', freq:'베타 20Hz',      duration:'7분',  durationSec:420,  effect:'운동 전 집중력과 각성 극대화 — 최고의 퍼포먼스를 위해',              file:'14_preworkout_uu26tb',        free:false, binaural:{carrier:200, beat:20} },
+  { id:'01', situation:'수면 부족',        mode:'알파 웨이크 프로토콜', emoji:'😴', freq:'감마 40Hz',      duration:'7분',  durationSec:420,  effect:'감마파(40Hz) 주파수로 기상을 보조합니다. 개인에 따라 경험이 다를 수 있어요.',                              file:'01_sleep_deprived_y7zy2d',    free:true,  binaural:{carrier:200, beat:40} },
+  { id:'02', situation:'과음/숙취',        mode:'젠틀 리부트',          emoji:'🍺', freq:'알파 8Hz',       duration:'10분', durationSec:600,  effect:'알파파(8Hz)로 자극 없이 차분하게 하루를 시작하도록 보조합니다.',                                            file:'02_hangover_z2gjvp',          free:true,  binaural:{carrier:180, beat:8} },
+  { id:'03', situation:'밤샘 작업',        mode:'제로 슬립 오버라이드', emoji:'🖥️', freq:'베타 30Hz',      duration:'8분',  durationSec:480,  effect:'베타파(30Hz)로 각성 상태 유지를 보조합니다. 수면을 대체하지 않습니다.',                                      file:'03_all_nighter_ydbwkq',       free:false, binaural:{carrier:200, beat:30} },
+  { id:'04', situation:'과한 운동 후',     mode:'바디 리커버리 웨이브', emoji:'💪', freq:'세타 6Hz',       duration:'10분', durationSec:600,  effect:'세타파(6Hz)로 편안한 이완 상태를 경험해보세요. 개인차가 있을 수 있습니다.',                                  file:'04_over_exercise_r8pezq',     free:false, binaural:{carrier:180, beat:6} },
+  { id:'05', situation:'몸살/감기',        mode:'이뮨 리스토어',        emoji:'🤒', freq:'델타 4Hz',       duration:'10분', durationSec:600,  effect:'델타파(4Hz)로 깊은 이완 상태를 경험해보세요. 의학적 효과를 보장하지 않습니다.',                              file:'05_sick_e0rbn0',              free:false, binaural:{carrier:160, beat:4} },
+  { id:'06', situation:'스트레스/불안',    mode:'캄 포커스 트랜지션',   emoji:'😰', freq:'알파 10Hz',      duration:'8분',  durationSec:480,  effect:'알파파(10Hz)로 차분한 집중 상태로의 전환을 보조합니다.',                                                    file:'06_stressed_a285jw',          free:true,  binaural:{carrier:200, beat:10} },
+  { id:'07', situation:'꿈을 많이 꿈',     mode:'드림 클리어',          emoji:'💭', freq:'베타 14Hz',      duration:'7분',  durationSec:420,  effect:'베타파(14Hz)로 선명한 각성 상태로의 전환을 보조합니다.',                                                    file:'07_too_many_dreams_eedwb0',   free:false, binaural:{carrier:200, beat:14} },
+  { id:'08', situation:'두통',             mode:'텐션 릴리즈',          emoji:'🤕', freq:'알파 9Hz',       duration:'10분', durationSec:600,  effect:'알파파(9Hz)로 편안한 이완 경험을 보조합니다. 두통 증상 완화를 보장하지 않습니다.',                           file:'08_headache_w5aqbt',          free:false, binaural:{carrier:180, beat:9} },
+  { id:'09', situation:'우울/무기력',      mode:'모멘텀 라이즈',        emoji:'😔', freq:'베타 18Hz',      duration:'8분',  durationSec:480,  effect:'베타파(18Hz)로 활기찬 기분 전환 경험을 보조합니다. 개인차가 있을 수 있습니다.',                              file:'09_low_mood_kxa9hj',          free:false, binaural:{carrier:200, beat:18} },
+  { id:'10', situation:'컨디션 정상',      mode:'데일리 부스터',        emoji:'😊', freq:'감마 40Hz',      duration:'5분',  durationSec:300,  effect:'감마파(40Hz)로 하루 시작을 더욱 활기차게 보조합니다.',                                                      file:'10_normal_xynric',            free:false, binaural:{carrier:200, beat:40} },
+  { id:'11', situation:'집중이 필요할 때', mode:'딥 포커스 모드',       emoji:'🎯', freq:'베타 21Hz',      duration:'10분', durationSec:600,  effect:'베타파(21Hz)로 몰입 상태 진입을 보조합니다. 집중력 향상은 주관적 경험에 따라 다를 수 있습니다.',             file:'11_deep_focus_mode_wv0lnp',   free:false, binaural:{carrier:200, beat:21} },
+  { id:'12', situation:'시험/발표 직전',   mode:'제로아워',             emoji:'📝', freq:'알파-베타 12Hz', duration:'5분',  durationSec:300,  effect:'알파+베타 복합 주파수로 차분하고 집중된 상태를 경험해보세요.',                                              file:'12_zero_hour_e6c5yw',         free:false, binaural:{carrier:200, beat:10}, beat2:{carrier:220, beat:14} },
+  { id:'13', situation:'잠들고 싶을 때',   mode:'드림게이트',           emoji:'🌙', freq:'알파→델타',      duration:'30분', durationSec:1800, effect:'알파(10Hz)에서 델타(2Hz)로 30분간 점진 전환하며 수면 진입을 보조합니다.',                                    file:'13_dreamgate_zefzyd',         free:false, binaural:{carrier:180, beat:10}, dreamgate:true },
+  { id:'14', situation:'운동 전 각성',     mode:'프리워크아웃 부스트',  emoji:'🔥', freq:'베타 20Hz',      duration:'7분',  durationSec:420,  effect:'베타파(20Hz)로 운동 전 집중력 향상 경험을 보조합니다.',                                                      file:'14_preworkout_uu26tb',        free:false, binaural:{carrier:200, beat:20} },
 ];
 
 // ─────────────────────────────────────────────
@@ -1608,14 +1631,14 @@ function toggleAiMode() {
       if (r.dreamgate) { freqDesc = `알파 10Hz → 델타 2Hz  점진 전환 (30분)`; }
       sub.textContent = freqDesc;
 
-      blend.textContent = `🧠 실시간 생성 중 — ${r.freq} 뇌파 유도`;
+      blend.textContent = `🎛️ 실시간 합성 중 — ${r.freq} 주파수 출력`;
       blend.classList.add('show');
       if (label) { label.textContent = r.freq; label.classList.add('ai-active'); }
       document.getElementById('progressBg').onclick = null;
     }, 600); // 600ms 딜레이 — 생성 느낌
   } else {
     toggle.classList.remove('active', 'loading');
-    sub.textContent = 'OscillatorNode로 뇌파를 실시간 생성합니다';
+    sub.textContent = 'OscillatorNode로 바이노럴 주파수를 실시간 합성합니다';
     blend.classList.remove('show');
     if (label) label.classList.remove('ai-active');
     reloadMp3();
@@ -1657,7 +1680,7 @@ function openRoutine(id) {
   isAiMode = false;
   const toggle = document.getElementById('aiModeToggle');
   toggle.classList.remove('active');
-  document.getElementById('aiModeSub').textContent = 'OscillatorNode로 뇌파를 실시간 생성합니다';
+  document.getElementById('aiModeSub').textContent = 'OscillatorNode로 바이노럴 주파수를 실시간 합성합니다';
   document.getElementById('blendIndicator').classList.remove('show');
 
   document.getElementById('modalEmoji').textContent    = currentRoutine.emoji;
