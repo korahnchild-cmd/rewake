@@ -374,6 +374,78 @@
   .star.active { filter: none; transform: scale(1.1); }
   .star:hover { transform: scale(1.15); }
   .rating-btns { display: flex; gap: 10px; }
+
+  /* ── 감도 슬라이더 ── */
+  .sensitivity-wrap {
+    margin-bottom: 24px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+  .sensitivity-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px;
+  }
+  .sensitivity-label {
+    font-size: 13px; font-weight: 600; color: var(--text);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sensitivity-badge {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+    background: #7c6fff20; color: var(--accent2);
+    border: 1px solid #7c6fff30; border-radius: 20px;
+    padding: 2px 7px;
+  }
+  .sensitivity-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; color: var(--accent2);
+    min-width: 20px; text-align: right;
+    transition: color 0.2s;
+  }
+  .sensitivity-desc {
+    font-size: 11px; color: var(--text2);
+    margin-bottom: 14px; line-height: 1.5;
+  }
+  /* 슬라이더 트랙 */
+  .sensitivity-slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 6px; border-radius: 3px;
+    background: var(--border);
+    outline: none; cursor: pointer;
+    position: relative;
+  }
+  .sensitivity-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 2px 8px #7c6fff50;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .sensitivity-slider::-webkit-slider-thumb:active {
+    transform: scale(1.2);
+    box-shadow: 0 3px 14px #7c6fff70;
+  }
+  .sensitivity-slider::-moz-range-thumb {
+    width: 22px; height: 22px; border-radius: 50%; border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 2px 8px #7c6fff50;
+    cursor: pointer;
+  }
+  .sensitivity-ticks {
+    display: flex; justify-content: space-between;
+    padding: 0 2px; margin-top: 6px;
+  }
+  .sensitivity-tick {
+    font-size: 10px; color: var(--text3);
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .sensitivity-tick span { color: var(--text2); }
+  .sensitivity-note {
+    font-size: 10px; color: var(--text3);
+    margin-top: 10px; line-height: 1.5; text-align: center;
+  }
   .skip-btn {
     flex: 1; padding: 14px; border-radius: 14px;
     background: var(--bg3); border: 1px solid var(--border);
@@ -1403,6 +1475,37 @@
       <span class="star" onclick="rateStar(4)" role="button" tabindex="0" aria-label="4점" onkeydown="if(event.key==='Enter'||event.key===' ')rateStar(4)">⭐</span>
       <span class="star" onclick="rateStar(5)" role="button" tabindex="0" aria-label="5점" onkeydown="if(event.key==='Enter'||event.key===' ')rateStar(5)">⭐</span>
     </div>
+
+    <!-- 소리 감도 슬라이더 -->
+    <div class="sensitivity-wrap">
+      <div class="sensitivity-header">
+        <div class="sensitivity-label">
+          🎧 소리 감도
+          <span class="sensitivity-badge">선택사항</span>
+        </div>
+        <div class="sensitivity-value" id="sensitivityValue">3</div>
+      </div>
+      <div class="sensitivity-desc">바이노럴 비트가 얼마나 잘 들렸나요?</div>
+      <input
+        type="range"
+        class="sensitivity-slider"
+        id="sensitivitySlider"
+        min="1" max="5" step="1" value="3"
+        aria-label="소리 감도 1점에서 5점"
+        oninput="updateSensitivity(this.value)"
+      >
+      <div class="sensitivity-ticks">
+        <div class="sensitivity-tick">1<span>거의<br>안 들림</span></div>
+        <div class="sensitivity-tick">2</div>
+        <div class="sensitivity-tick">3<span>보통</span></div>
+        <div class="sensitivity-tick">4</div>
+        <div class="sensitivity-tick">5<span>선명하게<br>들림</span></div>
+      </div>
+      <div class="sensitivity-note">
+        ⓘ 기기·볼륨·주변 소음에 따라 개인차가 크며,<br>주관적 감도 참고용으로만 활용됩니다
+      </div>
+    </div>
+
     <div class="rating-btns">
       <button class="skip-btn" onclick="closeRating()">건너뛰기</button>
       <button class="save-btn" onclick="saveRating()">저장하기</button>
@@ -1444,6 +1547,7 @@ const routines = [
 // ─────────────────────────────────────────────
 let currentRoutine = null;
 let currentRating   = 0;
+let currentSensitivity = 3;  // 소리 감도 (1~5, 기본값 3)
 let isPlaying       = false;
 let isAiMode        = false;   // AI 실시간 모드 ON/OFF
 
@@ -1877,7 +1981,14 @@ audio.addEventListener('ended', () => {
 function openRating() {
   closePlayer();
   currentRating = 0;
+  currentSensitivity = 3;
   updateStars(0);
+  // 슬라이더 초기화
+  const slider = document.getElementById('sensitivitySlider');
+  const valEl  = document.getElementById('sensitivityValue');
+  if (slider) slider.value = 3;
+  if (valEl)  valEl.textContent = 3;
+  updateSliderTrack(3);
   document.getElementById('ratingOverlay').classList.add('open');
 }
 function closeRating() {
@@ -1891,10 +2002,51 @@ function rateStar(n) { currentRating = n; updateStars(n); }
 function updateStars(n) {
   document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('active', i < n));
 }
+
+// ── 감도 슬라이더 ──
+function updateSensitivity(val) {
+  currentSensitivity = parseInt(val);
+  const valEl = document.getElementById('sensitivityValue');
+  if (valEl) valEl.textContent = val;
+  updateSliderTrack(val);
+}
+
+function updateSliderTrack(val) {
+  // 슬라이더 fill 색상 — 값에 따라 트랙 채우기
+  const slider = document.getElementById('sensitivitySlider');
+  if (!slider) return;
+  const pct = ((val - 1) / 4) * 100;
+  slider.style.background =
+    `linear-gradient(to right, var(--accent) 0%, var(--accent2) ${pct}%, var(--border) ${pct}%)`;
+  // 숫자 색상도 값에 따라 변화
+  const valEl = document.getElementById('sensitivityValue');
+  if (!valEl) return;
+  const colors = { 1:'#f87171', 2:'#fb923c', 3:'#b8a4ff', 4:'#60a5fa', 5:'#3fda9f' };
+  valEl.style.color = colors[val] || 'var(--accent2)';
+}
+
 function saveRating() {
   if (currentRating === 0) { alert('별점을 선택해주세요!'); return; }
+
+  // 저장 데이터 구성 (Google Sheets 04_feedback 구조)
+  const feedbackData = {
+    routine_id:   currentRoutine?.id || null,
+    routine_name: currentRoutine?.mode || null,
+    star_rating:  currentRating,
+    sensitivity:  currentSensitivity,
+    saved_at:     new Date().toISOString(),
+  };
+  // 로컬 임시 저장 (Google Sheets 연동 전 MVP 단계)
+  const history = JSON.parse(localStorage.getItem('rw_feedback') || '[]');
+  history.push(feedbackData);
+  localStorage.setItem('rw_feedback', JSON.stringify(history));
+
   closeRating();
-  const msg = currentRating >= 4 ? '효과가 있으셨군요! 🎉' : currentRating >= 2 ? '기록이 저장됐습니다 👍' : '다음엔 더 맞는 루틴을 찾아볼게요';
+  const msg = currentRating >= 4
+    ? '효과가 있으셨군요! 🎉'
+    : currentRating >= 2
+    ? '기록이 저장됐습니다 👍'
+    : '다음엔 더 맞는 루틴을 찾아볼게요';
   setTimeout(() => alert(msg), 200);
 }
 
@@ -2070,6 +2222,8 @@ function updateWaveUI(playing) {
 // 초기화
 // ─────────────────────────────────────────────
 renderGrid();
+// 슬라이더 초기 트랙 렌더링
+updateSliderTrack(3);
 </script>
 </body>
 </html>
