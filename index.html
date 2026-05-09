@@ -2414,8 +2414,12 @@ function showPwaBanner() {
   if (banner) banner.style.display = 'flex';
 }
 
-function closePwaBanner() {
-  localStorage.setItem('rw_pwa_dismissed', '1');
+function closePwaBanner(permanent = false) {
+  // permanent=true: 설치 완료 → 영구 기억
+  // permanent=false: X 닫기 → 세션 동안만 숨김 (재방문 시 다시 표시)
+  if (permanent) {
+    localStorage.setItem('rw_pwa_dismissed', '1');
+  }
   const banner = document.getElementById('pwaBanner');
   if (banner) banner.style.display = 'none';
 }
@@ -2425,23 +2429,23 @@ function handlePwaInstall() {
     // Android Chrome — 시스템 설치 다이얼로그
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(result => {
-      if (result.outcome === 'accepted') closePwaBanner();
+      if (result.outcome === 'accepted') closePwaBanner(true); // 설치 수락 → 영구
+      else closePwaBanner(false); // 거절 → 세션만
       deferredPrompt = null;
     });
   } else if (isIOS()) {
     // iOS Safari — 안내 모달
     document.getElementById('iosGuideOverlay').classList.add('open');
   } else {
-    // Android인데 deferredPrompt 없음 → Chrome 메뉴 안내
     alert('Chrome 메뉴(⋮) → "홈 화면에 추가"를 선택해주세요.');
-    closePwaBanner();
+    closePwaBanner(false);
   }
 }
 
 function closeIosGuide(e) {
   if (!e || e.target === document.getElementById('iosGuideOverlay')) {
     document.getElementById('iosGuideOverlay').classList.remove('open');
-    closePwaBanner();
+    closePwaBanner(true); // iOS 안내 확인 → 영구
   }
 }
 
@@ -2459,7 +2463,7 @@ if (isIOS() && !isInstalled() && !isDismissed()) {
 
 // 설치 완료
 window.addEventListener('appinstalled', () => {
-  closePwaBanner();
+  closePwaBanner(true); // 설치 완료 → 영구
   console.log('PWA 설치 완료 🎉');
 });
 
