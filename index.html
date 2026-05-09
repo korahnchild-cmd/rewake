@@ -1915,9 +1915,11 @@ function startOscillator() {
   masterGain.connect(ctx.destination);
 
   if (r._blendLayers) {
-    // ── 복합 블렌딩 모드 — 레이어별 가중치 적용 ──
+    // ── 복합 블렌딩 모드 — 레이어별 동일 gain, masterGain으로 전체 볼륨 제어 ──
     r._blendLayers.forEach(layer => {
-      const l = createBinauralLayer(ctx, layer.carrier, layer.beat, layer.weight * 0.4);
+      // 각 레이어 gain은 0.4 고정 (가중치는 masterGain 레벨로 조정하지 않음)
+      // 단독 재생과 동일한 볼륨 유지
+      const l = createBinauralLayer(ctx, layer.carrier, layer.beat, 0.4);
       l.merger.connect(masterGain);
       oscNodes.push(l);
     });
@@ -1966,13 +1968,29 @@ function startOscillator() {
  * AI 모드 정지
  */
 function stopOscillator() {
+  // 1. masterGain 즉시 0으로 (소리 즉각 차단)
+  if (masterGain) {
+    try {
+      masterGain.gain.cancelScheduledValues(0);
+      masterGain.gain.setValueAtTime(0, 0);
+      masterGain.disconnect();
+    } catch(e) {}
+    masterGain = null;
+  }
+  // 2. 모든 오실레이터 정지 + 연결 해제
   oscNodes.forEach(layer => {
-    try { layer.leftOsc.stop();  } catch(e) {}
-    try { layer.rightOsc.stop(); } catch(e) {}
-    try { layer.merger.disconnect(); } catch(e) {}
+    try { layer.leftOsc.stop();   } catch(e) {}
+    try { layer.rightOsc.stop();  } catch(e) {}
+    try { layer.leftGain.disconnect();  } catch(e) {}
+    try { layer.rightGain.disconnect(); } catch(e) {}
+    try { layer.merger.disconnect();    } catch(e) {}
   });
   oscNodes = [];
-  if (masterGain) { try { masterGain.disconnect(); } catch(e) {} masterGain = null; }
+  // 3. AudioContext 완전 닫기 (소리 누수 방지)
+  if (audioCtx && audioCtx.state !== 'closed') {
+    try { audioCtx.close(); } catch(e) {}
+    audioCtx = null;
+  }
   clearInterval(timerInterval);
   timerInterval = null;
 }
@@ -2170,7 +2188,10 @@ function togglePlay() {
   if (isAiMode) {
     // ── AI 모드 ──
     if (isPlaying) {
-      if (masterGain) masterGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
+      if (masterGain) {
+        masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+        masterGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
+      }
       stopTimer();
       isPlaying = false;
       playBtn.textContent = '▶';

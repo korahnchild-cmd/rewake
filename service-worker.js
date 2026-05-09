@@ -1,5 +1,5 @@
-// ReWake Service Worker v2.0
-const CACHE_NAME = 'rewake-v2';
+// ReWake Service Worker v3.0
+const CACHE_NAME = 'rewake-v3';
 
 // 캐시할 파일 목록
 const CACHE_FILES = [
