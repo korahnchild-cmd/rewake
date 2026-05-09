@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -11,16 +11,33 @@
     --bg2: #12121a;
     --bg3: #1a1a26;
     --accent: #7c6fff;
-    --accent2: #a78bfa;
-    --free: #34d399;
-    --premium: #f59e0b;
+    --accent2: #b8a4ff;   /* WCAG AA: #a78bfa → #b8a4ff (배경 대비 향상) */
+    --free: #3fda9f;       /* #34d399 → #3fda9f (대비 향상) */
+    --premium: #f9a825;    /* #f59e0b → #f9a825 (대비 향상) */
     --text: #f0f0f8;
-    --text2: #9090b0;
+    --text2: #aaaabf;      /* #9090b0 → #aaaabf (가독성 향상) */
     --text3: #505070;
     --card: #16162080;
     --border: #ffffff10;
     --radius: 16px;
   }
+  /* ── FOCUS 스타일 (키보드 네비게이션) ── */
+  :focus-visible {
+    outline: 2px solid var(--accent2);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  /* ── SKIP NAV (스크린 리더용) ── */
+  .skip-nav {
+    position: absolute; top: -100px; left: 8px;
+    background: var(--accent); color: white;
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 14px; font-weight: 700; z-index: 99999;
+    transition: top 0.2s;
+    text-decoration: none;
+  }
+  .skip-nav:focus { top: 8px; }
+
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   body { 
     background: var(--bg); color: var(--text); 
@@ -411,6 +428,21 @@
   }
   .week-val { font-family:'Bebas Neue',sans-serif; font-size:32px; font-weight:400; color:var(--accent2); letter-spacing:1px; }
   .week-label { font-size:10px; color:var(--text2); margin-top:4px; }
+  .week-compare { font-size:10px; color: var(--free); margin-top:3px; font-weight:600; }
+
+  .listen-summary {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 14px 16px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .listen-icon { font-size: 28px; flex-shrink: 0; }
+  .listen-val {
+    font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+    color: var(--accent2); letter-spacing: 0.5px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .listen-compare { font-size: 12px; color: var(--free); font-family: 'Noto Sans KR', sans-serif; font-weight: 600; letter-spacing: 0; }
+  .listen-label { font-size: 11px; color: var(--text2); margin-top: 3px; }
 
   .streak-bar {
     background: var(--bg2); border: 1px solid var(--border);
@@ -609,7 +641,50 @@
   }
   .blend-indicator.show { animation: blend-pulse 2s ease-in-out infinite; }
 
-  /* ── ONBOARDING ── */
+  /* ── LOADING FEEDBACK ── */
+  .loading-overlay {
+    position: absolute; inset: 0; background: #0a0a0fcc;
+    backdrop-filter: blur(4px); border-radius: 24px 24px 0 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; z-index: 10;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .loading-overlay.show { opacity: 1; pointer-events: all; }
+  .loading-spinner {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 3px solid #7c6fff30;
+    border-top-color: var(--accent2);
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-msg {
+    font-size: 14px; color: var(--accent2); font-weight: 600;
+    font-family: 'Syne', sans-serif; letter-spacing: 0.3px;
+  }
+  .loading-sub {
+    font-size: 11px; color: var(--text2);
+  }
+  /* 버튼 비활성화 상태 */
+  .play-btn:disabled, .done-btn:disabled, .ob-next-btn:disabled {
+    opacity: 0.5; cursor: not-allowed; pointer-events: none;
+  }
+  /* AI 토글 로딩 상태 */
+  .ai-mode-toggle.loading .ai-mode-icon {
+    animation: ai-spin 1s linear infinite;
+  }
+  @keyframes ai-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .ai-loading-msg {
+    display: none; font-size: 11px; color: var(--accent2);
+    margin-top: 2px; animation: blend-pulse 1s ease-in-out infinite;
+  }
+  .ai-mode-toggle.loading .ai-loading-msg { display: block; }
+  .ai-mode-toggle.loading .ai-mode-sub { display: none; }
+
+
   #onboarding {
     position: fixed; inset: 0; z-index: 9999;
     background: var(--bg);
@@ -806,6 +881,7 @@
 </style>
 </head>
 <body>
+<a href="#page-home" class="skip-nav">본문으로 바로가기</a>
 
 <!-- ════════════════════════════════════════
      ONBOARDING SCREEN (최초 1회)
@@ -920,7 +996,7 @@
 <!-- HEADER -->
 <div class="header">
   <div class="logo">Re<span>Wake</span></div>
-  <div class="trial-badge" onclick="window.open('rewake_pro.html','_blank')" style="cursor:pointer;">✦ 12일 남음</div>
+  <div class="trial-badge" onclick="window.open('rewake_pro.html','_blank')" style="cursor:pointer;" role="button" tabindex="0" aria-label="무료체험 7일 남음 — PRO 구독 페이지로 이동" onkeydown="if(event.key==='Enter'||event.key===' ')window.open('rewake_pro.html','_blank')">✦ 7일 남음</div>
 </div>
 
 <!-- HERO -->
@@ -931,21 +1007,21 @@
 </div>
 
 <!-- TRIAL BANNER -->
-<div class="trial-banner">
+<div class="trial-banner" role="region" aria-label="무료체험 안내">
   <div class="trial-info">
-    <strong>⚡ 무료체험 12일 남음</strong>
-    <p>전체 14개 루틴 · 월 4,900원</p>
+    <strong>⚡ 무료체험 7일 남음</strong>
+    <p>7일이면 충분히 효과를 느낄 수 있어요 · 전체 14개 루틴 · 월 4,900원</p>
   </div>
-  <button class="manage-btn" onclick="window.open('rewake_pro.html','_blank')">관리 →</button>
+  <button class="manage-btn" onclick="window.open('rewake_pro.html','_blank')" aria-label="구독 관리 페이지로 이동">관리 →</button>
 </div>
 
 <!-- GRID -->
 <div class="section-header">
   <div class="section-title">상태 선택</div>
-  <div class="section-count">14 routines</div>
+  <div class="section-count" aria-label="총 14개 루틴">14 routines</div>
 </div>
 
-<div class="grid" id="routineGrid"></div>
+<div class="grid" id="routineGrid" role="list" aria-label="루틴 목록"></div>
 
 </div>
 
@@ -958,18 +1034,30 @@
   </div>
 
   <!-- 주간 요약 -->
-  <div class="week-summary">
+  <div class="week-summary" role="region" aria-label="이번 주 요약 통계">
     <div class="week-card">
-      <div class="week-val">5</div>
+      <div class="week-val" aria-label="이번 주 루틴 사용 횟수 5회">5</div>
       <div class="week-label">이번 주 사용</div>
+      <div class="week-compare" aria-label="지난주보다 2회 증가">▲ 지난주 +2회</div>
     </div>
     <div class="week-card">
-      <div class="week-val">+2.1</div>
+      <div class="week-val" aria-label="평균 컨디션 개선도 플러스 2점 1">+2.1</div>
       <div class="week-label">평균 개선도</div>
+      <div class="week-compare" aria-label="지난주보다 0점 3 향상">▲ 지난주 +0.3</div>
     </div>
     <div class="week-card">
-      <div class="week-val">87%</div>
+      <div class="week-val" aria-label="회복 점수 87퍼센트">87%</div>
       <div class="week-label">회복 점수</div>
+      <div class="week-compare" aria-label="지난주 대비 5퍼센트 향상">▲ 지난주 +5%</div>
+    </div>
+  </div>
+
+  <!-- 이번주 청취 시간 -->
+  <div class="listen-summary" role="region" aria-label="이번 주 청취 시간">
+    <div class="listen-icon" aria-hidden="true">🎧</div>
+    <div class="listen-info">
+      <div class="listen-val">38분 <span class="listen-compare" aria-label="지난주보다 12분 더">▲ 지난주보다 12분 더</span></div>
+      <div class="listen-label">이번 주 총 청취 시간</div>
     </div>
   </div>
 
@@ -1065,12 +1153,12 @@
   </div>
 
   <!-- 구독 상태 -->
-  <div class="sub-card">
+  <div class="sub-card" role="region" aria-label="구독 상태">
     <div class="sub-info">
       <strong>✦ 무료체험 중</strong>
-      <p>12일 후 월 4,900원 · 언제든 해지 가능</p>
+      <p>7일 후 월 4,900원 · 7일이면 효과를 직접 확인할 수 있어요</p>
     </div>
-    <button class="upgrade-btn" onclick="window.open('rewake_pro.html','_blank')">구독하기</button>
+    <button class="upgrade-btn" onclick="window.open('rewake_pro.html','_blank')" aria-label="PRO 구독하기">구독하기</button>
   </div>
 
   <!-- 컨디션 DNA -->
@@ -1177,32 +1265,38 @@
 
 
 <!-- BOTTOM NAV -->
-<div class="bottom-nav">
-  <div class="nav-item active" id="nav-home" onclick="showPage('home')">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+<nav class="bottom-nav" aria-label="주요 메뉴">
+  <div class="nav-item active" id="nav-home" onclick="showPage('home')" role="button" tabindex="0" aria-label="홈" aria-current="page" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <div>홈</div>
   </div>
-  <div class="nav-item" id="nav-history" onclick="showPage('history')">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+  <div class="nav-item" id="nav-history" onclick="showPage('history')" role="button" tabindex="0" aria-label="히스토리" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('history')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
     <div>히스토리</div>
   </div>
-  <div class="nav-item" id="nav-profile" onclick="showPage('profile')">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  <div class="nav-item" id="nav-profile" onclick="showPage('profile')" role="button" tabindex="0" aria-label="프로필" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('profile')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     <div>프로필</div>
   </div>
-</div>
+</nav>
 
 <!-- PLAYER OVERLAY -->
 <div class="overlay" id="playerOverlay" onclick="handleOverlayClick(event)">
   <div class="player-modal" id="playerModal">
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="playerLoadingOverlay" role="status" aria-live="polite" aria-label="루틴 준비 중">
+      <div class="loading-spinner" aria-hidden="true"></div>
+      <div class="loading-msg" id="loadingMsg">루틴 준비 중...</div>
+      <div class="loading-sub" id="loadingSub">최적 주파수를 불러오고 있어요</div>
+    </div>
     <div class="modal-handle"></div>
     <div class="modal-header">
-      <div class="modal-emoji" id="modalEmoji"></div>
+      <div class="modal-emoji" id="modalEmoji" aria-hidden="true"></div>
       <div class="modal-info">
         <div class="modal-name" id="modalName"></div>
         <div class="modal-mode" id="modalMode"></div>
       </div>
-      <button class="modal-close" onclick="closePlayer()">✕</button>
+      <button class="modal-close" onclick="closePlayer()" aria-label="플레이어 닫기">✕</button>
     </div>
 
     <div class="modal-meta">
@@ -1230,6 +1324,7 @@
             <span class="ai-pro-badge">PRO</span>
           </div>
           <div class="ai-mode-sub" id="aiModeSub">OscillatorNode로 뇌파를 실시간 생성합니다</div>
+          <div class="ai-loading-msg" id="aiLoadingMsg" aria-live="polite">주파수 생성 중...</div>
         </div>
         <div class="ai-mode-switch">
           <div class="ai-mode-knob"></div>
@@ -1260,10 +1355,10 @@
           <span id="totalTime">0:00</span>
         </div>
       </div>
-      <div class="controls-row">
-        <button class="ctrl-btn" onclick="seekBack()">⏮</button>
-        <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
-        <button class="ctrl-btn" onclick="seekForward()">⏭</button>
+      <div class="controls-row" role="group" aria-label="재생 컨트롤">
+        <button class="ctrl-btn" onclick="seekBack()" aria-label="10초 뒤로">⏮</button>
+        <button class="play-btn" id="playBtn" onclick="togglePlay()" aria-label="재생" aria-pressed="false">▶</button>
+        <button class="ctrl-btn" onclick="seekForward()" aria-label="10초 앞으로">⏭</button>
       </div>
     </div>
 
@@ -1278,12 +1373,12 @@
     <div class="rating-icon">🌅</div>
     <div class="rating-title">지금 어떤가요?</div>
     <div class="rating-sub">루틴 후 컨디션 변화를 평가해주세요</div>
-    <div class="stars" id="stars">
-      <span class="star" onclick="rateStar(1)">⭐</span>
-      <span class="star" onclick="rateStar(2)">⭐</span>
-      <span class="star" onclick="rateStar(3)">⭐</span>
-      <span class="star" onclick="rateStar(4)">⭐</span>
-      <span class="star" onclick="rateStar(5)">⭐</span>
+    <div class="stars" id="stars" role="group" aria-label="컨디션 변화 별점 선택">
+      <span class="star" onclick="rateStar(1)" role="button" tabindex="0" aria-label="1점" onkeydown="if(event.key==='Enter'||event.key===' ')rateStar(1)">⭐</span>
+      <span class="star" onclick="rateStar(2)" role="button" tabindex="0" aria-label="2점" onkeydown="if(event.key==='Enter'||event.key===' ')rateStar(2)">⭐</span>
+      <span class="star" onclick="rateStar(3)" role="button" tabindex="0" aria-label="3점" onkeydown="if(event.key==='Enter'||event.key===' ')rateStar(3)">⭐</span>
+      <span class="star" onclick="rateStar(4)" role="button" tabindex="0" aria-label="4점" onkeydown="if(event.key==='Enter'||event.key===' ')rateStar(4)">⭐</span>
+      <span class="star" onclick="rateStar(5)" role="button" tabindex="0" aria-label="5점" onkeydown="if(event.key==='Enter'||event.key===' ')rateStar(5)">⭐</span>
     </div>
     <div class="rating-btns">
       <button class="skip-btn" onclick="closeRating()">건너뛰기</button>
@@ -1499,33 +1594,30 @@ function toggleAiMode() {
   const blend  = document.getElementById('blendIndicator');
   const label  = document.getElementById('waveFreqLabel');
 
-  toggle.classList.toggle('active', isAiMode);
-
   if (isAiMode) {
-    // AI 모드 ON
-    const r = currentRoutine;
-    let freqDesc = `L: ${r.binaural.carrier}Hz  /  R: ${r.binaural.carrier + r.binaural.beat}Hz  →  ${r.binaural.beat}Hz 바이노럴`;
-    if (r.beat2) {
-      freqDesc += `  +  ${r.beat2.beat}Hz 블렌딩`;
-    }
-    if (r.dreamgate) {
-      freqDesc = `알파 10Hz → 델타 2Hz  점진 전환 (30분)`;
-    }
-    sub.textContent = freqDesc;
+    // 로딩 상태 표시
+    toggle.classList.add('loading');
+    setTimeout(() => {
+      toggle.classList.remove('loading');
+      toggle.classList.add('active');
 
-    blend.textContent = `🧠 실시간 생성 중 — ${r.freq} 뇌파 유도`;
-    blend.classList.add('show');
-    if (label) { label.textContent = r.freq; label.classList.add('ai-active'); }
+      // AI 모드 ON
+      const r = currentRoutine;
+      let freqDesc = `L: ${r.binaural.carrier}Hz  /  R: ${r.binaural.carrier + r.binaural.beat}Hz  →  ${r.binaural.beat}Hz 바이노럴`;
+      if (r.beat2) { freqDesc += `  +  ${r.beat2.beat}Hz 블렌딩`; }
+      if (r.dreamgate) { freqDesc = `알파 10Hz → 델타 2Hz  점진 전환 (30분)`; }
+      sub.textContent = freqDesc;
 
-    // progressBg seekAudio 비활성화 (타이머 기반)
-    document.getElementById('progressBg').onclick = null;
+      blend.textContent = `🧠 실시간 생성 중 — ${r.freq} 뇌파 유도`;
+      blend.classList.add('show');
+      if (label) { label.textContent = r.freq; label.classList.add('ai-active'); }
+      document.getElementById('progressBg').onclick = null;
+    }, 600); // 600ms 딜레이 — 생성 느낌
   } else {
-    // AI 모드 OFF → mp3 모드
+    toggle.classList.remove('active', 'loading');
     sub.textContent = 'OscillatorNode로 뇌파를 실시간 생성합니다';
     blend.classList.remove('show');
     if (label) label.classList.remove('ai-active');
-
-    // mp3 모드 복원
     reloadMp3();
     document.getElementById('progressBg').onclick = (e) => seekAudio(e);
   }
@@ -1537,13 +1629,18 @@ function toggleAiMode() {
 function renderGrid() {
   const grid = document.getElementById('routineGrid');
   grid.innerHTML = routines.map(r => `
-    <div class="card card-${r.id}" onclick="openRoutine('${r.id}')">
-      <div class="card-emoji-wrap">${r.emoji}</div>
+    <div class="card card-${r.id}" 
+      onclick="openRoutine('${r.id}')"
+      role="listitem button"
+      tabindex="0"
+      aria-label="${r.situation} — ${r.mode}, ${r.duration}, ${r.free ? '무료' : '프리미엄'}"
+      onkeydown="if(event.key==='Enter'||event.key===' ')openRoutine('${r.id}')">
+      <div class="card-emoji-wrap" aria-hidden="true">${r.emoji}</div>
       <div class="card-name">${r.situation}</div>
       <div class="card-mode">${r.mode}</div>
       <div class="card-footer">
-        <div class="card-duration">⏱ ${r.duration}</div>
-        <div class="tier-badge ${r.free ? 'free-badge' : 'premium-badge'}" ${!r.free ? "onclick=\"event.stopPropagation();window.open('rewake_pro.html','_blank')\"" : ''}>${r.free ? 'FREE' : 'PRO'}</div>
+        <div class="card-duration" aria-hidden="true">⏱ ${r.duration}</div>
+        <div class="tier-badge ${r.free ? 'free-badge' : 'premium-badge'}" aria-hidden="true" ${!r.free ? "onclick=\"event.stopPropagation();window.open('rewake_pro.html','_blank')\"" : ''}>${r.free ? 'FREE' : 'PRO'}</div>
       </div>
     </div>
   `).join('');
@@ -1570,16 +1667,30 @@ function openRoutine(id) {
   document.getElementById('modalFreq').textContent     = currentRoutine.freq;
   document.getElementById('modalEffect').textContent   = currentRoutine.effect;
   document.getElementById('modalTierChip').innerHTML   = currentRoutine.free
-    ? '<span style="color:#34d399">✓ 무료</span>'
-    : '<span style="color:#f59e0b;cursor:pointer;" onclick="window.open(\'rewake_pro.html\',\'_blank\')">★ 프리미엄 — 업그레이드 →</span>';
+    ? '<span style="color:#3fda9f">✓ 무료</span>'
+    : '<span style="color:#f9a825;cursor:pointer;" onclick="window.open(\'rewake_pro.html\',\'_blank\')">★ 프리미엄 — 업그레이드 →</span>';
 
   // progressBg seekAudio 연결 복원
   document.getElementById('progressBg').onclick = (e) => seekAudio(e);
+
+  // ── 로딩 오버레이 표시 ──
+  showPlayerLoading('루틴 준비 중...', '최적 주파수를 불러오고 있어요');
 
   reloadMp3();
   stopWave();
   document.getElementById('playerOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+// 로딩 오버레이 제어
+function showPlayerLoading(msg, sub) {
+  const overlay = document.getElementById('playerLoadingOverlay');
+  document.getElementById('loadingMsg').textContent = msg || '준비 중...';
+  document.getElementById('loadingSub').textContent = sub || '';
+  overlay.classList.add('show');
+}
+function hidePlayerLoading() {
+  document.getElementById('playerLoadingOverlay').classList.remove('show');
 }
 
 function reloadMp3() {
@@ -1623,28 +1734,29 @@ function stopPlayback() {
 }
 
 function togglePlay() {
+  const playBtn = document.getElementById('playBtn');
   if (isAiMode) {
     // ── AI 모드 ──
     if (isPlaying) {
-      // 일시정지: OscillatorNode는 pause가 없으므로 gainNode를 0으로
       if (masterGain) masterGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
       stopTimer();
       isPlaying = false;
-      document.getElementById('playBtn').textContent = '▶';
+      playBtn.textContent = '▶';
+      playBtn.setAttribute('aria-label', '재생');
+      playBtn.setAttribute('aria-pressed', 'false');
       stopWave();
     } else {
-      // 재생
       if (oscNodes.length === 0) {
-        // 처음 재생 or 재시작
         startOscillator();
         startTimer();
       } else {
-        // 일시정지 후 재개
         if (masterGain) masterGain.gain.setTargetAtTime(0.5, audioCtx.currentTime, 0.3);
         startTimer();
       }
       isPlaying = true;
-      document.getElementById('playBtn').textContent = '⏸';
+      playBtn.textContent = '⏸';
+      playBtn.setAttribute('aria-label', '일시정지');
+      playBtn.setAttribute('aria-pressed', 'true');
       startWave();
     }
   } else {
@@ -1652,7 +1764,9 @@ function togglePlay() {
     if (audio.paused) {
       audio.play().then(() => {
         isPlaying = true;
-        document.getElementById('playBtn').textContent = '⏸';
+        playBtn.textContent = '⏸';
+        playBtn.setAttribute('aria-label', '일시정지');
+        playBtn.setAttribute('aria-pressed', 'true');
         startWave();
       }).catch(e => {
         console.error('재생 오류:', e);
@@ -1660,7 +1774,9 @@ function togglePlay() {
     } else {
       audio.pause();
       isPlaying = false;
-      document.getElementById('playBtn').textContent = '▶';
+      playBtn.textContent = '▶';
+      playBtn.setAttribute('aria-label', '재생');
+      playBtn.setAttribute('aria-pressed', 'false');
       stopWave();
     }
   }
@@ -1697,6 +1813,14 @@ function formatTime(s) {
   return m + ':' + (sec < 10 ? '0' : '') + sec;
 }
 
+audio.addEventListener('error', () => {
+  hidePlayerLoading();
+  document.getElementById('loadingMsg').textContent = '오디오 로드 실패';
+  document.getElementById('loadingSub').textContent = '네트워크 상태를 확인하고 다시 시도해주세요';
+  document.getElementById('playerLoadingOverlay').classList.add('show');
+  setTimeout(hidePlayerLoading, 3000);
+});
+
 // mp3 이벤트
 audio.addEventListener('timeupdate', () => {
   if (!isAiMode && audio.duration) {
@@ -1708,7 +1832,12 @@ audio.addEventListener('timeupdate', () => {
 audio.addEventListener('loadedmetadata', () => {
   if (!isAiMode) {
     document.getElementById('totalTime').textContent = formatTime(audio.duration);
+    hidePlayerLoading(); // 오디오 준비 완료 → 로딩 숨김
   }
+});
+// fallback: canplaythrough 이벤트에서도 숨김 (네트워크 환경 대비)
+audio.addEventListener('canplaythrough', () => {
+  hidePlayerLoading();
 });
 audio.addEventListener('ended', () => {
   if (!isAiMode) {
@@ -1751,9 +1880,14 @@ function saveRating() {
 // ─────────────────────────────────────────────
 function showPage(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.remove('active');
+    n.removeAttribute('aria-current');
+  });
   document.getElementById('page-' + page).classList.add('active');
-  document.getElementById('nav-' + page).classList.add('active');
+  const navEl = document.getElementById('nav-' + page);
+  navEl.classList.add('active');
+  navEl.setAttribute('aria-current', 'page');
   window.scrollTo(0, 0);
 }
 
