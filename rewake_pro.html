@@ -45,6 +45,16 @@ nav {
 }
 .nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; }
 .nav-logo span { color: var(--accent2); }
+.nav-back {
+  font-size: 12px; color: var(--text2);
+  background: none; border: 1px solid var(--border2);
+  padding: 7px 14px; border-radius: 20px; cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: color 0.2s, border-color 0.2s;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+}
+.nav-back:hover { color: var(--accent2); border-color: #7c6fff50; }
+.nav-right { display: flex; align-items: center; gap: 10px; }
 .nav-cta {
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   border: none; color: white; font-size: 13px; font-weight: 700;
@@ -387,6 +397,9 @@ section { position: relative; z-index: 1; }
   font-weight: 700; line-height: 1.25; margin-bottom: 16px;
 }
 .final-cta-sub { font-size: 15px; color: var(--text2); margin-bottom: 36px; }
+.final-btn-group {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
 .final-btn {
   display: inline-block;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -594,9 +607,14 @@ footer strong { color: var(--text); }
 <!-- NAV -->
 <nav>
   <div class="nav-logo">Re<span>Wake</span></div>
-  <button class="nav-cta" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
-    1주 무료 시작
-  </button>
+  <div class="nav-right">
+    <a class="nav-back" href="https://korahnchild-cmd.github.io/rewake/" aria-label="ReWake 앱으로 이동">
+      🌅 앱 열기
+    </a>
+    <button class="nav-cta" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
+      1주 무료 시작
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -607,12 +625,12 @@ footer strong { color: var(--text); }
     <span class="grad">AI가 깨워준다</span>
   </h1>
   <p class="hero-sub">
-    수면 부족, 숙취, 밤샘, 스트레스 — 전날 상태를 선택하면<br>
-    상황 기반 적응형 주파수 엔진이 맞춤 루틴을 바로 제공합니다
+    수면 부족, 숙취, 밤샘, 스트레스 — 전날 상태를 입력하면<br>
+    AI가 최적의 뇌파를 분석해 맞춤 회복 루틴을 제공합니다
   </p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
-      1주 무료로 시작하기
+      2주 무료로 시작하기
     </button>
     <button class="btn-secondary" onclick="document.getElementById('routines').scrollIntoView({behavior:'smooth'})">
       루틴 살펴보기
@@ -631,7 +649,7 @@ footer strong { color: var(--text); }
     </div>
     <div class="stat-item">
       <div class="stat-num">AI</div>
-      <div class="stat-label">적응형 주파수 엔진</div>
+      <div class="stat-label">뇌파 분석 엔진</div>
     </div>
   </div>
 </section>
@@ -691,7 +709,7 @@ footer strong { color: var(--text); }
         </div>
         <div class="bw-name">DELTA</div>
         <div class="bw-hz">0.5 – 4Hz</div>
-        <div class="bw-effect">깊은 수면<br>이완 보조</div>
+        <div class="bw-effect">깊은 수면<br>면역 회복</div>
       </div>
       <div class="bw-card">
         <div class="bw-wave">
@@ -759,7 +777,7 @@ footer strong { color: var(--text); }
             <span style="background:#60a5fa20;color:#60a5fa;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;">알파 8Hz</span>
           </div>
           <div style="font-size:13px;font-weight:700;margin-bottom:4px;">신체 회복 + 부드러운 각성</div>
-          <div style="font-size:11px;color:var(--text2);line-height:1.6;">과한 운동 후 몸을 달래면서 서서히 깨어나도록 보조합니다</div>
+          <div style="font-size:11px;color:var(--text2);line-height:1.6;">과한 운동 후 몸을 달래면서 서서히 깨움 — 근육 피로 완화</div>
         </div>
         <div style="background:#ffffff06;border:1px solid #7c6fff18;border-radius:14px;padding:16px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
@@ -767,8 +785,8 @@ footer strong { color: var(--text); }
             <span style="color:var(--text2);font-size:14px;">+</span>
             <span style="background:#a78bfa20;color:#a78bfa;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;">알파 9Hz</span>
           </div>
-          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">긴장 이완 + 부드러운 각성</div>
-          <div style="font-size:11px;color:var(--text2);line-height:1.6;">두 가지 불편함이 동시에 올 때 — 자극 없이 차분하게 시작을 보조합니다</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">두통 완화 + 숙취 회복</div>
+          <div style="font-size:11px;color:var(--text2);line-height:1.6;">두 가지 고통이 동시에 올 때 — 자극 없이 부드럽게 회복 유도</div>
         </div>
       </div>
       <div style="margin-top:14px;padding:10px 14px;background:#f59e0b10;border:1px solid #f59e0b20;border-radius:10px;font-size:11px;color:#f59e0b;">
@@ -790,7 +808,7 @@ footer strong { color: var(--text); }
         <div class="patent-item">
           <div class="patent-item-num">01</div>
           <div class="patent-item-title">상황 분류 →<br>주파수 매핑 알고리즘</div>
-          <div class="patent-item-desc">사용자의 전날 컨디션 상태를 입력받아 상황 기반 주파수 매핑 엔진이 최적 루틴을 선택·제공하는 방법 및 시스템</div>
+          <div class="patent-item-desc">사용자의 전날 컨디션 상태를 입력받아 AI가 최적 뇌파 주파수를 분석·선택하는 방법 및 시스템</div>
         </div>
         <div class="patent-item">
           <div class="patent-item-num">02</div>
@@ -831,7 +849,7 @@ footer strong { color: var(--text); }
         <div class="compare-header-cell pro">PRO ✦</div>
       </div>
       <div class="compare-row">
-        <div class="compare-cell feature">기본 루틴 (3가지)</div>
+        <div class="compare-cell feature">기본 루틴 (5가지)</div>
         <div class="compare-cell"><span class="check">✓</span></div>
         <div class="compare-cell"><span class="check">✓</span></div>
       </div>
@@ -841,9 +859,9 @@ footer strong { color: var(--text); }
         <div class="compare-cell pro-highlight">✓ 전체 개방</div>
       </div>
       <div class="compare-row">
-        <div class="compare-cell feature">🌙 드림게이트 (수면 보조)</div>
+        <div class="compare-cell feature">🌙 드림게이트 (꿀잠)</div>
         <div class="compare-cell"><span class="cross">—</span></div>
-        <div class="compare-cell pro-highlight">✓ 30분 수면 진입 보조</div>
+        <div class="compare-cell pro-highlight">✓ 30분 수면 유도</div>
       </div>
       <div class="compare-row">
         <div class="compare-cell feature">🎯 시험/발표 직전</div>
@@ -893,15 +911,15 @@ footer strong { color: var(--text); }
         <div class="r-name">스트레스/불안</div>
         <span class="r-badge free-b">FREE</span>
       </div>
-      <div class="routine-card rc-10 locked">
+      <div class="routine-card rc-10">
         <div class="r-emoji">😊</div>
         <div class="r-name">컨디션 정상</div>
-        <span class="r-badge pro-b">PRO</span>
+        <span class="r-badge free-b">FREE</span>
       </div>
-      <div class="routine-card rc-11 locked">
+      <div class="routine-card rc-11">
         <div class="r-emoji">🎯</div>
         <div class="r-name">집중이 필요할 때</div>
-        <span class="r-badge pro-b">PRO</span>
+        <span class="r-badge free-b">FREE</span>
       </div>
       <div class="routine-card rc-03 locked">
         <div class="r-emoji">🖥️</div>
@@ -982,7 +1000,7 @@ footer strong { color: var(--text); }
         <div class="ba-info">
           <div class="ba-step-label">During — 루틴 실행</div>
           <div class="ba-step-title">헤드폰 착용 후 상태 선택, 1탭</div>
-          <div class="ba-step-desc">상황 기반 주파수 엔진이 오늘 상태에 맞는 루틴을 즉시 제공합니다. 눈 감고 5~10분, 주파수가 차분한 집중 상태를 보조합니다</div>
+          <div class="ba-step-desc">AI가 오늘 상태에 맞는 뇌파를 즉시 분석합니다. 눈 감고 5~10분, 뇌파가 최적 상태로 유도됩니다</div>
           <div class="ba-card" style="display:flex;align-items:center;gap:10px;">
             <span style="font-size:20px">〰</span>
             <span>알파 10Hz → 베타 18Hz 점진적 전환 중</span>
@@ -1237,9 +1255,9 @@ footer strong { color: var(--text); }
         <span class="price-tag tag-free">무료</span>
         <div class="price-name">Free</div>
         <div class="price-amount">0<span>원</span></div>
-        <div class="price-desc">기본 3가지 루틴으로 ReWake를 경험해보세요</div>
+        <div class="price-desc">기본 5가지 루틴으로 ReWake를 경험해보세요</div>
         <ul class="price-features">
-          <li>기본 루틴 3가지</li>
+          <li>기본 루틴 5가지</li>
           <li>히스토리 7일</li>
           <li>기본 통계</li>
         </ul>
@@ -1252,7 +1270,7 @@ footer strong { color: var(--text); }
         <span class="price-tag tag-yearly">연간 구독 <span class="save-badge">34% 절약</span></span>
         <div class="price-name">Annual</div>
         <div class="price-amount">3,250<span>원/월</span></div>
-        <div class="price-desc">연 39,000원 일괄 결제 · 첫 1주 무료체험</div>
+        <div class="price-desc">연 39,000원 일괄 결제 · 첫 2주 무료체험</div>
         <ul class="price-features">
           <li>전체 14가지 루틴</li>
           <li>컨디션 DNA 리포트</li>
@@ -1260,7 +1278,7 @@ footer strong { color: var(--text); }
           <li>AI 개인화 분석</li>
           <li>신규 루틴 우선 제공</li>
         </ul>
-        <button class="price-btn primary">1주 무료로 시작</button>
+        <button class="price-btn primary">2주 무료로 시작</button>
       </div>
 
       <!-- 월간 -->
@@ -1268,14 +1286,14 @@ footer strong { color: var(--text); }
         <span class="price-tag tag-monthly">월간 구독</span>
         <div class="price-name">Monthly</div>
         <div class="price-amount">4,900<span>원/월</span></div>
-        <div class="price-desc">부담 없이 월별로 · 첫 1주 무료체험</div>
+        <div class="price-desc">부담 없이 월별로 · 첫 2주 무료체험</div>
         <ul class="price-features">
           <li>전체 14가지 루틴</li>
           <li>컨디션 DNA 리포트</li>
           <li>히스토리 90일</li>
           <li>AI 개인화 분석</li>
         </ul>
-        <button class="price-btn outline">1주 무료로 시작</button>
+        <button class="price-btn outline">2주 무료로 시작</button>
       </div>
     </div>
 
@@ -1357,7 +1375,7 @@ footer strong { color: var(--text); }
 
     <div class="faq-item" onclick="toggleFaq(this)">
       <div class="faq-q">바이노럴 비트가 정말 효과가 있나요? <span class="faq-icon">+</span></div>
-      <div class="faq-a">바이노럴 비트는 두 귀에 살짝 다른 주파수를 들려줘 뇌가 그 차이를 인식하는 청각 기술입니다. 일부 연구에서 집중력·수면·스트레스 완화에 긍정적 경험을 보고한 사례가 있으나, 개인차가 크며 의학적 효과를 보장하지 않습니다. 헤드폰 착용 시 효과가 극대화됩니다.</div>
+      <div class="faq-a">바이노럴 비트는 두 귀에 살짝 다른 주파수를 들려줘 뇌파를 유도하는 청각 기술입니다. 다수의 신경과학 연구에서 집중력, 수면, 스트레스 완화에 유의미한 효과가 확인됐습니다. 단, 헤드폰 착용이 필수이며 개인차가 있을 수 있습니다.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
       <div class="faq-q">헤드폰이 없으면 안 되나요? <span class="faq-icon">+</span></div>
@@ -1365,7 +1383,7 @@ footer strong { color: var(--text); }
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
       <div class="faq-q">무료체험 후 자동 결제가 되나요? <span class="faq-icon">+</span></div>
-      <div class="faq-a">1주 무료체험 종료 후 선택하신 플랜으로 자동 전환됩니다. 체험 기간 중 언제든지 해지하실 수 있으며, 해지 시 체험 종료일까지 정상 이용 가능합니다.</div>
+      <div class="faq-a">2주 무료체험 종료 후 선택하신 플랜으로 자동 전환됩니다. 체험 기간 중 언제든지 해지하실 수 있으며, 해지 시 체험 종료일까지 정상 이용 가능합니다.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
       <div class="faq-q">해지는 어떻게 하나요? <span class="faq-icon">+</span></div>
@@ -1381,22 +1399,17 @@ footer strong { color: var(--text); }
 <!-- FINAL CTA -->
 <section class="final-cta">
   <div class="reveal">
-    <h2 class="final-cta-title">지금 바로<br><span style="background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">1주 무료로 경험하세요</span></h2>
+    <h2 class="final-cta-title">지금 바로<br><span style="background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">2주 무료로 경험하세요</span></h2>
     <p class="final-cta-sub">신용카드 불필요 · 언제든 해지 가능 · 14가지 루틴 전체 개방</p>
-    <a href="#pricing" class="final-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'});return false;">
-      무료로 시작하기 →
-    </a>
-    <p class="final-note">이미 아침을 바꾸고 있는 베타 유저들과 함께하세요</p>
-  </div>
-</section>
-
-<!-- DISCLAIMER FOOTER -->
-<section style="padding: 0 24px 0;">
-  <div style="max-width:700px;margin:0 auto;">
-    <div style="background:#ffffff06;border:1px solid #ffffff12;border-radius:12px;padding:14px 18px;font-size:11px;color:#7070a0;line-height:1.7;text-align:center;">
-      <strong style="color:#9090b8">본 서비스는 의료기기가 아니며, 질병의 치료·예방을 목적으로 하지 않습니다.</strong><br>
-      바이노럴 비트의 효과는 개인차가 크며, 모든 효능 설명은 주관적 경험을 보조하는 것으로 의학적 효과를 보장하지 않습니다.
+    <div class="final-btn-group">
+      <a href="#pricing" class="final-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'});return false;">
+        무료로 시작하기 →
+      </a>
+      <a href="https://korahnchild-cmd.github.io/rewake/" class="final-btn" style="background:transparent;border:1px solid #7c6fff40;color:var(--accent2);box-shadow:none;">
+        🌅 앱 바로 열기
+      </a>
     </div>
+    <p class="final-note">이미 아침을 바꾸고 있는 베타 유저들과 함께하세요</p>
   </div>
 </section>
 
