@@ -1789,6 +1789,11 @@ function openRoutine(id) {
   currentRoutine = routines.find(r => r.id === id);
   if (!currentRoutine) return;
 
+  // Firestore 세션 저장
+  if (window.rwSaveSession) {
+    window.rwSaveSession(currentRoutine.id, currentRoutine.mode, false);
+  }
+
   // AI 모드 초기화
   isAiMode = false;
   const toggle = document.getElementById('aiModeToggle');
@@ -2040,7 +2045,7 @@ function updateSliderTrack(val) {
 function saveRating() {
   if (currentRating === 0) { alert('별점을 선택해주세요!'); return; }
 
-  // 저장 데이터 구성 (Google Sheets 04_feedback 구조)
+  // 저장 데이터 구성
   const feedbackData = {
     routine_id:   currentRoutine?.id || null,
     routine_name: currentRoutine?.mode || null,
@@ -2048,10 +2053,21 @@ function saveRating() {
     sensitivity:  currentSensitivity,
     saved_at:     new Date().toISOString(),
   };
-  // 로컬 임시 저장 (Google Sheets 연동 전 MVP 단계)
+
+  // localStorage 임시 저장
   const history = JSON.parse(localStorage.getItem('rw_feedback') || '[]');
   history.push(feedbackData);
   localStorage.setItem('rw_feedback', JSON.stringify(history));
+
+  // Firestore 저장
+  if (window.rwSaveFeedback) {
+    window.rwSaveFeedback(
+      currentRoutine?.id || null,
+      currentRoutine?.mode || null,
+      currentRating,
+      currentSensitivity
+    );
+  }
 
   closeRating();
   const msg = currentRating >= 4
@@ -2237,5 +2253,69 @@ renderGrid();
 // 슬라이더 초기 트랙 렌더링
 updateSliderTrack(3);
 </script>
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp }        from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getAnalytics }         from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js';
+  import { getAuth, signInAnonymously, onAuthStateChanged }
+                                  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+  import { getFirestore, collection, addDoc, serverTimestamp }
+                                  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey:            "AIzaSyDHQmm3OLW77vcmKz2TWilGgndiOTGXofw",
+    authDomain:        "rewake-a5978.firebaseapp.com",
+    projectId:         "rewake-a5978",
+    storageBucket:     "rewake-a5978.firebasestorage.app",
+    messagingSenderId: "78914155940",
+    appId:             "1:78914155940:web:699dad69bc7a29ce5fbd31",
+    measurementId:     "G-NLREE19T8L"
+  };
+
+  const app       = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth      = getAuth(app);
+  const db        = getFirestore(app);
+
+  // ── 익명 로그인 자동 실행 ──
+  signInAnonymously(auth).catch(e => console.warn('익명 로그인 실패:', e));
+
+  // UID를 전역으로 노출 (기존 JS에서 사용)
+  onAuthStateChanged(auth, user => {
+    window._rwUID = user ? user.uid : null;
+  });
+
+  // ── Firestore 저장 함수 전역 노출 ──
+
+  // 세션 저장 (루틴 열 때)
+  window.rwSaveSession = async function(routineId, routineName, isAiMode) {
+    if (!window._rwUID) return;
+    try {
+      await addDoc(collection(db, 'sessions'), {
+        uid:          window._rwUID,
+        routine_id:   routineId,
+        routine_name: routineName,
+        ai_mode:      isAiMode,
+        started_at:   serverTimestamp(),
+      });
+    } catch(e) { console.warn('세션 저장 실패:', e); }
+  };
+
+  // 피드백 저장 (별점+감도)
+  window.rwSaveFeedback = async function(routineId, routineName, starRating, sensitivity) {
+    if (!window._rwUID) return;
+    try {
+      await addDoc(collection(db, 'feedback'), {
+        uid:          window._rwUID,
+        routine_id:   routineId,
+        routine_name: routineName,
+        star_rating:  starRating,
+        sensitivity:  sensitivity,
+        saved_at:     serverTimestamp(),
+      });
+    } catch(e) { console.warn('피드백 저장 실패:', e); }
+  };
+</script>
+
 </body>
 </html>
