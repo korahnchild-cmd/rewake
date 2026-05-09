@@ -16,7 +16,7 @@
     --premium: #f59e0b;
     --text: #f0f0f8;
     --text2: #9090b0;
-    --text3: #5050708;
+    --text3: #505070;
     --card: #16162080;
     --border: #ffffff10;
     --radius: 16px;
@@ -522,10 +522,397 @@
     padding:8px 14px; border-radius:10px; cursor:pointer; font-family:inherit;
   }
 
+  /* ── AI 실시간 모드 토글 ── */
+  .ai-mode-wrap {
+    margin-bottom: 14px;
+  }
+  .ai-mode-toggle {
+    width: 100%;
+    background: linear-gradient(135deg, #1a1040, #120d30);
+    border: 1px solid #7c6fff40;
+    border-radius: 14px;
+    padding: 13px 16px;
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative; overflow: hidden;
+  }
+  .ai-mode-toggle::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #7c6fff15, #a78bfa10);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .ai-mode-toggle.active {
+    border-color: #7c6fff80;
+    box-shadow: 0 0 20px #7c6fff25;
+  }
+  .ai-mode-toggle.active::before { opacity: 1; }
+  .ai-mode-icon {
+    font-size: 22px; flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .ai-mode-toggle.active .ai-mode-icon { transform: scale(1.2) rotate(-10deg); }
+  .ai-mode-text { flex: 1; }
+  .ai-mode-title {
+    font-size: 13px; font-weight: 700;
+    color: var(--accent2); margin-bottom: 2px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .ai-pro-badge {
+    font-size: 9px; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white; padding: 2px 7px; border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+  .ai-mode-sub { font-size: 11px; color: var(--text2); }
+  .ai-mode-switch {
+    width: 40px; height: 22px; border-radius: 11px;
+    background: var(--bg3); border: 1px solid var(--border);
+    position: relative; flex-shrink: 0;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .ai-mode-toggle.active .ai-mode-switch {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-color: transparent;
+  }
+  .ai-mode-knob {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: white; position: absolute;
+    top: 2px; left: 2px;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 1px 4px #00000040;
+  }
+  .ai-mode-toggle.active .ai-mode-knob { transform: translateX(18px); }
+
+  /* AI 모드 활성화 시 웨이브 레이블 강조 */
+  .wave-freq-label.ai-active {
+    color: var(--accent2);
+    opacity: 1;
+    font-size: 11px;
+    text-shadow: 0 0 10px #a78bfa60;
+  }
+
+  /* AI 모드 블렌딩 인디케이터 */
+  .blend-indicator {
+    display: none;
+    background: #7c6fff10; border: 1px solid #7c6fff25;
+    border-radius: 10px; padding: 8px 12px;
+    font-size: 11px; color: var(--accent2);
+    margin-bottom: 10px; text-align: center;
+    letter-spacing: 0.3px;
+  }
+  .blend-indicator.show { display: block; }
+  @keyframes blend-pulse {
+    0%,100% { opacity:0.7; } 50% { opacity:1; }
+  }
+  .blend-indicator.show { animation: blend-pulse 2s ease-in-out infinite; }
+
+  /* ── ONBOARDING ── */
+  #onboarding {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    opacity: 0;
+  }
+  #onboarding.ready {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 1;
+  }
+  #onboarding.hide {
+    opacity: 0; transform: scale(1.03); pointer-events: none;
+  }
+
+  /* 슬라이드 래퍼 */
+  .ob-track-wrap { flex: 1; overflow: hidden; position: relative; }
+  .ob-track {
+    display: flex; height: 100%;
+    transition: transform 0.42s cubic-bezier(0.77,0,0.18,1);
+    will-change: transform;
+  }
+  .ob-slide {
+    min-width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 48px 32px 16px;
+    text-align: center; position: relative;
+  }
+  .ob-slide-1 { background: radial-gradient(ellipse at 50% 25%, #1a1045 0%, var(--bg) 65%); }
+  .ob-slide-2 { background: radial-gradient(ellipse at 50% 25%, #0d2012 0%, var(--bg) 65%); }
+  .ob-slide-3 { background: radial-gradient(ellipse at 50% 25%, #1a0f35 0%, var(--bg) 65%); }
+  .ob-slide-4 { background: radial-gradient(ellipse at 50% 25%, #1a1408 0%, var(--bg) 65%); }
+
+  /* 비주얼 영역 */
+  .ob-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 36px; flex-shrink: 0;
+  }
+  .ob-icon-wrap {
+    width: 140px; height: 140px; border-radius: 36px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative; z-index: 2;
+  }
+  .ob-slide-1 .ob-icon-wrap {
+    background: linear-gradient(145deg, #1e1655, #0f0d32);
+    border: 1px solid #7c6fff35;
+    box-shadow: 0 0 50px #7c6fff30, inset 0 0 24px #7c6fff12;
+  }
+  .ob-slide-2 .ob-icon-wrap {
+    background: linear-gradient(145deg, #0f2018, #081410);
+    border: 1px solid #34d39930;
+    box-shadow: 0 0 50px #34d39925, inset 0 0 24px #34d39910;
+  }
+  .ob-slide-3 .ob-icon-wrap {
+    background: linear-gradient(145deg, #1c1040, #100820);
+    border: 1px solid #a78bfa35;
+    box-shadow: 0 0 50px #a78bfa30, inset 0 0 24px #a78bfa12;
+  }
+  .ob-slide-4 .ob-icon-wrap {
+    background: linear-gradient(145deg, #1a1508, #100e04);
+    border: 1px solid #f59e0b35;
+    box-shadow: 0 0 50px #f59e0b25, inset 0 0 24px #f59e0b10;
+  }
+
+  /* 슬라이드 1 — 뇌파 링 */
+  .ob-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid #7c6fff25;
+    animation: ob-ring-pulse 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .ob-ring-1 { width: 180px; height: 180px; animation-delay: 0s; }
+  .ob-ring-2 { width: 220px; height: 220px; animation-delay: 0.7s; border-color: #7c6fff14; }
+  .ob-ring-3 { width: 264px; height: 264px; animation-delay: 1.4s; border-color: #7c6fff09; }
+  @keyframes ob-ring-pulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.06); opacity: 0.45; }
+  }
+
+  /* 슬라이드 2 — 미니 루틴 그리드 */
+  .ob-mini-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; width: 100%; margin-bottom: 32px;
+  }
+  .ob-mini-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 10px 4px;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .ob-mini-card.visible { opacity: 1; transform: translateY(0); }
+  .ob-mini-emoji { font-size: 20px; }
+  .ob-mini-label { font-size: 9px; color: var(--text2); line-height: 1.3; text-align: center; }
+
+  /* 슬라이드 3 — AI PRO 피처 칩들 */
+  .ob-feature-list {
+    display: flex; flex-direction: column; gap: 10px;
+    width: 100%; margin-bottom: 28px;
+  }
+  .ob-feature-item {
+    background: #7c6fff0e; border: 1px solid #7c6fff25;
+    border-radius: 14px; padding: 12px 16px;
+    display: flex; align-items: center; gap: 12px;
+    text-align: left;
+    opacity: 0; transform: translateX(-10px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .ob-feature-item.visible { opacity: 1; transform: translateX(0); }
+  .ob-feature-emoji { font-size: 22px; flex-shrink: 0; }
+  .ob-feature-text strong { display: block; font-size: 13px; color: var(--accent2); margin-bottom: 2px; }
+  .ob-feature-text span { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+  /* 슬라이드 4 — 헤드폰 안내 */
+  .ob-hp-box {
+    background: #f59e0b0e; border: 1px solid #f59e0b30;
+    border-radius: 16px; padding: 18px 18px;
+    display: flex; align-items: flex-start; gap: 14px;
+    text-align: left; width: 100%; margin-bottom: 28px;
+  }
+  .ob-hp-icon { font-size: 38px; flex-shrink: 0; }
+  .ob-hp-text strong { display: block; font-size: 14px; color: #f59e0b; margin-bottom: 6px; }
+  .ob-hp-text span { font-size: 12px; color: var(--text2); line-height: 1.7; }
+
+  /* 공통 텍스트 */
+  .ob-chip {
+    display: inline-block;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 20px; padding: 4px 14px;
+    font-size: 11px; color: var(--accent2);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600; letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  .ob-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 26px; line-height: 1.25; letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+  .ob-title span {
+    font-family: 'Syne', sans-serif;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .ob-title .ob-yellow {
+    font-family: 'Syne', sans-serif;
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .ob-desc { font-size: 13px; color: var(--text2); line-height: 1.75; font-family: 'Noto Sans KR', sans-serif; }
+
+  /* 하단 푸터 */
+  .ob-footer {
+    padding: 20px 28px 44px;
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+    flex-shrink: 0;
+  }
+  .ob-dots { display: flex; gap: 8px; align-items: center; }
+  .ob-dot {
+    height: 6px; border-radius: 3px;
+    background: #ffffff18;
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    width: 6px;
+  }
+  .ob-dot.active { background: var(--accent2); width: 22px; }
+
+  .ob-btn-row { display: flex; gap: 10px; width: 100%; }
+  .ob-skip-btn {
+    padding: 15px 20px; border-radius: 14px;
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--text2); font-size: 14px; cursor: pointer;
+    font-family: inherit; flex-shrink: 0;
+    transition: opacity 0.2s;
+  }
+  .ob-skip-btn:active { opacity: 0.7; }
+  .ob-next-btn {
+    flex: 1; padding: 15px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none; color: white; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: inherit;
+    box-shadow: 0 4px 20px #7c6fff45;
+    transition: transform 0.1s, opacity 0.2s;
+  }
+  .ob-next-btn.last {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    box-shadow: 0 4px 20px #f59e0b40;
+    color: #0a0a0f;
+  }
+  .ob-next-btn:active { transform: scale(0.97); }
+
 </style>
 </head>
 <body>
 
+<!-- ════════════════════════════════════════
+     ONBOARDING SCREEN (최초 1회)
+════════════════════════════════════════ -->
+<div id="onboarding">
+
+  <!-- 슬라이드 트랙 -->
+  <div class="ob-track-wrap">
+    <div class="ob-track" id="obTrack">
+
+      <!-- SLIDE 1 : 핵심 가치 -->
+      <div class="ob-slide ob-slide-1">
+        <div class="ob-visual">
+          <div class="ob-ring ob-ring-1"></div>
+          <div class="ob-ring ob-ring-2"></div>
+          <div class="ob-ring ob-ring-3"></div>
+          <div class="ob-icon-wrap">🌅</div>
+        </div>
+        <div class="ob-chip">ReWake</div>
+        <div class="ob-title">못 잔 아침도,<br><span>AI가 깨워준다</span></div>
+        <div class="ob-desc">전날 상태를 선택하면 AI가<br>최적의 뇌파 주파수를 실시간으로 분석해<br>지금 이 순간 당신의 뇌를 깨웁니다</div>
+      </div>
+
+      <!-- SLIDE 2 : 14가지 루틴 -->
+      <div class="ob-slide ob-slide-2">
+        <div class="ob-mini-grid" id="obMiniGrid">
+          <div class="ob-mini-card"><div class="ob-mini-emoji">😴</div><div class="ob-mini-label">수면<br>부족</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-emoji">🍺</div><div class="ob-mini-label">과음/<br>숙취</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-emoji">🖥️</div><div class="ob-mini-label">밤샘<br>작업</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-emoji">💪</div><div class="ob-mini-label">과한<br>운동</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-emoji">🤒</div><div class="ob-mini-label">몸살/<br>감기</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-emoji">😰</div><div class="ob-mini-label">스트레스/<br>불안</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-emoji">🤕</div><div class="ob-mini-label">두통</div></div>
+          <div class="ob-mini-card"><div class="ob-mini-emoji">🌙</div><div class="ob-mini-label">꿀잠<br>유도</div></div>
+        </div>
+        <div class="ob-chip">14가지 상황별 루틴</div>
+        <div class="ob-title">지금 내 상태에<br><span>딱 맞는 루틴</span></div>
+        <div class="ob-desc">수면 부족부터 숙취, 두통, 집중까지<br>14가지 상황을 커버합니다<br>탭 하나로 바로 시작하세요</div>
+      </div>
+
+      <!-- SLIDE 3 : PRO AI 실시간 블렌딩 -->
+      <div class="ob-slide ob-slide-3">
+        <div class="ob-visual">
+          <div class="ob-icon-wrap">🧠</div>
+        </div>
+        <div class="ob-chip">PRO 전용 기능</div>
+        <div class="ob-title"><span>AI 실시간</span><br>바이노럴 블렌딩</div>
+        <div class="ob-feature-list" id="obFeatureList">
+          <div class="ob-feature-item">
+            <div class="ob-feature-emoji">⚡</div>
+            <div class="ob-feature-text">
+              <strong>OscillatorNode 실시간 생성</strong>
+              <span>mp3가 아닌 브라우저가 직접 뇌파를<br>실시간으로 만들어냅니다</span>
+            </div>
+          </div>
+          <div class="ob-feature-item">
+            <div class="ob-feature-emoji">🎛️</div>
+            <div class="ob-feature-text">
+              <strong>복합 주파수 블렌딩</strong>
+              <span>두 가지 상태를 동시에 선택하면<br>AI가 최적 주파수를 혼합합니다</span>
+            </div>
+          </div>
+          <div class="ob-feature-item">
+            <div class="ob-feature-emoji">🌙</div>
+            <div class="ob-feature-text">
+              <strong>드림게이트 점진 전환</strong>
+              <span>알파파에서 델타파로 30분간 자연스럽게<br>전환되며 수면을 유도합니다</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4 : 헤드폰 안내 + 시작 -->
+      <div class="ob-slide ob-slide-4">
+        <div class="ob-visual">
+          <div class="ob-icon-wrap">🎧</div>
+        </div>
+        <div class="ob-chip">시작 전 꼭 확인하세요</div>
+        <div class="ob-title"><span class="ob-yellow">헤드폰을</span> 착용하면<br>효과가 극대화됩니다</div>
+        <div class="ob-hp-box">
+          <div class="ob-hp-icon">💡</div>
+          <div class="ob-hp-text">
+            <strong>바이노럴 비트란?</strong>
+            <span>왼쪽과 오른쪽 귀에 미세하게 다른 주파수를 들려줘 뇌가 그 차이를 인식하는 원리입니다. 반드시 <strong style="color:#f59e0b">헤드폰 또는 이어폰</strong>을 착용해야 효과가 있습니다.</span>
+          </div>
+        </div>
+        <div class="ob-desc">이어폰·헤드폰 없이도 사용할 수 있지만<br>뇌파 유도 효과는 크게 줄어듭니다</div>
+      </div>
+
+    </div><!-- /ob-track -->
+  </div><!-- /ob-track-wrap -->
+
+  <!-- 하단 컨트롤 -->
+  <div class="ob-footer">
+    <div class="ob-dots" id="obDots">
+      <div class="ob-dot active"></div>
+      <div class="ob-dot"></div>
+      <div class="ob-dot"></div>
+      <div class="ob-dot"></div>
+    </div>
+    <div class="ob-btn-row">
+      <button class="ob-skip-btn" id="obSkipBtn" onclick="obSkip()">건너뛰기</button>
+      <button class="ob-next-btn" id="obNextBtn" onclick="obNext()">다음 →</button>
+    </div>
+  </div>
+
+</div><!-- /onboarding -->
 
 <!-- HOME PAGE WRAPPER -->
 <div id="page-home" class="page active">
@@ -833,6 +1220,26 @@
       🎧 바이노럴 비트는 <strong>헤드폰 착용</strong> 시 효과가 극대화됩니다
     </div>
 
+    <!-- AI 실시간 모드 토글 -->
+    <div class="ai-mode-wrap" id="aiModeWrap">
+      <div class="ai-mode-toggle" id="aiModeToggle" onclick="toggleAiMode()">
+        <div class="ai-mode-icon">🧠</div>
+        <div class="ai-mode-text">
+          <div class="ai-mode-title">
+            AI 실시간 블렌딩
+            <span class="ai-pro-badge">PRO</span>
+          </div>
+          <div class="ai-mode-sub" id="aiModeSub">OscillatorNode로 뇌파를 실시간 생성합니다</div>
+        </div>
+        <div class="ai-mode-switch">
+          <div class="ai-mode-knob"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 블렌딩 인디케이터 -->
+    <div class="blend-indicator" id="blendIndicator"></div>
+
     <div class="wave-wrap">
       <div id="waveCanvas" class="wave-bars-container"><div class="wave-bars" id="waveBars"></div></div>
       <div class="wave-overlay"></div>
@@ -891,29 +1298,242 @@
 <script>
 const CLOUD = 'https://res.cloudinary.com/drgnydx6p/video/upload/';
 
+// ─────────────────────────────────────────────
+// 14가지 루틴 데이터
+// binaural: { carrier, beat } — OscillatorNode용
+// beat2: 복합 주파수 두 번째 레이어 (블렌딩용)
+// dreamgate: true 시 알파→델타 점진 전환
+// ─────────────────────────────────────────────
 const routines = [
-  { id:'01', situation:'수면 부족',     mode:'알파 웨이크 프로토콜', emoji:'😴', freq:'감마 40Hz', duration:'7분', effect:'강한 각성 — 감마파로 뇌를 빠르게 깨웁니다', file:'01_sleep_deprived_y7zy2d', free:true },
-  { id:'02', situation:'과음/숙취',     mode:'젠틀 리부트',          emoji:'🍺', freq:'알파 8Hz',  duration:'10분', effect:'자극 없이 부드럽게 깨움 — 민감한 컨디션을 배려합니다', file:'02_hangover_z2gjvp', free:true },
-  { id:'03', situation:'밤샘 작업',     mode:'제로 슬립 오버라이드', emoji:'🖥️', freq:'베타 30Hz', duration:'8분', effect:'강제 각성 모드 — 극한의 피로를 돌파합니다', file:'03_all_nighter_ydbwkq', free:false },
-  { id:'04', situation:'과한 운동 후',  mode:'바디 리커버리 웨이브', emoji:'💪', freq:'세타 6Hz',  duration:'10분', effect:'몸 회복 + 부드러운 깨우기 — 근육 피로를 완화합니다', file:'04_over_exercise_r8pezq', free:false },
-  { id:'05', situation:'몸살/감기',     mode:'이뮨 리스토어',        emoji:'🤒', freq:'델타 4Hz',  duration:'10분', effect:'면역 회복 — 무리 없이 하루를 시작합니다', file:'05_sick_e0rbn0', free:false },
-  { id:'06', situation:'스트레스/불안', mode:'캄 포커스 트랜지션',   emoji:'😰', freq:'알파 10Hz', duration:'8분', effect:'진정 후 집중 유도 — 불안을 가라앉히고 몰입합니다', file:'06_stressed_a285jw', free:true },
-  { id:'07', situation:'꿈을 많이 꿈',  mode:'드림 클리어',          emoji:'💭', freq:'베타 14Hz', duration:'7분', effect:'몽롱함 제거 — 렘수면 잔재를 빠르게 씻어냅니다', file:'07_too_many_dreams_eedwb0', free:false },
-  { id:'08', situation:'두통',          mode:'텐션 릴리즈',          emoji:'🤕', freq:'알파 9Hz',  duration:'10분', effect:'긴장 완화 — 두통을 부드럽게 경감시킵니다', file:'08_headache_w5aqbt', free:false },
-  { id:'09', situation:'우울/무기력',   mode:'모멘텀 라이즈',        emoji:'😔', freq:'베타 18Hz', duration:'8분', effect:'기분 끌어올리기 — 무기력한 아침을 반전시킵니다', file:'09_low_mood_kxa9hj', free:false },
-  { id:'10', situation:'컨디션 정상',   mode:'데일리 부스터',        emoji:'😊', freq:'감마 40Hz', duration:'5분', effect:'하루 스타트 부스터 — 이미 좋은 컨디션을 최고로', file:'10_normal_xynric', free:true },
-  { id:'11', situation:'집중이 필요할 때', mode:'딥 포커스 모드',    emoji:'🎯', freq:'베타 21Hz', duration:'10분', effect:'논리 회로 풀가동 — 장시간 집중을 위한 최적 세팅', file:'11_deep_focus_mode_wv0lnp', free:true },
-  { id:'12', situation:'시험/발표 직전', mode:'제로아워',            emoji:'🎯', freq:'알파-베타 12Hz', duration:'5분', effect:'긴장 내려놓고 집중력 최고로 — 결정적 순간을 위해', file:'12_zero_hour_e6c5yw', free:false },
-  { id:'13', situation:'잠들고 싶을 때', mode:'드림게이트',          emoji:'🌙', freq:'알파→델타', duration:'30분', effect:'꿀잠 유도 — 30분 자동 페이드아웃으로 자연스럽게', file:'13_dreamgate_zefzyd', free:false },
-  { id:'14', situation:'운동 전 각성',   mode:'프리워크아웃 부스트', emoji:'🔥', freq:'베타 20Hz', duration:'7분',  effect:'운동 전 집중력과 각성 극대화 — 최고의 퍼포먼스를 위해', file:'14_preworkout_uu26tb', free:false },
+  { id:'01', situation:'수면 부족',        mode:'알파 웨이크 프로토콜', emoji:'😴', freq:'감마 40Hz',      duration:'7분',  durationSec:420,  effect:'강한 각성 — 감마파로 뇌를 빠르게 깨웁니다',                          file:'01_sleep_deprived_y7zy2d',    free:true,  binaural:{carrier:200, beat:40} },
+  { id:'02', situation:'과음/숙취',        mode:'젠틀 리부트',          emoji:'🍺', freq:'알파 8Hz',       duration:'10분', durationSec:600,  effect:'자극 없이 부드럽게 깨움 — 민감한 컨디션을 배려합니다',               file:'02_hangover_z2gjvp',          free:true,  binaural:{carrier:180, beat:8} },
+  { id:'03', situation:'밤샘 작업',        mode:'제로 슬립 오버라이드', emoji:'🖥️', freq:'베타 30Hz',      duration:'8분',  durationSec:480,  effect:'강제 각성 모드 — 극한의 피로를 돌파합니다',                          file:'03_all_nighter_ydbwkq',       free:false, binaural:{carrier:200, beat:30} },
+  { id:'04', situation:'과한 운동 후',     mode:'바디 리커버리 웨이브', emoji:'💪', freq:'세타 6Hz',       duration:'10분', durationSec:600,  effect:'몸 회복 + 부드러운 깨우기 — 근육 피로를 완화합니다',                 file:'04_over_exercise_r8pezq',     free:false, binaural:{carrier:180, beat:6} },
+  { id:'05', situation:'몸살/감기',        mode:'이뮨 리스토어',        emoji:'🤒', freq:'델타 4Hz',       duration:'10분', durationSec:600,  effect:'면역 회복 — 무리 없이 하루를 시작합니다',                            file:'05_sick_e0rbn0',              free:false, binaural:{carrier:160, beat:4} },
+  { id:'06', situation:'스트레스/불안',    mode:'캄 포커스 트랜지션',   emoji:'😰', freq:'알파 10Hz',      duration:'8분',  durationSec:480,  effect:'진정 후 집중 유도 — 불안을 가라앉히고 몰입합니다',                   file:'06_stressed_a285jw',          free:true,  binaural:{carrier:200, beat:10} },
+  { id:'07', situation:'꿈을 많이 꿈',     mode:'드림 클리어',          emoji:'💭', freq:'베타 14Hz',      duration:'7분',  durationSec:420,  effect:'몽롱함 제거 — 렘수면 잔재를 빠르게 씻어냅니다',                      file:'07_too_many_dreams_eedwb0',   free:false, binaural:{carrier:200, beat:14} },
+  { id:'08', situation:'두통',             mode:'텐션 릴리즈',          emoji:'🤕', freq:'알파 9Hz',       duration:'10분', durationSec:600,  effect:'긴장 완화 — 두통을 부드럽게 경감시킵니다',                           file:'08_headache_w5aqbt',          free:false, binaural:{carrier:180, beat:9} },
+  { id:'09', situation:'우울/무기력',      mode:'모멘텀 라이즈',        emoji:'😔', freq:'베타 18Hz',      duration:'8분',  durationSec:480,  effect:'기분 끌어올리기 — 무기력한 아침을 반전시킵니다',                     file:'09_low_mood_kxa9hj',          free:false, binaural:{carrier:200, beat:18} },
+  { id:'10', situation:'컨디션 정상',      mode:'데일리 부스터',        emoji:'😊', freq:'감마 40Hz',      duration:'5분',  durationSec:300,  effect:'하루 스타트 부스터 — 이미 좋은 컨디션을 최고로',                     file:'10_normal_xynric',            free:true,  binaural:{carrier:200, beat:40} },
+  { id:'11', situation:'집중이 필요할 때', mode:'딥 포커스 모드',       emoji:'🎯', freq:'베타 21Hz',      duration:'10분', durationSec:600,  effect:'논리 회로 풀가동 — 장시간 집중을 위한 최적 세팅',                    file:'11_deep_focus_mode_wv0lnp',   free:true,  binaural:{carrier:200, beat:21} },
+  { id:'12', situation:'시험/발표 직전',   mode:'제로아워',             emoji:'📝', freq:'알파-베타 12Hz', duration:'5분',  durationSec:300,  effect:'긴장 내려놓고 집중력 최고로 — 결정적 순간을 위해',                   file:'12_zero_hour_e6c5yw',         free:false, binaural:{carrier:200, beat:10}, beat2:{carrier:220, beat:14} },
+  { id:'13', situation:'잠들고 싶을 때',   mode:'드림게이트',           emoji:'🌙', freq:'알파→델타',      duration:'30분', durationSec:1800, effect:'꿀잠 유도 — 30분 자동 페이드아웃으로 자연스럽게',                    file:'13_dreamgate_zefzyd',         free:false, binaural:{carrier:180, beat:10}, dreamgate:true },
+  { id:'14', situation:'운동 전 각성',     mode:'프리워크아웃 부스트',  emoji:'🔥', freq:'베타 20Hz',      duration:'7분',  durationSec:420,  effect:'운동 전 집중력과 각성 극대화 — 최고의 퍼포먼스를 위해',              file:'14_preworkout_uu26tb',        free:false, binaural:{carrier:200, beat:20} },
 ];
 
+// ─────────────────────────────────────────────
+// 상태 변수
+// ─────────────────────────────────────────────
 let currentRoutine = null;
-let currentRating = 0;
-let isPlaying = false;
+let currentRating   = 0;
+let isPlaying       = false;
+let isAiMode        = false;   // AI 실시간 모드 ON/OFF
+
+// mp3 오디오 엘리먼트
 const audio = document.getElementById('mainAudio');
 
+// 타이머 (AI 모드용 자체 타이머)
+let timerInterval   = null;
+let elapsedSec      = 0;
+
+// ─────────────────────────────────────────────
+// OscillatorNode 엔진
+// ─────────────────────────────────────────────
+let audioCtx        = null;
+let oscNodes        = [];   // { leftOsc, rightOsc, leftGain, rightGain, merger }
+let masterGain      = null;
+let fadeTimer       = null;
+let dreamgateTimer  = null;
+
+function getAudioCtx() {
+  if (!audioCtx || audioCtx.state === 'closed') {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+/**
+ * 단일 바이노럴 레이어 생성
+ * L채널: carrier Hz  /  R채널: carrier + beat Hz
+ */
+function createBinauralLayer(ctx, carrier, beat, gainVal) {
+  const merger = ctx.createChannelMerger(2);
+
+  const leftOsc  = ctx.createOscillator();
+  const rightOsc = ctx.createOscillator();
+  leftOsc.type  = 'sine';
+  rightOsc.type = 'sine';
+  leftOsc.frequency.value  = carrier;
+  rightOsc.frequency.value = carrier + beat;
+
+  const leftGain  = ctx.createGain();
+  const rightGain = ctx.createGain();
+  leftGain.gain.value  = gainVal;
+  rightGain.gain.value = gainVal;
+
+  // 스테레오 분리: L → merger[0], R → merger[1]
+  const leftSplitter  = ctx.createChannelSplitter(1);
+  const rightSplitter = ctx.createChannelSplitter(1);
+
+  leftOsc.connect(leftGain);
+  rightOsc.connect(rightGain);
+  leftGain.connect(merger, 0, 0);
+  rightGain.connect(merger, 0, 1);
+
+  leftOsc.start();
+  rightOsc.start();
+
+  return { leftOsc, rightOsc, leftGain, rightGain, merger };
+}
+
+/**
+ * AI 모드 재생 시작
+ */
+function startOscillator() {
+  stopOscillator(); // 이전 것 정리
+
+  const ctx = getAudioCtx();
+  const r   = currentRoutine;
+  masterGain = ctx.createGain();
+  masterGain.gain.value = 0; // 페이드인 시작
+  masterGain.connect(ctx.destination);
+
+  // 기본 레이어
+  const layer1 = createBinauralLayer(ctx, r.binaural.carrier, r.binaural.beat, 0.4);
+  layer1.merger.connect(masterGain);
+  oscNodes.push(layer1);
+
+  // 복합 블렌딩 레이어 (12번 제로아워)
+  if (r.beat2) {
+    const layer2 = createBinauralLayer(ctx, r.beat2.carrier, r.beat2.beat, 0.25);
+    layer2.merger.connect(masterGain);
+    oscNodes.push(layer2);
+  }
+
+  // 드림게이트: 알파(10Hz) → 델타(2Hz) 점진 전환
+  if (r.dreamgate) {
+    // masterGain 볼륨을 40%로 설정
+    masterGain.gain.setValueAtTime(0, ctx.currentTime);
+    masterGain.gain.linearRampToValueAtTime(0.4, ctx.currentTime + 15); // 15초 페이드인
+
+    // 30분에 걸쳐 beat 10→2 점진 전환
+    oscNodes.forEach(layer => {
+      const targetFreqR = layer.rightOsc.frequency.value - r.binaural.beat + 2; // carrier+2
+      layer.rightOsc.frequency.linearRampToValueAtTime(targetFreqR, ctx.currentTime + r.durationSec);
+    });
+
+    // 마지막 3분(180초) 페이드아웃
+    const fadeStart = ctx.currentTime + r.durationSec - 180;
+    masterGain.gain.setValueAtTime(0.4, fadeStart);
+    masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + r.durationSec);
+  } else {
+    // 일반 루틴: 15초 페이드인
+    masterGain.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 15);
+
+    // 종료 15초 전 페이드아웃 예약
+    const fadeOutStart = ctx.currentTime + r.durationSec - 15;
+    if (fadeOutStart > ctx.currentTime) {
+      masterGain.gain.setValueAtTime(0.5, fadeOutStart);
+      masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + r.durationSec);
+    }
+  }
+}
+
+/**
+ * AI 모드 정지
+ */
+function stopOscillator() {
+  oscNodes.forEach(layer => {
+    try { layer.leftOsc.stop();  } catch(e) {}
+    try { layer.rightOsc.stop(); } catch(e) {}
+    try { layer.merger.disconnect(); } catch(e) {}
+  });
+  oscNodes = [];
+  if (masterGain) { try { masterGain.disconnect(); } catch(e) {} masterGain = null; }
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+// ─────────────────────────────────────────────
+// 자체 타이머 (AI 모드용)
+// ─────────────────────────────────────────────
+function startTimer() {
+  elapsedSec = 0;
+  clearInterval(timerInterval);
+  const total = currentRoutine.durationSec;
+  document.getElementById('totalTime').textContent = formatTime(total);
+  timerInterval = setInterval(() => {
+    elapsedSec++;
+    document.getElementById('currentTime').textContent = formatTime(elapsedSec);
+    const pct = (elapsedSec / total) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    if (elapsedSec >= total) {
+      clearInterval(timerInterval);
+      isPlaying = false;
+      document.getElementById('playBtn').textContent = '▶';
+      stopWave();
+      stopOscillator();
+      openRating();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+// ─────────────────────────────────────────────
+// AI 모드 토글
+// ─────────────────────────────────────────────
+function toggleAiMode() {
+  // 재생 중이면 먼저 정지
+  if (isPlaying) {
+    stopPlayback();
+  }
+
+  isAiMode = !isAiMode;
+  const toggle = document.getElementById('aiModeToggle');
+  const sub    = document.getElementById('aiModeSub');
+  const blend  = document.getElementById('blendIndicator');
+  const label  = document.getElementById('waveFreqLabel');
+
+  toggle.classList.toggle('active', isAiMode);
+
+  if (isAiMode) {
+    // AI 모드 ON
+    const r = currentRoutine;
+    let freqDesc = `L: ${r.binaural.carrier}Hz  /  R: ${r.binaural.carrier + r.binaural.beat}Hz  →  ${r.binaural.beat}Hz 바이노럴`;
+    if (r.beat2) {
+      freqDesc += `  +  ${r.beat2.beat}Hz 블렌딩`;
+    }
+    if (r.dreamgate) {
+      freqDesc = `알파 10Hz → 델타 2Hz  점진 전환 (30분)`;
+    }
+    sub.textContent = freqDesc;
+
+    blend.textContent = `🧠 실시간 생성 중 — ${r.freq} 뇌파 유도`;
+    blend.classList.add('show');
+    if (label) { label.textContent = r.freq; label.classList.add('ai-active'); }
+
+    // progressBg seekAudio 비활성화 (타이머 기반)
+    document.getElementById('progressBg').onclick = null;
+  } else {
+    // AI 모드 OFF → mp3 모드
+    sub.textContent = 'OscillatorNode로 뇌파를 실시간 생성합니다';
+    blend.classList.remove('show');
+    if (label) label.classList.remove('ai-active');
+
+    // mp3 모드 복원
+    reloadMp3();
+    document.getElementById('progressBg').onclick = (e) => seekAudio(e);
+  }
+}
+
+// ─────────────────────────────────────────────
 // 그리드 렌더링
+// ─────────────────────────────────────────────
 function renderGrid() {
   const grid = document.getElementById('routineGrid');
   grid.innerHTML = routines.map(r => `
@@ -923,28 +1543,46 @@ function renderGrid() {
       <div class="card-mode">${r.mode}</div>
       <div class="card-footer">
         <div class="card-duration">⏱ ${r.duration}</div>
-        <div class="tier-badge ${r.free ? 'free-badge' : 'premium-badge'}" ${!r.free ? "onclick=\"window.open('rewake_pro.html','_blank')\"" : ''}>${r.free ? 'FREE' : 'PRO'}</div>
+        <div class="tier-badge ${r.free ? 'free-badge' : 'premium-badge'}" ${!r.free ? "onclick=\"event.stopPropagation();window.open('rewake_pro.html','_blank')\"" : ''}>${r.free ? 'FREE' : 'PRO'}</div>
       </div>
     </div>
   `).join('');
 }
 
+// ─────────────────────────────────────────────
 // 루틴 열기
+// ─────────────────────────────────────────────
 function openRoutine(id) {
   currentRoutine = routines.find(r => r.id === id);
   if (!currentRoutine) return;
 
-  document.getElementById('modalEmoji').textContent = currentRoutine.emoji;
-  document.getElementById('modalName').textContent = currentRoutine.situation;
-  document.getElementById('modalMode').textContent = currentRoutine.mode;
+  // AI 모드 초기화
+  isAiMode = false;
+  const toggle = document.getElementById('aiModeToggle');
+  toggle.classList.remove('active');
+  document.getElementById('aiModeSub').textContent = 'OscillatorNode로 뇌파를 실시간 생성합니다';
+  document.getElementById('blendIndicator').classList.remove('show');
+
+  document.getElementById('modalEmoji').textContent    = currentRoutine.emoji;
+  document.getElementById('modalName').textContent     = currentRoutine.situation;
+  document.getElementById('modalMode').textContent     = currentRoutine.mode;
   document.getElementById('modalDuration').textContent = currentRoutine.duration;
-  document.getElementById('modalFreq').textContent = currentRoutine.freq;
-  document.getElementById('modalEffect').textContent = currentRoutine.effect;
-  document.getElementById('modalTierChip').innerHTML = currentRoutine.free 
-    ? '<span style="color:#34d399">✓ 무료</span>' 
+  document.getElementById('modalFreq').textContent     = currentRoutine.freq;
+  document.getElementById('modalEffect').textContent   = currentRoutine.effect;
+  document.getElementById('modalTierChip').innerHTML   = currentRoutine.free
+    ? '<span style="color:#34d399">✓ 무료</span>'
     : '<span style="color:#f59e0b;cursor:pointer;" onclick="window.open(\'rewake_pro.html\',\'_blank\')">★ 프리미엄 — 업그레이드 →</span>';
 
-  // 오디오 로드
+  // progressBg seekAudio 연결 복원
+  document.getElementById('progressBg').onclick = (e) => seekAudio(e);
+
+  reloadMp3();
+  stopWave();
+  document.getElementById('playerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function reloadMp3() {
   const url = CLOUD + currentRoutine.file + '.mp3';
   audio.src = url;
   audio.load();
@@ -952,18 +1590,15 @@ function openRoutine(id) {
   document.getElementById('playBtn').textContent = '▶';
   document.getElementById('progressFill').style.width = '0%';
   document.getElementById('currentTime').textContent = '0:00';
-  document.getElementById('totalTime').textContent = '0:00';
-
-  stopWave();
-  document.getElementById('playerOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.getElementById('totalTime').textContent = formatTime(currentRoutine.durationSec);
 }
 
+// ─────────────────────────────────────────────
+// 플레이어 닫기
+// ─────────────────────────────────────────────
 function closePlayer() {
-  audio.pause();
-  isPlaying = false;
-  document.getElementById('playBtn').textContent = '▶';
-  stopWave();
+  stopPlayback();
+  stopOscillator();
   document.getElementById('playerOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
@@ -972,119 +1607,164 @@ function handleOverlayClick(e) {
   if (e.target === document.getElementById('playerOverlay')) closePlayer();
 }
 
-// 재생 토글
+// ─────────────────────────────────────────────
+// 재생 / 정지 통합
+// ─────────────────────────────────────────────
+function stopPlayback() {
+  if (isAiMode) {
+    stopOscillator();
+    stopTimer();
+  } else {
+    audio.pause();
+  }
+  isPlaying = false;
+  document.getElementById('playBtn').textContent = '▶';
+  stopWave();
+}
+
 function togglePlay() {
-  if (audio.paused) {
-    audio.play().then(() => {
+  if (isAiMode) {
+    // ── AI 모드 ──
+    if (isPlaying) {
+      // 일시정지: OscillatorNode는 pause가 없으므로 gainNode를 0으로
+      if (masterGain) masterGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
+      stopTimer();
+      isPlaying = false;
+      document.getElementById('playBtn').textContent = '▶';
+      stopWave();
+    } else {
+      // 재생
+      if (oscNodes.length === 0) {
+        // 처음 재생 or 재시작
+        startOscillator();
+        startTimer();
+      } else {
+        // 일시정지 후 재개
+        if (masterGain) masterGain.gain.setTargetAtTime(0.5, audioCtx.currentTime, 0.3);
+        startTimer();
+      }
       isPlaying = true;
       document.getElementById('playBtn').textContent = '⏸';
       startWave();
-    }).catch(e => {
-      console.error('재생 오류:', e);
-      alert('재생 오류가 발생했습니다. 오디오 URL을 확인해주세요.\n\n' + audio.src);
-    });
+    }
   } else {
-    audio.pause();
-    isPlaying = false;
-    document.getElementById('playBtn').textContent = '▶';
-    stopWave();
+    // ── mp3 모드 ──
+    if (audio.paused) {
+      audio.play().then(() => {
+        isPlaying = true;
+        document.getElementById('playBtn').textContent = '⏸';
+        startWave();
+      }).catch(e => {
+        console.error('재생 오류:', e);
+      });
+    } else {
+      audio.pause();
+      isPlaying = false;
+      document.getElementById('playBtn').textContent = '▶';
+      stopWave();
+    }
   }
 }
 
-function seekBack() { audio.currentTime = Math.max(0, audio.currentTime - 10); }
-function seekForward() { audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 10); }
+function seekBack() {
+  if (isAiMode) {
+    elapsedSec = Math.max(0, elapsedSec - 10);
+    document.getElementById('currentTime').textContent = formatTime(elapsedSec);
+  } else {
+    audio.currentTime = Math.max(0, audio.currentTime - 10);
+  }
+}
+function seekForward() {
+  if (isAiMode) {
+    elapsedSec = Math.min(currentRoutine.durationSec, elapsedSec + 10);
+    document.getElementById('currentTime').textContent = formatTime(elapsedSec);
+  } else {
+    audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 10);
+  }
+}
 
 function seekAudio(e) {
   if (!audio.duration) return;
-  const rect = e.currentTarget.getBoundingClientRect();
+  const rect  = e.currentTarget.getBoundingClientRect();
   const ratio = (e.clientX - rect.left) / rect.width;
   audio.currentTime = ratio * audio.duration;
 }
 
 function formatTime(s) {
-  if (isNaN(s)) return '0:00';
-  const m = Math.floor(s/60);
-  const sec = Math.floor(s%60);
+  if (isNaN(s) || s == null) return '0:00';
+  const m   = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
   return m + ':' + (sec < 10 ? '0' : '') + sec;
 }
 
+// mp3 이벤트
 audio.addEventListener('timeupdate', () => {
-  if (audio.duration) {
+  if (!isAiMode && audio.duration) {
     const pct = (audio.currentTime / audio.duration) * 100;
     document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('currentTime').textContent = formatTime(audio.currentTime);
+    document.getElementById('currentTime').textContent  = formatTime(audio.currentTime);
+  }
+});
+audio.addEventListener('loadedmetadata', () => {
+  if (!isAiMode) {
+    document.getElementById('totalTime').textContent = formatTime(audio.duration);
+  }
+});
+audio.addEventListener('ended', () => {
+  if (!isAiMode) {
+    isPlaying = false;
+    document.getElementById('playBtn').textContent = '▶';
+    stopWave();
+    openRating();
   }
 });
 
-audio.addEventListener('loadedmetadata', () => {
-  document.getElementById('totalTime').textContent = formatTime(audio.duration);
-});
-
-audio.addEventListener('ended', () => {
-  isPlaying = false;
-  document.getElementById('playBtn').textContent = '▶';
-  openRating();
-});
-
+// ─────────────────────────────────────────────
 // 평가
+// ─────────────────────────────────────────────
 function openRating() {
   closePlayer();
   currentRating = 0;
   updateStars(0);
   document.getElementById('ratingOverlay').classList.add('open');
 }
-
 function closeRating() {
   document.getElementById('ratingOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-
 function handleRatingOverlayClick(e) {
   if (e.target === document.getElementById('ratingOverlay')) closeRating();
 }
-
-function rateStar(n) {
-  currentRating = n;
-  updateStars(n);
-}
-
+function rateStar(n) { currentRating = n; updateStars(n); }
 function updateStars(n) {
-  document.querySelectorAll('.star').forEach((s, i) => {
-    s.classList.toggle('active', i < n);
-  });
+  document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('active', i < n));
 }
-
 function saveRating() {
   if (currentRating === 0) { alert('별점을 선택해주세요!'); return; }
   closeRating();
-  // 피드백 저장 로직 (추후 DB 연동)
   const msg = currentRating >= 4 ? '효과가 있으셨군요! 🎉' : currentRating >= 2 ? '기록이 저장됐습니다 👍' : '다음엔 더 맞는 루틴을 찾아볼게요';
   setTimeout(() => alert(msg), 200);
 }
 
-
+// ─────────────────────────────────────────────
+// 페이지 전환
+// ─────────────────────────────────────────────
 function showPage(page) {
-  // 모든 페이지 숨기기
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  
-  // 선택된 페이지 보이기
   document.getElementById('page-' + page).classList.add('active');
   document.getElementById('nav-' + page).classList.add('active');
-  
-  // 스크롤 맨 위로
   window.scrollTo(0, 0);
 }
 
-
-
+// ─────────────────────────────────────────────
+// 웨이브 비주얼라이저
+// ─────────────────────────────────────────────
 function getWaveColor(routineId) {
   const colors = {
-    '01': '#a78bfa', '02': '#6ee7b7', '03': '#c084fc',
-    '04': '#fb923c', '05': '#2dd4bf', '06': '#60a5fa',
-    '07': '#fcd34d', '08': '#f87171', '09': '#a78bfa',
-    '10': '#86efac', '11': '#818cf8', '12': '#fbbf24',
-    '13': '#93c5fd', '14': '#fb923c'
+    '01':'#a78bfa','02':'#6ee7b7','03':'#c084fc','04':'#fb923c','05':'#2dd4bf',
+    '06':'#60a5fa','07':'#fcd34d','08':'#f87171','09':'#a78bfa','10':'#86efac',
+    '11':'#818cf8','12':'#fbbf24','13':'#93c5fd','14':'#fb923c'
   };
   return colors[routineId] || '#7c6fff';
 }
@@ -1093,15 +1773,19 @@ function initWaveBars() {
   const container = document.getElementById('waveBars');
   if (!container) return;
   container.innerHTML = '';
-  const color = getWaveColor(currentRoutine?.id);
+  const color    = getWaveColor(currentRoutine?.id);
   const barCount = 40;
+  // AI 모드: 실제 beat 주파수에 비례한 애니메이션 속도
+  const beatHz   = currentRoutine?.binaural?.beat || 10;
+  const speedBase = isAiMode ? Math.max(0.2, 1.2 - beatHz * 0.015) : null;
   for (let i = 0; i < barCount; i++) {
-    const bar = document.createElement('div');
+    const bar  = document.createElement('div');
     bar.className = 'wave-bar';
-    // 중앙 높을수록, 양끝 낮을수록 자연스러운 종 모양
-    const pos = Math.abs(i - barCount/2) / (barCount/2);
+    const pos  = Math.abs(i - barCount / 2) / (barCount / 2);
     const maxH = Math.max(10, Math.round((1 - pos * 0.7) * 50 + Math.random() * 10));
-    const speed = (0.5 + Math.random() * 0.7).toFixed(2);
+    const speed = speedBase
+      ? (speedBase + Math.random() * 0.3).toFixed(2)
+      : (0.5 + Math.random() * 0.7).toFixed(2);
     const delay = (Math.random() * 0.6).toFixed(2);
     bar.style.cssText = `--bar-color:${color}; --bar-max:${maxH}px; --bar-speed:${speed}s; --bar-delay:${delay}s;`;
     container.appendChild(bar);
@@ -1113,24 +1797,121 @@ function startWave() {
   document.querySelectorAll('.wave-bar').forEach(b => b.classList.add('playing'));
   updateWaveUI(true);
 }
-
 function stopWave() {
   document.querySelectorAll('.wave-bar').forEach(b => b.classList.remove('playing'));
   updateWaveUI(false);
 }
-
 function updateWaveUI(playing) {
   const dot = document.getElementById('waveDot');
   const txt = document.getElementById('waveStatusTxt');
   if (dot) dot.classList.toggle('active', playing);
-  if (txt) txt.textContent = playing ? '분석 중' : '대기 중';
+  if (txt) txt.textContent = playing ? (isAiMode ? 'AI 생성 중' : '분석 중') : '대기 중';
   if (currentRoutine) {
     const label = document.getElementById('waveFreqLabel');
     if (label) label.textContent = currentRoutine.freq;
   }
 }
 
+// ─────────────────────────────────────────────
+// 온보딩
+// ─────────────────────────────────────────────
+(function initOnboarding() {
+  const ob = document.getElementById('onboarding');
 
+  // 이미 본 경우 바로 숨김
+  if (localStorage.getItem('rw_ob_done')) {
+    ob.style.display = 'none';
+    return;
+  }
+
+  // 온보딩 확실히 표시
+  ob.style.display = 'flex';
+  ob.style.opacity = '1';
+  ob.style.transform = 'none';
+  // 다음 프레임에 ready 클래스 추가 (transition 발동)
+  requestAnimationFrame(() => ob.classList.add('ready'));
+
+  const TOTAL   = 4;
+  let current   = 0;
+  let startX    = 0;
+  let isDragging = false;
+
+  const track    = document.getElementById('obTrack');
+  const dots     = document.querySelectorAll('.ob-dot');
+  const nextBtn  = document.getElementById('obNextBtn');
+  const skipBtn  = document.getElementById('obSkipBtn');
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= TOTAL) return;
+    current = idx;
+    track.style.transform = `translateX(-${current * 100}%)`;
+
+    // 도트 업데이트
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+
+    // 마지막 슬라이드
+    if (current === TOTAL - 1) {
+      nextBtn.textContent = '🌅 시작하기';
+      nextBtn.classList.add('last');
+      skipBtn.style.display = 'none';
+    } else {
+      nextBtn.textContent = '다음 →';
+      nextBtn.classList.remove('last');
+      skipBtn.style.display = '';
+    }
+
+    // 슬라이드 2 카드 애니메이션
+    if (current === 1) {
+      document.querySelectorAll('.ob-mini-card').forEach((c, i) => {
+        setTimeout(() => c.classList.add('visible'), i * 45);
+      });
+    }
+
+    // 슬라이드 3 피처 아이템 애니메이션
+    if (current === 2) {
+      document.querySelectorAll('.ob-feature-item').forEach((item, i) => {
+        setTimeout(() => item.classList.add('visible'), i * 120);
+      });
+    }
+  }
+
+  function finish() {
+    localStorage.setItem('rw_ob_done', '1');
+    const ob = document.getElementById('onboarding');
+    ob.classList.add('hide');
+    setTimeout(() => ob.style.display = 'none', 520);
+  }
+
+  // 버튼
+  window.obNext = function() {
+    if (current < TOTAL - 1) goTo(current + 1);
+    else finish();
+  };
+  window.obSkip = function() { finish(); };
+
+  // 터치 스와이프
+  const wrap = document.querySelector('.ob-track-wrap');
+  wrap.addEventListener('touchstart', e => {
+    startX    = e.touches[0].clientX;
+    isDragging = true;
+  }, { passive: true });
+  wrap.addEventListener('touchend', e => {
+    if (!isDragging) return;
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && current < TOTAL - 1) goTo(current + 1);
+      else if (diff < 0 && current > 0)    goTo(current - 1);
+    }
+    isDragging = false;
+  }, { passive: true });
+
+  // 초기화
+  goTo(0);
+})();
+
+// ─────────────────────────────────────────────
+// 초기화
+// ─────────────────────────────────────────────
 renderGrid();
 </script>
 </body>
