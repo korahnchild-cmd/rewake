@@ -1700,20 +1700,7 @@ let dreamgateTimer  = null;
 
 function getAudioCtx() {
   if (!audioCtx || audioCtx.state === 'closed') {
-    // 매번 새로 생성 — 블루투스 연결 후 오디오 라우팅 갱신
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    // mp3 audio 태그를 AudioContext에 연결 (블루투스 출력 확보)
-    if (!audio._mediaSource) {
-      try {
-        audio._mediaSource = audioCtx.createMediaElementSource(audio);
-        audio._mediaSource.connect(audioCtx.destination);
-      } catch(e) {
-        console.warn('MediaElementSource 연결 실패:', e);
-      }
-    } else {
-      // 기존 소스를 새 컨텍스트 destination에 재연결
-      try { audio._mediaSource.connect(audioCtx.destination); } catch(e) {}
-    }
   }
   if (audioCtx.state === 'suspended') audioCtx.resume();
   return audioCtx;
@@ -1759,7 +1746,13 @@ function createBinauralLayer(ctx, carrier, beat, gainVal) {
 function startOscillator() {
   stopOscillator(); // 이전 것 정리
 
-  const ctx = getAudioCtx();
+  // 블루투스 라우팅 최신화 — 매번 새 AudioContext 생성
+  if (audioCtx && audioCtx.state !== 'closed') {
+    try { audioCtx.close(); } catch(e) {}
+  }
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  const ctx = audioCtx;
   const r   = currentRoutine;
   masterGain = ctx.createGain();
   masterGain.gain.value = 0; // 페이드인 시작
@@ -2036,20 +2029,16 @@ function togglePlay() {
       startWave();
     }
   } else {
-    // ── mp3 모드 ──
+    // ── mp3 모드 — AudioContext 없이 직접 재생 (블루투스 호환)
     if (audio.paused) {
-      // 재생 시점에 AudioContext 초기화 → 블루투스 라우팅 확보
-      const ctx = getAudioCtx();
-      ctx.resume().then(() => {
-        audio.play().then(() => {
-          isPlaying = true;
-          playBtn.textContent = '⏸';
-          playBtn.setAttribute('aria-label', '일시정지');
-          playBtn.setAttribute('aria-pressed', 'true');
-          startWave();
-        }).catch(e => {
-          console.error('재생 오류:', e);
-        });
+      audio.play().then(() => {
+        isPlaying = true;
+        playBtn.textContent = '⏸';
+        playBtn.setAttribute('aria-label', '일시정지');
+        playBtn.setAttribute('aria-pressed', 'true');
+        startWave();
+      }).catch(e => {
+        console.error('재생 오류:', e);
       });
     } else {
       audio.pause();
@@ -2466,6 +2455,18 @@ window.addEventListener('appinstalled', () => {
   closePwaBanner(true); // 설치 완료 → 영구
   console.log('PWA 설치 완료 🎉');
 });
+
+// 오디오 출력 장치 변경 감지 (블루투스 연결/해제)
+// 재생 중이 아닐 때만 컨텍스트 초기화 → 다음 재생 시 새 라우팅 적용
+if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) {
+  navigator.mediaDevices.addEventListener('devicechange', () => {
+    if (!isPlaying && audioCtx && audioCtx.state !== 'closed') {
+      try { audioCtx.close(); } catch(e) {}
+      audioCtx = null;
+      console.log('오디오 장치 변경 감지 → AudioContext 초기화');
+    }
+  });
+}
 
 renderGrid();
 // 슬라이더 초기 트랙 렌더링
