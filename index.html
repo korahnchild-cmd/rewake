@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>ReWake — 못 잔 아침도, AI가 깨워준다</title>
+<title>ReWake — 못 잔 아침도, 주파수로 깨워준다</title>
 
 <!-- PWA -->
 <link rel="manifest" href="manifest.json">
@@ -15,7 +15,7 @@
 
 <!-- SEO / 공유 -->
 <meta name="description" content="상황별 바이노럴 비트로 아침 컨디션을 회복시켜주는 앱. 수면 부족, 숙취, 스트레스 — 14가지 맞춤 루틴.">
-<meta property="og:title" content="ReWake — 못 잔 아침도, AI가 깨워준다">
+<meta property="og:title" content="ReWake — 못 잔 아침도, 주파수로 깨워준다">
 <meta property="og:description" content="상황별 바이노럴 비트로 아침 컨디션을 회복시켜주는 앱">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://korahnchild-cmd.github.io/rewake/">
@@ -86,7 +86,8 @@
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .hero-sub { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .hero-sub { font-size: 13px; color: var(--text2); line-height: 1.7; }
+  .hero-sub strong { color: var(--accent2); font-weight: 700; }
 
   /* ── TRIAL BANNER ── */
   .trial-banner {
@@ -166,7 +167,7 @@
     font-size: 14px; font-weight: 700; line-height: 1.3;
     margin-bottom: 3px;
   }
-  .card-mode { font-size: 10px; color: rgba(255,255,255,0.45); margin-bottom: auto; }
+  .card-mode { font-size: 10px; color: rgba(255,255,255,0.55); margin-bottom: auto; font-weight: 500; letter-spacing: 0.2px; }
   .card-footer { 
     display: flex; justify-content: space-between; align-items: center; 
     margin-top: 14px;
@@ -650,7 +651,7 @@
     padding:8px 14px; border-radius:10px; cursor:pointer; font-family:inherit;
   }
 
-  /* ── AI 실시간 모드 토글 ── */
+  /* ── 실시간 모드 토글 ── */
   .ai-mode-wrap {
     margin-bottom: 14px;
   }
@@ -829,6 +830,7 @@
     display: flex; align-items: center; gap: 6px; margin-bottom: 2px;
   }
   .blend-mode-btn-sub { font-size: 11px; color: var(--text2); }
+  .blend-mode-btn-sub strong { color: var(--accent2); }
   .blend-mode-arrow { color: var(--accent2); font-size: 16px; }
 
   /* 복합 상태 선택 오버레이 */
@@ -1205,8 +1207,8 @@
           <div class="ob-icon-wrap">🌅</div>
         </div>
         <div class="ob-chip">ReWake</div>
-        <div class="ob-title">못 잔 아침도,<br><span>AI가 깨워준다</span></div>
-        <div class="ob-desc">전날 상태를 선택하면<br>상황 기반 적응형 주파수 엔진이<br>지금 이 순간 최적의 루틴을 제공합니다</div>
+        <div class="ob-title">못 잔 아침도,<br><span>주파수로 깨워준다</span></div>
+        <div class="ob-desc">전날 상태를 선택하면<br><strong style="color:var(--accent2)">상황 기반 적응형 주파수 엔진</strong>이<br>지금 이 순간 최적의 루틴을 제공합니다</div>
       </div>
 
       <!-- SLIDE 2 : 14가지 루틴 -->
@@ -1226,33 +1228,33 @@
         <div class="ob-desc">수면 부족부터 숙취, 두통, 집중까지<br>14가지 상황을 커버합니다<br>탭 하나로 바로 시작하세요</div>
       </div>
 
-      <!-- SLIDE 3 : PRO AI 실시간 블렌딩 -->
+      <!-- SLIDE 3 : PRO 실시간 주파수 블렌딩 -->
       <div class="ob-slide ob-slide-3">
         <div class="ob-visual">
           <div class="ob-icon-wrap">🧠</div>
         </div>
         <div class="ob-chip">PRO 전용 기능</div>
-        <div class="ob-title"><span>AI 실시간</span><br>바이노럴 블렌딩</div>
+        <div class="ob-title"><span>실시간 주파수</span><br>바이노럴 블렌딩</div>
         <div class="ob-feature-list" id="obFeatureList">
           <div class="ob-feature-item">
             <div class="ob-feature-emoji">⚡</div>
             <div class="ob-feature-text">
               <strong>OscillatorNode 실시간 합성</strong>
-              <span>mp3 파일 없이 브라우저가 직접<br>바이노럴 주파수를 실시간으로 만들어냅니다</span>
+              <span>mp3 파일 없이 브라우저가 직접<br>바이노럴 주파수를 <strong style="color:var(--accent2)">실시간</strong>으로 만들어냅니다</span>
             </div>
           </div>
           <div class="ob-feature-item">
             <div class="ob-feature-emoji">🎛️</div>
             <div class="ob-feature-text">
-              <strong>복합 주파수 블렌딩</strong>
-              <span>두 가지 상태의 주파수를 동시에 합성해<br>상황에 맞는 최적 조합을 제공합니다</span>
+              <strong>복합 주파수 블렌딩 (최대 3개)</strong>
+              <span>여러 상태의 주파수를 동시에 합성해<br>상황에 맞는 <strong style="color:var(--accent2)">최적 조합</strong>을 제공합니다</span>
             </div>
           </div>
           <div class="ob-feature-item">
             <div class="ob-feature-emoji">🌙</div>
             <div class="ob-feature-text">
               <strong>드림게이트 점진 전환</strong>
-              <span>알파파(10Hz)에서 델타파(2Hz)로<br>30분간 자연스럽게 전환하며 수면을 보조합니다</span>
+              <span>알파파(10Hz)에서 델타파(2Hz)로<br><strong style="color:var(--accent2)">30분간</strong> 자연스럽게 전환하며 수면을 보조합니다</span>
             </div>
           </div>
         </div>
@@ -1310,7 +1312,7 @@
 <div class="hero">
   <div class="hero-time">TODAY MORNING</div>
   <div class="hero-title">오늘 아침,<br><span>어떤 상태인가요?</span></div>
-  <div class="hero-sub">상태를 선택하면 상황 기반 적응형 주파수 엔진이 최적 루틴을 추천합니다</div>
+  <div class="hero-sub">상태를 선택하면 <strong style="color:var(--accent2);font-weight:700">적응형 주파수 엔진</strong>이 최적 루틴을 추천합니다</div>
 </div>
 
 <!-- PWA 설치 배너 (한 번만 표시) -->
@@ -1350,8 +1352,8 @@
 <!-- TRIAL BANNER -->
 <div class="trial-banner" role="region" aria-label="무료체험 안내">
   <div class="trial-info">
-    <strong>⚡ 무료체험 7일 남음</strong>
-    <p>7일이면 충분히 효과를 느낄 수 있어요 · 전체 14개 루틴 · 월 4,900원</p>
+    <strong>⚡ 무료체험 <span style="color:var(--accent2)">7일</span> 남음</strong>
+    <p><strong style="color:var(--text)">7일</strong>이면 충분히 효과를 느낄 수 있어요 · 전체 <strong style="color:var(--text)">14개</strong> 루틴 · 월 <strong style="color:var(--text)">4,900원</strong></p>
   </div>
   <button class="manage-btn" onclick="window.open('rewake_pro.html','_blank')" aria-label="구독 관리 페이지로 이동">관리 →</button>
 </div>
@@ -1359,18 +1361,18 @@
 <!-- DISCLAIMER -->
 <div class="disclaimer-banner" role="note" aria-label="서비스 안내">
   <strong>본 서비스는 의료기기가 아니며, 질병 치료·예방을 목적으로 하지 않습니다.</strong><br>
-  바이노럴 비트 효과는 개인차가 크며 주관적 경험을 보조하는 도구입니다.
+  바이노럴 비트 효과는 개인차가 크며 <strong>주관적 경험을 보조</strong>하는 도구입니다.
 </div>
 
 <!-- 복합 상태 모드 버튼 -->
-<button class="blend-mode-btn" onclick="openBlendMode()" aria-label="복합 상태 AI 블렌딩 모드 열기">
+<button class="blend-mode-btn" onclick="openBlendMode()" aria-label="복합 상태 블렌딩 모드 열기">
   <div class="blend-mode-btn-icon">🎛️</div>
   <div class="blend-mode-btn-text">
     <div class="blend-mode-btn-title">
       복합 상태 블렌딩
       <span class="ai-pro-badge">PRO</span>
     </div>
-    <div class="blend-mode-btn-sub">여러 상태를 동시에 선택해 맞춤 주파수 합성</div>
+    <div class="blend-mode-btn-sub">최대 <strong style="color:var(--accent2)">3가지</strong> 상태를 동시에 선택해 맞춤 주파수 합성</div>
   </div>
   <div class="blend-mode-arrow">›</div>
 </button>
@@ -1399,8 +1401,8 @@
 
 <!-- GRID -->
 <div class="section-header">
-  <div class="section-title">상태 선택</div>
-  <div class="section-count" aria-label="총 14개 루틴">14 routines</div>
+  <div class="section-title">상태 선택 <span style="font-size:11px;font-weight:400;color:var(--text2);font-family:'Noto Sans KR',sans-serif;">— 지금 내 상태를 탭하세요</span></div>
+  <div class="section-count" aria-label="총 14개 루틴"><strong style="color:var(--accent2)">14</strong> routines</div>
 </div>
 
 <div class="grid" id="routineGrid" role="list" aria-label="루틴 목록"></div>
@@ -1412,7 +1414,7 @@
 <div class="history-wrap">
   <div class="history-header">
     <div class="page-title">히스토리</div>
-    <div class="page-sub">나의 루틴 사용 기록</div>
+    <div class="page-sub">나의 루틴 사용 기록 · <strong style="color:var(--accent2)">5일 연속</strong> 🔥</div>
   </div>
 
   <!-- 주간 요약 -->
@@ -1420,17 +1422,17 @@
     <div class="week-card">
       <div class="week-val" aria-label="이번 주 루틴 사용 횟수 5회">5</div>
       <div class="week-label">이번 주 사용</div>
-      <div class="week-compare" aria-label="지난주보다 2회 증가">▲ 지난주 +2회</div>
+      <div class="week-compare" aria-label="지난주보다 2회 증가">▲ 지난주 <strong>+2회</strong></div>
     </div>
     <div class="week-card">
       <div class="week-val" aria-label="평균 컨디션 개선도 플러스 2점 1">+2.1</div>
       <div class="week-label">평균 개선도</div>
-      <div class="week-compare" aria-label="지난주보다 0점 3 향상">▲ 지난주 +0.3</div>
+      <div class="week-compare" aria-label="지난주보다 0점 3 향상">▲ 지난주 <strong>+0.3</strong></div>
     </div>
     <div class="week-card">
       <div class="week-val" aria-label="회복 점수 87퍼센트">87%</div>
       <div class="week-label">회복 점수</div>
-      <div class="week-compare" aria-label="지난주 대비 5퍼센트 향상">▲ 지난주 +5%</div>
+      <div class="week-compare" aria-label="지난주 대비 5퍼센트 향상">▲ 지난주 <strong>+5%</strong></div>
     </div>
   </div>
 
@@ -1438,7 +1440,7 @@
   <div class="listen-summary" role="region" aria-label="이번 주 청취 시간">
     <div class="listen-icon" aria-hidden="true">🎧</div>
     <div class="listen-info">
-      <div class="listen-val">38분 <span class="listen-compare" aria-label="지난주보다 12분 더">▲ 지난주보다 12분 더</span></div>
+      <div class="listen-val"><strong>38분</strong> <span class="listen-compare" aria-label="지난주보다 12분 더">▲ 지난주보다 <strong>12분</strong> 더</span></div>
       <div class="listen-label">이번 주 총 청취 시간</div>
     </div>
   </div>
@@ -1467,8 +1469,8 @@
   <div class="history-item">
     <div class="history-emoji">😴</div>
     <div class="history-info">
-      <div class="history-name">알파 웨이크 프로토콜</div>
-      <div class="history-meta">오늘 · 7분 · 수면 부족</div>
+      <div class="history-name"><strong>알파 웨이크 프로토콜</strong></div>
+      <div class="history-meta">오늘 · <strong>7분</strong> · 수면 부족</div>
     </div>
     <div class="history-score">
       <div class="score-arrow" style="color:#34d399">↑+2</div>
@@ -1479,8 +1481,8 @@
   <div class="history-item">
     <div class="history-emoji">🎯</div>
     <div class="history-info">
-      <div class="history-name">딥 포커스 모드</div>
-      <div class="history-meta">어제 · 10분 · 집중이 필요할 때</div>
+      <div class="history-name"><strong>딥 포커스 모드</strong></div>
+      <div class="history-meta">어제 · <strong>10분</strong> · 집중이 필요할 때</div>
     </div>
     <div class="history-score">
       <div class="score-arrow" style="color:#34d399">↑+2</div>
@@ -1491,8 +1493,8 @@
   <div class="history-item">
     <div class="history-emoji">🍺</div>
     <div class="history-info">
-      <div class="history-name">젠틀 리부트</div>
-      <div class="history-meta">2일 전 · 10분 · 과음/숙취</div>
+      <div class="history-name"><strong>젠틀 리부트</strong></div>
+      <div class="history-meta">2일 전 · <strong>10분</strong> · 과음/숙취</div>
     </div>
     <div class="history-score">
       <div class="score-arrow" style="color:#34d399">↑+1</div>
@@ -1503,8 +1505,8 @@
   <div class="history-item">
     <div class="history-emoji">😰</div>
     <div class="history-info">
-      <div class="history-name">캄 포커스 트랜지션</div>
-      <div class="history-meta">3일 전 · 8분 · 스트레스/불안</div>
+      <div class="history-name"><strong>캄 포커스 트랜지션</strong></div>
+      <div class="history-meta">3일 전 · <strong>8분</strong> · 스트레스/불안</div>
     </div>
     <div class="history-score">
       <div class="score-arrow" style="color:#34d399">↑+3</div>
@@ -1515,8 +1517,8 @@
   <div class="history-item">
     <div class="history-emoji">😊</div>
     <div class="history-info">
-      <div class="history-name">데일리 부스터</div>
-      <div class="history-meta">4일 전 · 5분 · 컨디션 정상</div>
+      <div class="history-name"><strong>데일리 부스터</strong></div>
+      <div class="history-meta">4일 전 · <strong>5분</strong> · 컨디션 정상</div>
     </div>
     <div class="history-score">
       <div class="score-arrow" style="color:#a78bfa">↑+1</div>
@@ -1538,7 +1540,7 @@
   <div class="sub-card" role="region" aria-label="구독 상태">
     <div class="sub-info">
       <strong>✦ 무료체험 중</strong>
-      <p>7일 후 월 4,900원 · 7일이면 효과를 직접 확인할 수 있어요</p>
+      <p><strong style="color:#60a5fa">7일</strong> 후 월 <strong style="color:#60a5fa">4,900원</strong> · 7일이면 효과를 직접 확인할 수 있어요</p>
     </div>
     <button class="upgrade-btn" onclick="window.open('rewake_pro.html','_blank')" aria-label="PRO 구독하기">구독하기</button>
   </div>
@@ -1546,8 +1548,8 @@
   <!-- 컨디션 DNA -->
   <div class="dna-card">
     <div class="dna-badge">🧬 컨디션 DNA</div>
-    <div class="dna-title">나만의 회복 패턴</div>
-    <div class="dna-sub">5회 사용 기반 분석 · 사용할수록 정교해집니다</div>
+    <div class="dna-title">나만의 <strong>회복 패턴</strong></div>
+    <div class="dna-sub"><strong style="color:var(--accent2)">5회</strong> 사용 기반 분석 · 사용할수록 정교해집니다</div>
 
     <div class="dna-stats">
       <div class="dna-stat">
@@ -1564,7 +1566,7 @@
       <div class="dna-best-emoji">😰</div>
       <div class="dna-best-info">
         <div class="dna-best-label">나에게 가장 효과적인 루틴</div>
-        <div class="dna-best-name">캄 포커스 트랜지션 (+3.0)</div>
+        <div class="dna-best-name"><strong>캄 포커스 트랜지션</strong> (+3.0)</div>
       </div>
     </div>
 
@@ -1690,13 +1692,14 @@
     <div class="modal-effect" id="modalEffect"></div>
 
     <div class="headphone-note" style="background:#7c6fff15; border-left-color:#7c6fff; margin-bottom:8px;">
-      ⚡ <strong>전체 재생 시 효과 극대화</strong> — 주파수 동조는 마지막 1분에 완성됩니다
+      ⚡ <strong>전체 재생 시 효과 극대화</strong> — 주파수 동조는 <strong>마지막 1분</strong>에 완성됩니다
     </div>
     <div class="headphone-note">
-      🎧 바이노럴 비트는 <strong>헤드폰 착용</strong> 시 효과가 극대화됩니다
+      🎧 바이노럴 비트는 <strong>헤드폰·이어폰 착용</strong> 시 효과가 극대화됩니다
     </div>
     <div class="headphone-note" style="background:#34d39910; border: 1px solid #34d39930; color:#3fda9f;">
-      🌐 블루투스 이어폰 사용 시 <strong>삼성 인터넷</strong> 또는 <strong>Safari</strong> 권장 — 크롬은 블루투스 출력이 제한될 수 있어요
+      🌐 블루투스 이어폰 사용 시 <strong>삼성 인터넷</strong> 또는 <strong>Safari</strong> 권장 — 크롬은 블루투스 출력이 제한될 수 있어요<br>
+      <span style="font-size:10px;opacity:0.8;margin-top:4px;display:block">🚗 차량 블루투스 스피커로도 어느 정도 경험하실 수 있어요</span>
     </div>
 
     <!-- AI 실시간 모드 토글 -->
@@ -1705,7 +1708,7 @@
         <div class="ai-mode-icon">🧠</div>
         <div class="ai-mode-text">
           <div class="ai-mode-title">
-            AI 실시간 블렌딩
+            실시간 주파수 블렌딩
             <span class="ai-pro-badge">PRO</span>
           </div>
           <div class="ai-mode-sub" id="aiModeSub">OscillatorNode로 바이노럴 주파수를 실시간 합성합니다</div>
@@ -2053,8 +2056,7 @@ function toggleAiMode() {
       if (r.dreamgate) { freqDesc = `알파 10Hz → 델타 2Hz  점진 전환 (30분)`; }
       sub.textContent = freqDesc;
 
-      blend.textContent = `🎛️ 실시간 합성 중 — ${r.freq} 주파수 출력`;
-      blend.classList.add('show');
+      blend.textContent = `🎛️ 실시간 합성 중 — ${r.freq} 주파수 출력`;      blend.classList.add('show');
       if (label) { label.textContent = r.freq; label.classList.add('ai-active'); }
       document.getElementById('progressBg').onclick = null;
     }, 600); // 600ms 딜레이 — 생성 느낌
