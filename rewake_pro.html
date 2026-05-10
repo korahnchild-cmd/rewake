@@ -4,1463 +4,1002 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ReWake PRO — 아침을 바꾸는 14가지 루틴</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<meta name="description" content="수면 부족, 숙취, 밤샘, 스트레스 — 전날 상태를 입력하면 적응형 주파수 엔진이 맞춤 회복 루틴을 제공합니다">
 <style>
-:root {
-  --bg: #080810;
-  --bg2: #0f0f1a;
-  --bg3: #161624;
-  --accent: #7c6fff;
-  --accent2: #a78bfa;
-  --free: #34d399;
-  --premium: #f59e0b;
-  --text: #f0f0f8;
-  --text2: #8888aa;
-  --text3: #4444668;
-  --border: #ffffff0d;
-  --border2: #ffffff18;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg); color: var(--text);
-  font-family: 'Noto Sans KR', sans-serif;
-  overflow-x: hidden; line-height: 1.6;
-}
-
-/* ── NOISE TEXTURE ── */
-body::before {
-  content: ''; position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 0; opacity: 0.4;
-}
-
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 16px 24px;
-  display: flex; justify-content: space-between; align-items: center;
-  background: #080810cc; backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; }
-.nav-logo span { color: var(--accent2); }
-.nav-back {
-  font-size: 12px; color: var(--text2);
-  background: none; border: 1px solid var(--border2);
-  padding: 7px 14px; border-radius: 20px; cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
-  transition: color 0.2s, border-color 0.2s;
-  text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
-}
-.nav-back:hover { color: var(--accent2); border-color: #7c6fff50; }
-.nav-right { display: flex; align-items: center; gap: 10px; }
-.nav-cta {
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border: none; color: white; font-size: 13px; font-weight: 700;
-  padding: 9px 18px; border-radius: 20px; cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
-  box-shadow: 0 4px 16px #7c6fff40;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px #7c6fff50; }
-
-/* ── SECTIONS ── */
-section { position: relative; z-index: 1; }
-
-/* ── HERO ── */
-.hero {
-  min-height: 100vh; display: flex; flex-direction: column;
-  justify-content: center; align-items: center; text-align: center;
-  padding: 120px 24px 80px;
-  background: radial-gradient(ellipse 80% 60% at 50% 30%, #7c6fff18 0%, transparent 70%);
-}
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: #7c6fff15; border: 1px solid #7c6fff30;
-  border-radius: 20px; padding: 6px 14px; margin-bottom: 28px;
-  font-size: 12px; color: var(--accent2); font-weight: 600; letter-spacing: 1px;
-  text-transform: uppercase;
-  animation: fadeUp 0.6s ease both;
-}
-.hero-title {
-  font-family: 'Noto Sans KR', sans-serif; font-size: clamp(32px, 7vw, 58px);
-  font-weight: 700; line-height: 1.15; letter-spacing: -1px;
-  margin-bottom: 20px;
-  animation: fadeUp 0.6s 0.1s ease both;
-}
-.hero-title .grad {
-  background: linear-gradient(135deg, #a78bfa, #60a5fa);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.hero-title .grad2 {
-  background: linear-gradient(135deg, #f59e0b, #fb923c);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.hero-sub {
-  font-size: 16px; color: var(--text2); max-width: 480px;
-  margin: 0 auto 40px; line-height: 1.8;
-  animation: fadeUp 0.6s 0.2s ease both;
-}
-.hero-btns {
-  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
-  animation: fadeUp 0.6s 0.3s ease both;
-}
-.btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border: none; color: white; font-size: 15px; font-weight: 700;
-  padding: 16px 32px; border-radius: 14px; cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
-  box-shadow: 0 8px 28px #7c6fff50;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px #7c6fff60; }
-.btn-secondary {
-  background: transparent; border: 1px solid var(--border2);
-  color: var(--text2); font-size: 15px; padding: 16px 32px;
-  border-radius: 14px; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
-  transition: border-color 0.2s, color 0.2s;
-}
-.btn-secondary:hover { border-color: var(--accent2); color: var(--accent2); }
-.hero-note {
-  font-size: 12px; color: var(--text2); margin-top: 16px;
-  animation: fadeUp 0.6s 0.4s ease both;
-}
-
-/* 통계 바 */
-.hero-stats {
-  display: flex; gap: 40px; margin-top: 64px; flex-wrap: wrap; justify-content: center;
-  animation: fadeUp 0.6s 0.5s ease both;
-}
-.stat-item { text-align: center; }
-.stat-num { font-family:'Bebas Neue',sans-serif; font-size: 40px; color: var(--accent2); line-height:1; }
-.stat-label { font-size: 12px; color: var(--text2); margin-top: 4px; }
-
-/* ── PAIN SECTION ── */
-.pain {
-  padding: 80px 24px;
-  background: linear-gradient(180deg, transparent, #0f0f1a50, transparent);
-}
-.pain-inner { max-width: 640px; margin: 0 auto; text-align: center; }
-.section-label {
-  font-size: 11px; color: var(--accent2); font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
-}
-.section-title {
-  font-family: 'Noto Sans KR', sans-serif; font-size: clamp(22px, 4.5vw, 34px);
-  font-weight: 700; line-height: 1.3; margin-bottom: 16px;
-}
-.section-sub { font-size: 15px; color: var(--text2); line-height: 1.8; }
-
-.pain-cards {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px; margin-top: 40px; max-width: 640px; margin-left: auto; margin-right: auto;
-}
-.pain-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 16px; padding: 20px 16px; text-align: center;
-  transition: border-color 0.2s, transform 0.2s;
-}
-.pain-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-.pain-card-emoji { font-size: 28px; margin-bottom: 10px; }
-.pain-card-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
-
-/* ── COMPARE ── */
-.compare { padding: 80px 24px; }
-.compare-inner { max-width: 700px; margin: 0 auto; }
-.compare-title { text-align: center; margin-bottom: 40px; }
-
-.compare-table {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 20px; overflow: hidden;
-}
-.compare-header {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  background: var(--bg3); padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-}
-.compare-header-cell { text-align: center; font-size: 13px; font-weight: 700; }
-.compare-header-cell.pro { color: var(--accent2); }
-.compare-row {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  padding: 14px 20px; border-bottom: 1px solid var(--border);
-  align-items: center; transition: background 0.15s;
-}
-.compare-row:last-child { border-bottom: none; }
-.compare-row:hover { background: #ffffff04; }
-.compare-cell { text-align: center; font-size: 13px; }
-.compare-cell.feature { text-align: left; color: var(--text2); }
-.check { color: var(--free); font-size: 16px; }
-.cross { color: #444466; font-size: 16px; }
-.pro-highlight { color: var(--accent2); font-weight: 600; }
-
-/* ── ROUTINES ── */
-.routines { padding: 80px 24px; }
-.routines-inner { max-width: 700px; margin: 0 auto; }
-.routines-title { text-align: center; margin-bottom: 40px; }
-.routine-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
-}
-.routine-card {
-  border-radius: 16px; padding: 16px 12px;
-  border: 1px solid var(--border); position: relative;
-  transition: transform 0.2s, border-color 0.2s;
-  min-height: 110px; display: flex; flex-direction: column;
-}
-.routine-card:hover { transform: translateY(-2px); border-color: var(--border2); }
-.routine-card.locked { opacity: 0.55; }
-.routine-card.locked::after {
-  content: '🔒'; position: absolute; top: 10px; right: 10px; font-size: 12px;
-}
-.r-emoji { font-size: 22px; margin-bottom: 8px; }
-.r-name { font-size: 12px; font-weight: 600; line-height: 1.3; margin-bottom: 4px; }
-.r-badge {
-  display: inline-block; font-size: 9px; font-weight: 700;
-  padding: 2px 6px; border-radius: 8px; text-transform: uppercase;
-  margin-top: auto;
-}
-.free-b { background: #34d39918; color: var(--free); border: 1px solid #34d39930; }
-.pro-b { background: #f59e0b18; color: var(--premium); border: 1px solid #f59e0b30; }
-
-/* 루틴 카드 컬러 */
-.rc-01{background:linear-gradient(145deg,#1a1a35,#12122a)}.rc-02{background:linear-gradient(145deg,#1a2a1a,#0f1f0f)}
-.rc-03{background:linear-gradient(145deg,#2a1a2a,#1a0f1a)}.rc-04{background:linear-gradient(145deg,#2a1f10,#1a1208)}
-.rc-05{background:linear-gradient(145deg,#102a2a,#081a1a)}.rc-06{background:linear-gradient(145deg,#1a2535,#0f1825)}
-.rc-07{background:linear-gradient(145deg,#25201a,#18140f)}.rc-08{background:linear-gradient(145deg,#2a1a1a,#1a0f0f)}
-.rc-09{background:linear-gradient(145deg,#1f1a2a,#140f1a)}.rc-10{background:linear-gradient(145deg,#1a2a1a,#0d1f0d)}
-.rc-11{background:linear-gradient(145deg,#1a1a2f,#0f0f20)}.rc-12{background:linear-gradient(145deg,#2a2010,#1a1408)}
-.rc-13{background:linear-gradient(145deg,#101a2a,#080f1a)}.rc-14{background:linear-gradient(145deg,#2a1a0a,#1a0f05)}
-
-/* ── DNA ── */
-.dna-section { padding: 80px 24px; }
-.dna-inner { max-width: 700px; margin: 0 auto; }
-.dna-title { text-align: center; margin-bottom: 40px; }
-.dna-showcase {
-  background: linear-gradient(135deg, #1a1535, #0f0f2a);
-  border: 1px solid #7c6fff25; border-radius: 24px;
-  padding: 32px; position: relative; overflow: hidden;
-}
-.dna-showcase::before {
-  content: 'DNA'; position: absolute; right: -8px; top: -16px;
-  font-family: 'Syne', sans-serif; font-size: 100px; font-weight: 800;
-  color: #7c6fff06; line-height: 1; pointer-events: none;
-}
-.dna-badge-wrap { margin-bottom: 16px; }
-.dna-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: #7c6fff20; border: 1px solid #7c6fff40;
-  border-radius: 20px; padding: 5px 12px;
-  font-size: 11px; color: var(--accent2); font-weight: 700; letter-spacing: 0.5px;
-}
-.dna-showcase-title {
-  font-family: 'Noto Sans KR', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 6px;
-}
-.dna-showcase-sub { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
-.dna-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-.dna-metric {
-  background: #ffffff08; border-radius: 12px; padding: 14px;
-}
-.dna-metric-val { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--accent2); line-height: 1; }
-.dna-metric-label { font-size: 11px; color: var(--text2); margin-top: 4px; }
-.dna-best {
-  background: #ffffff08; border-radius: 12px; padding: 14px;
-  display: flex; align-items: center; gap: 12px;
-}
-.dna-best-emoji { font-size: 32px; }
-.dna-best-label { font-size: 11px; color: var(--text2); margin-bottom: 3px; }
-.dna-best-name { font-size: 14px; font-weight: 700; color: var(--accent2); }
-.dna-bars { display: flex; gap: 5px; align-items: flex-end; height: 48px; margin-top: 20px; }
-.dna-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.dna-bar {
-  width: 100%; border-radius: 3px 3px 0 0;
-  background: linear-gradient(180deg, var(--accent), var(--accent2));
-}
-.dna-bar-lbl { font-size: 9px; color: var(--text2); }
-.dna-pro-lock {
-  margin-top: 20px; padding: 14px; background: #f59e0b10;
-  border: 1px solid #f59e0b25; border-radius: 12px;
-  font-size: 13px; color: #f59e0b; text-align: center;
-}
-
-/* ── REVIEWS ── */
-.reviews { padding: 80px 24px; }
-.reviews-inner { max-width: 700px; margin: 0 auto; }
-.reviews-title { text-align: center; margin-bottom: 40px; }
-.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-.review-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 18px; padding: 20px;
-  transition: border-color 0.2s;
-}
-.review-card:hover { border-color: var(--border2); }
-.review-stars { color: #f59e0b; font-size: 13px; margin-bottom: 10px; letter-spacing: 2px; }
-.review-text { font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
-.review-author { font-size: 12px; color: var(--text2); }
-.review-author strong { color: var(--text); }
-
-/* ── PRICING ── */
-.pricing { padding: 80px 24px; }
-.pricing-inner { max-width: 700px; margin: 0 auto; }
-.pricing-title { text-align: center; margin-bottom: 40px; }
-.pricing-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 14px; align-items: start;
-}
-.price-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 20px; padding: 24px 20px;
-  transition: transform 0.2s;
-}
-.price-card:hover { transform: translateY(-3px); }
-.price-card.featured {
-  background: linear-gradient(145deg, #1a1535, #12102a);
-  border-color: #7c6fff40;
-  box-shadow: 0 8px 32px #7c6fff20;
-  transform: scale(1.03);
-}
-.price-card.featured:hover { transform: scale(1.03) translateY(-3px); }
-.price-tag {
-  display: inline-block; font-size: 10px; font-weight: 700;
-  padding: 3px 8px; border-radius: 8px; margin-bottom: 12px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-.tag-free { background: #34d39918; color: var(--free); border: 1px solid #34d39930; }
-.tag-monthly { background: #7c6fff18; color: var(--accent2); border: 1px solid #7c6fff30; }
-.tag-yearly { background: #f59e0b18; color: var(--premium); border: 1px solid #f59e0b30; }
-.tag-lifetime { background: #f8717118; color: #f87171; border: 1px solid #f8717130; }
-.price-name { font-family:'Noto Sans KR',sans-serif; font-size:15px; font-weight:700; margin-bottom:6px; }
-.price-amount { font-family:'Bebas Neue',sans-serif; font-size:42px; line-height:1; margin-bottom:4px; }
-.price-amount span { font-family:'Noto Sans KR',sans-serif; font-size:14px; font-weight:400; color:var(--text2); }
-.price-desc { font-size:12px; color:var(--text2); margin-bottom:16px; line-height:1.5; }
-.price-features { list-style:none; margin-bottom:20px; }
-.price-features li {
-  font-size:12px; color:var(--text2); padding:5px 0;
-  border-bottom:1px solid var(--border); display:flex; gap:8px; align-items:center;
-}
-.price-features li:last-child { border-bottom:none; }
-.price-features li::before { content:'✓'; color:var(--free); font-weight:700; flex-shrink:0; }
-.price-btn {
-  width:100%; padding:12px; border-radius:12px; font-size:13px; font-weight:700;
-  cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.2s;
-  border: none;
-}
-.price-btn.primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: white; box-shadow: 0 4px 16px #7c6fff40;
-}
-.price-btn.primary:hover { box-shadow: 0 6px 24px #7c6fff50; transform: translateY(-1px); }
-.price-btn.outline {
-  background: transparent; color: var(--text2); border: 1px solid var(--border2);
-}
-.price-btn.outline:hover { border-color: var(--accent2); color: var(--accent2); }
-.featured-badge {
-  text-align:center; font-size:11px; color:var(--accent2);
-  margin-bottom:8px; font-weight:700; letter-spacing:1px;
-}
-.save-badge {
-  display:inline-block; background:#f59e0b20; color:#f59e0b;
-  font-size:10px; font-weight:700; padding:2px 8px; border-radius:8px;
-  margin-left:6px;
-}
-.anchor-text {
-  text-align:center; font-size:12px; color:var(--text2); margin-top:20px;
-}
-.anchor-text strong { color:var(--text); }
-
-/* ── FAQ ── */
-.faq { padding: 80px 24px; }
-.faq-inner { max-width: 600px; margin: 0 auto; }
-.faq-title { text-align: center; margin-bottom: 40px; }
-.faq-item {
-  border-bottom: 1px solid var(--border); padding: 20px 0; cursor: pointer;
-}
-.faq-q {
-  font-family: 'Noto Sans KR', sans-serif; font-size: 15px; font-weight: 600; display: flex;
-  justify-content: space-between; align-items: center; gap: 16px;
-}
-.faq-icon { color: var(--accent2); font-size: 18px; flex-shrink:0; transition: transform 0.2s; }
-.faq-a {
-  font-size: 14px; color: var(--text2); line-height: 1.8;
-  max-height: 0; overflow: hidden; transition: max-height 0.3s ease, margin-top 0.3s;
-}
-.faq-item.open .faq-a { max-height: 200px; margin-top: 12px; }
-.faq-item.open .faq-icon { transform: rotate(45deg); }
-
-/* ── FINAL CTA ── */
-.final-cta {
-  padding: 100px 24px; text-align: center;
-  background: radial-gradient(ellipse 70% 50% at 50% 100%, #7c6fff15 0%, transparent 70%);
-}
-.final-cta-title {
-  font-family: 'Noto Sans KR', sans-serif; font-size: clamp(26px, 5.5vw, 44px);
-  font-weight: 700; line-height: 1.25; margin-bottom: 16px;
-}
-.final-cta-sub { font-size: 15px; color: var(--text2); margin-bottom: 36px; }
-.final-btn-group {
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-}
-.final-btn {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border: none; color: white; font-size: 17px; font-weight: 700;
-  padding: 20px 48px; border-radius: 16px; cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
-  box-shadow: 0 8px 32px #7c6fff50;
-  transition: transform 0.2s, box-shadow 0.2s;
-  text-decoration: none; display: inline-block;
-}
-.final-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 40px #7c6fff60; }
-.final-note { font-size: 13px; color: var(--text2); margin-top: 16px; }
-
-/* ── FOOTER ── */
-footer {
-  padding: 32px 24px; text-align: center;
-  border-top: 1px solid var(--border);
-  font-size: 12px; color: var(--text2);
-}
-footer strong { color: var(--text); }
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.reveal {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 480px) {
-  .hero-stats { gap: 24px; }
-  .pricing-grid { grid-template-columns: 1fr; }
-  .price-card.featured { transform: none; }
-}
-
-  /* ── SCIENCE SECTION ── */
-  .science { padding: 80px 24px; background: linear-gradient(180deg, transparent, #0f0f1a40, transparent); }
-  .science-inner { max-width: 700px; margin: 0 auto; }
-  .science-title { text-align: center; margin-bottom: 40px; }
-
-  .brainwave-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px; margin-bottom: 40px;
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #12121a;
+    --bg3: #1a1a26;
+    --accent: #7c6fff;
+    --accent2: #b8a4ff;
+    --free: #3fda9f;
+    --pro: #7c6fff;
+    --text1: #f0f0fa;
+    --text2: #aaaabf;
+    --text3: #666680;
+    --border: rgba(124,111,255,0.15);
+    --card: rgba(255,255,255,0.03);
+    --gold: #f0c060;
+    --warn: #ff8c42;
   }
-  .bw-card {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 16px; padding: 18px 14px; text-align: center;
-    transition: transform 0.2s, border-color 0.2s;
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text1);
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  .bw-card:hover { transform: translateY(-2px); border-color: var(--border2); }
-  .bw-wave {
-    height: 32px; margin-bottom: 10px; position: relative; overflow: hidden;
-  }
-  .bw-wave svg { width: 100%; height: 100%; }
-  .bw-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--accent2); letter-spacing: 1px; }
-  .bw-hz { font-size: 11px; color: var(--text2); margin-bottom: 6px; }
-  .bw-effect { font-size: 11px; color: var(--text); line-height: 1.5; }
 
-  /* 특허 섹션 */
-  .patent-wrap {
-    background: linear-gradient(135deg, #12102a, #0f0f1f);
-    border: 1px solid #7c6fff25; border-radius: 20px;
-    padding: 28px; margin-top: 40px;
+  /* NAV */
+  nav {
+    position: sticky; top:0; z-index:100;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex; align-items:center; justify-content:space-between;
   }
-  .patent-header {
-    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  .nav-logo { font-size:22px; font-weight:800; letter-spacing:-1px; color:var(--text1); }
+  .nav-logo span { color:var(--accent2); }
+  .nav-actions { display:flex; gap:10px; align-items:center; }
+  .btn-ghost {
+    padding: 8px 16px; border-radius:20px;
+    border: 1px solid var(--border);
+    background: transparent; color:var(--text2);
+    font-size:14px; cursor:pointer; text-decoration:none;
+    transition: all 0.2s;
   }
-  .patent-icon { font-size: 28px; }
-  .patent-title-wrap {}
-  .patent-eyebrow { font-size: 10px; color: var(--accent2); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2px; }
-  .patent-title-text { font-family: 'Noto Sans KR', sans-serif; font-size: 17px; font-weight: 700; }
-  .patent-items { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-  @media (max-width: 480px) { .patent-items { grid-template-columns: 1fr; } }
-  .patent-item {
-    background: #ffffff06; border: 1px solid #7c6fff18;
-    border-radius: 14px; padding: 16px;
+  .btn-ghost:hover { border-color:var(--accent); color:var(--accent2); }
+  .btn-primary {
+    padding: 10px 20px; border-radius:24px;
+    background: var(--accent); color:#fff;
+    font-size:14px; font-weight:700; cursor:pointer;
+    text-decoration:none; border:none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(124,111,255,0.4);
   }
-  .patent-item-num { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #7c6fff40; line-height: 1; margin-bottom: 6px; }
-  .patent-item-title { font-size: 13px; font-weight: 700; color: var(--accent2); margin-bottom: 6px; line-height: 1.4; }
-  .patent-item-desc { font-size: 11px; color: var(--text2); line-height: 1.6; }
-  .patent-cert-row {
-    display: flex; gap: 12px; align-items: stretch;
-  }
-  @media (max-width: 480px) { .patent-cert-row { flex-direction: column; } }
-  .patent-cert-placeholder {
-    flex: 1; background: #ffffff05; border: 1.5px dashed #7c6fff30;
-    border-radius: 14px; padding: 20px; text-align: center;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-    min-height: 120px;
-  }
-  .patent-cert-placeholder .cert-icon { font-size: 28px; opacity: 0.5; }
-  .patent-cert-placeholder .cert-label { font-size: 12px; color: var(--text2); line-height: 1.5; }
-  .patent-cert-placeholder .cert-badge {
-    display: inline-block; background: #7c6fff20; border: 1px solid #7c6fff40;
-    color: var(--accent2); font-size: 10px; font-weight: 700;
-    padding: 3px 10px; border-radius: 10px; letter-spacing: 0.5px;
-  }
-  .patent-note { font-size: 11px; color: var(--text2); margin-top: 12px; text-align: center; line-height: 1.6; }
+  .btn-primary:hover { background:#9080ff; transform:translateY(-1px); }
 
-  /* ── URGENCY / EARLY BIRD ── */
-  .urgency { padding: 80px 24px; }
-  .urgency-inner { max-width: 600px; margin: 0 auto; text-align: center; }
-  .urgency-card {
-    background: linear-gradient(135deg, #1a120a, #2a1a08);
-    border: 1px solid #f59e0b25; border-radius: 20px;
-    padding: 32px 24px; position: relative; overflow: hidden;
+  /* HERO */
+  .hero {
+    padding: 72px 20px 60px;
+    text-align: center;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(124,111,255,0.12) 0%, transparent 70%);
   }
-  .urgency-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, #f59e0b0a, transparent);
-    pointer-events: none;
+  .hero-badge {
+    display: inline-flex; align-items:center; gap:6px;
+    background: rgba(124,111,255,0.1);
+    border: 1px solid rgba(124,111,255,0.3);
+    border-radius:20px; padding:6px 14px;
+    font-size:13px; color:var(--accent2);
+    margin-bottom:24px;
   }
-  .urgency-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: #f59e0b20; border: 1px solid #f59e0b40;
-    border-radius: 20px; padding: 5px 14px; margin-bottom: 16px;
-    font-size: 11px; color: #f59e0b; font-weight: 700; letter-spacing: 0.5px;
+  .hero h1 {
+    font-size: clamp(28px, 7vw, 52px);
+    font-weight:900; line-height:1.2;
+    letter-spacing:-1.5px;
+    margin-bottom:20px;
   }
-  .urgency-title { font-family: 'Noto Sans KR', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-  .urgency-sub { font-size: 13px; color: var(--text2); margin-bottom: 24px; line-height: 1.7; }
-  .counter-wrap { margin-bottom: 24px; }
-  .counter-label { font-size: 12px; color: var(--text2); margin-bottom: 8px; }
-  .counter-bar-bg {
-    height: 8px; background: #ffffff10; border-radius: 4px; margin-bottom: 8px; overflow: hidden;
+  .hero h1 em { font-style:normal; color:var(--accent2); }
+  .hero p {
+    font-size: clamp(15px, 3.5vw, 18px);
+    color:var(--text2); max-width:480px; margin:0 auto 36px;
+    line-height:1.7;
   }
-  .counter-bar-fill {
-    height: 100%; border-radius: 4px;
-    background: linear-gradient(90deg, #f59e0b, #fb923c);
-    width: 63%; transition: width 1s ease;
+  .hero-cta { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:14px; }
+  .btn-hero {
+    padding: 16px 32px; border-radius:32px;
+    background: var(--accent); color:#fff;
+    font-size:17px; font-weight:700;
+    text-decoration:none; border:none; cursor:pointer;
+    box-shadow: 0 6px 30px rgba(124,111,255,0.5);
+    transition: all 0.2s;
   }
-  .counter-nums {
-    display: flex; justify-content: space-between; font-size: 11px; color: var(--text2);
+  .btn-hero:hover { background:#9080ff; transform:translateY(-2px); }
+  .btn-hero-ghost {
+    padding: 16px 28px; border-radius:32px;
+    border: 1px solid var(--border);
+    background: transparent; color:var(--text2);
+    font-size:16px; cursor:pointer;
+    text-decoration:none; transition: all 0.2s;
   }
-  .counter-remain { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: #f59e0b; line-height: 1; }
-  .counter-remain-label { font-size: 11px; color: var(--text2); margin-bottom: 16px; }
-  .lifetime-price { margin-bottom: 20px; }
-  .lifetime-amount { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--text); line-height: 1; }
-  .lifetime-amount span { font-family: 'Noto Sans KR', sans-serif; font-size: 16px; color: var(--text2); }
-  .lifetime-desc { font-size: 12px; color: var(--text2); margin-top: 4px; }
+  .btn-hero-ghost:hover { border-color:var(--accent); color:var(--accent2); }
+  .hero-sub { font-size:13px; color:var(--text3); }
+  .hero-stats {
+    display:flex; gap:24px; justify-content:center; flex-wrap:wrap;
+    margin-top:48px;
+  }
+  .stat-item { text-align:center; }
+  .stat-num { font-size:32px; font-weight:900; color:var(--accent2); display:block; }
+  .stat-label { font-size:12px; color:var(--text3); }
 
-  /* ── BEFORE/AFTER ── */
-  .before-after { padding: 80px 24px; }
-  .ba-inner { max-width: 600px; margin: 0 auto; }
-  .ba-title { text-align: center; margin-bottom: 40px; }
-  .ba-flow {
-    display: flex; flex-direction: column; gap: 0;
+  /* SECTION COMMON */
+  section { padding: 64px 20px; }
+  .section-tag {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(124,111,255,0.08); border:1px solid var(--border);
+    border-radius:20px; padding:5px 12px;
+    font-size:12px; color:var(--accent2);
+    margin-bottom:16px;
   }
-  .ba-step {
-    display: flex; gap: 16px; align-items: flex-start; padding: 20px 0;
-    border-left: 2px solid var(--border); padding-left: 24px; position: relative;
+  h2 {
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight:900; line-height:1.25;
+    letter-spacing:-0.8px; margin-bottom:12px;
   }
-  .ba-step::before {
-    content: ''; position: absolute; left: -6px; top: 24px;
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--step-color, var(--border2)); border: 2px solid var(--bg);
-  }
-  .ba-step:last-child { border-left-color: transparent; }
-  .ba-emoji { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
-  .ba-info {}
-  .ba-step-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; color: var(--step-color, var(--text2)); }
-  .ba-step-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .ba-step-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
-  .ba-card {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 14px; padding: 12px 16px; margin-top: 8px;
-    font-size: 12px; color: var(--text2);
-  }
-  .ba-score-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
-  .ba-score-before { font-size: 13px; color: #f87171; font-weight: 700; }
-  .ba-score-arrow { color: var(--text2); }
-  .ba-score-after { font-size: 13px; color: var(--free); font-weight: 700; }
-  .ba-score-label { font-size: 11px; color: var(--text2); }
+  h2 em { font-style:normal; color:var(--accent2); }
+  .section-sub { color:var(--text2); font-size:15px; line-height:1.7; max-width:500px; }
+  .section-center { text-align:center; }
+  .section-center .section-sub { margin:0 auto; }
+  .max-w { max-width:720px; margin:0 auto; }
 
-  /* ── VALUE COMPARE ── */
-  .value-compare { padding: 80px 24px; background: linear-gradient(180deg, transparent, #0f0f1a40, transparent); }
-  .vc-inner { max-width: 600px; margin: 0 auto; }
-  .vc-title { text-align: center; margin-bottom: 40px; }
-  .vc-table {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 20px; overflow: hidden;
+  /* PAIN POINTS */
+  .pain-grid {
+    display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap:12px; margin-top:36px;
   }
-  .vc-row {
-    display: grid; grid-template-columns: 1fr 100px 100px;
-    padding: 14px 20px; border-bottom: 1px solid var(--border);
-    align-items: center; gap: 8px;
+  .pain-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:20px 16px; text-align:center;
   }
-  .vc-row:last-child { border-bottom: none; }
-  .vc-row.header { background: var(--bg3); }
-  .vc-item { font-size: 13px; color: var(--text2); display: flex; align-items: center; gap: 8px; }
-  .vc-item-emoji { font-size: 16px; }
-  .vc-cost { text-align: center; font-size: 13px; }
-  .vc-rewake { text-align: center; font-size: 13px; color: var(--free); font-weight: 700; }
-  .vc-header-cell { text-align: center; font-size: 11px; font-weight: 700; color: var(--text2); letter-spacing: 0.5px; }
-  .vc-header-cell.rewake-col { color: var(--accent2); }
-  .vc-strikethrough { text-decoration: line-through; color: #555577; }
+  .pain-emoji { font-size:28px; display:block; margin-bottom:10px; }
+  .pain-text { font-size:13px; color:var(--text2); line-height:1.5; }
 
+  /* BRAINWAVE */
+  .wave-grid {
+    display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap:10px; margin-top:36px;
+  }
+  .wave-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:14px; padding:18px 14px; text-align:center;
+    transition: border-color 0.2s;
+  }
+  .wave-card:hover { border-color:var(--accent); }
+  .wave-label {
+    font-size:11px; font-weight:700; letter-spacing:1px;
+    color:var(--text3); text-transform:uppercase; margin-bottom:6px;
+  }
+  .wave-hz { font-size:13px; color:var(--text2); margin-bottom:8px; }
+  .wave-desc { font-size:12px; color:var(--text3); line-height:1.4; }
+
+  /* BLEND SECTION */
+  .blend-section {
+    background: linear-gradient(135deg, rgba(124,111,255,0.06), rgba(184,164,255,0.04));
+    border: 1px solid var(--border);
+    border-radius:24px; padding:36px 24px;
+    margin-top:32px;
+  }
+  .blend-tag {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(124,111,255,0.12); border:1px solid rgba(124,111,255,0.3);
+    border-radius:16px; padding:5px 12px;
+    font-size:12px; color:var(--accent2);
+    margin-bottom:16px;
+  }
+  .blend-how {
+    display:flex; gap:10px; align-items:center;
+    margin: 20px 0 16px; flex-wrap:wrap;
+  }
+  .blend-step {
+    background:var(--bg3); border:1px solid var(--border);
+    border-radius:12px; padding:12px 16px;
+    font-size:14px; color:var(--text2);
+    flex:1; min-width:130px; text-align:center;
+  }
+  .blend-arrow { color:var(--accent2); font-size:18px; flex-shrink:0; }
+  .blend-result {
+    background:rgba(124,111,255,0.08); border:1px solid rgba(124,111,255,0.25);
+    border-radius:12px; padding:12px 16px;
+    font-size:14px; color:var(--accent2);
+    flex:1; min-width:130px; text-align:center;
+    font-weight:700;
+  }
+  .blend-examples { display:flex; flex-direction:column; gap:10px; margin-top:20px; }
+  .blend-ex {
+    background:var(--bg3); border:1px solid var(--border);
+    border-radius:14px; padding:16px 18px;
+  }
+  .blend-ex-chips { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+  .chip {
+    padding:4px 10px; border-radius:20px;
+    font-size:12px; font-weight:600;
+  }
+  .chip-alpha { background:rgba(100,180,255,0.15); color:#80c8ff; }
+  .chip-beta  { background:rgba(255,180,80,0.15);  color:#ffb840; }
+  .chip-gamma { background:rgba(255,100,100,0.15); color:#ff9090; }
+  .chip-theta { background:rgba(100,220,160,0.15); color:#60dfa0; }
+  .chip-delta { background:rgba(180,100,255,0.15); color:#c090ff; }
+  .blend-ex-title { font-size:15px; font-weight:700; margin-bottom:4px; }
+  .blend-ex-desc { font-size:13px; color:var(--text2); line-height:1.5; }
+  .blend-notice {
+    margin-top:16px; padding:12px 16px;
+    background:rgba(255,140,66,0.08); border:1px solid rgba(255,140,66,0.2);
+    border-radius:10px; font-size:12px; color:#ffb07a;
+  }
+
+  /* BLUETOOTH CAR SECTION */
+  .car-section {
+    background: linear-gradient(135deg, rgba(63,218,159,0.05), rgba(124,111,255,0.04));
+    border: 1px solid rgba(63,218,159,0.2);
+    border-radius:24px; padding:32px 24px;
+    margin-top:0;
+  }
+  .car-tag {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(63,218,159,0.1); border:1px solid rgba(63,218,159,0.25);
+    border-radius:16px; padding:5px 12px;
+    font-size:12px; color:var(--free);
+    margin-bottom:16px;
+  }
+  .car-body { font-size:15px; color:var(--text2); line-height:1.7; margin-top:10px; }
+  .car-tips { display:flex; flex-direction:column; gap:8px; margin-top:16px; }
+  .car-tip {
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--card); border:1px solid var(--border);
+    border-radius:12px; padding:12px 14px;
+    font-size:13px; color:var(--text2);
+  }
+  .car-tip-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+  .car-note {
+    margin-top:12px; font-size:12px; color:var(--text3);
+    padding:10px 14px;
+    background:rgba(255,255,255,0.02); border-radius:10px;
+    border-left:2px solid var(--border);
+  }
+
+  /* FEATURE TABLE */
+  .feature-table { width:100%; border-collapse:collapse; margin-top:32px; }
+  .feature-table th {
+    padding:12px 16px; text-align:center;
+    font-size:14px; font-weight:700;
+    border-bottom:1px solid var(--border);
+    color:var(--text2);
+  }
+  .feature-table th.pro-col { color:var(--accent2); }
+  .feature-table td {
+    padding:12px 16px; text-align:center;
+    font-size:14px; border-bottom:1px solid rgba(255,255,255,0.04);
+    color:var(--text2);
+  }
+  .feature-table td:first-child { text-align:left; color:var(--text1); }
+  .check { color:var(--free); font-size:16px; }
+  .cross { color:var(--text3); }
+  .pro-val { color:var(--accent2); font-size:13px; }
+
+  /* ROUTINES */
+  .routine-grid {
+    display:grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    gap:10px; margin-top:32px;
+  }
+  .routine-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:14px; padding:16px 14px;
+    position:relative; transition: border-color 0.2s;
+  }
+  .routine-card:hover { border-color:rgba(124,111,255,0.4); }
+  .routine-badge {
+    position:absolute; top:10px; right:10px;
+    font-size:10px; font-weight:700; padding:2px 7px; border-radius:8px;
+  }
+  .badge-free { background:rgba(63,218,159,0.15); color:var(--free); }
+  .badge-pro  { background:rgba(124,111,255,0.15); color:var(--accent2); }
+  .routine-emoji { font-size:24px; display:block; margin-bottom:8px; }
+  .routine-name { font-size:13px; color:var(--text2); }
+
+  /* JOURNEY */
+  .journey { display:flex; flex-direction:column; gap:16px; margin-top:32px; }
+  .journey-step {
+    display:flex; gap:16px; align-items:flex-start;
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:20px;
+  }
+  .journey-icon { font-size:28px; flex-shrink:0; }
+  .journey-label { font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+  .journey-title { font-size:16px; font-weight:700; margin-bottom:6px; }
+  .journey-desc { font-size:13px; color:var(--text2); line-height:1.5; }
+  .journey-chip {
+    display:inline-block; margin-top:8px;
+    background:rgba(124,111,255,0.1); border:1px solid rgba(124,111,255,0.2);
+    border-radius:8px; padding:4px 10px;
+    font-size:11px; color:var(--accent2);
+  }
+  .score-badge {
+    display:inline-flex; align-items:center; gap:4px;
+    background:rgba(63,218,159,0.1); border:1px solid rgba(63,218,159,0.2);
+    border-radius:8px; padding:4px 10px;
+    font-size:11px; color:var(--free); margin-top:8px;
+  }
+
+  /* DNA */
+  .dna-card {
+    background:var(--bg2); border:1px solid var(--border);
+    border-radius:20px; padding:24px; margin-top:32px;
+  }
+  .dna-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .dna-icon { font-size:24px; }
+  .dna-title { font-size:16px; font-weight:700; }
+  .dna-sub { font-size:12px; color:var(--text3); }
+  .dna-stats { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
+  .dna-stat { flex:1; min-width:100px; background:var(--bg3); border-radius:12px; padding:14px; text-align:center; }
+  .dna-stat-num { font-size:22px; font-weight:900; color:var(--accent2); display:block; }
+  .dna-stat-label { font-size:11px; color:var(--text3); }
+  .dna-week { display:flex; gap:6px; margin-bottom:8px; }
+  .dna-day { flex:1; text-align:center; }
+  .dna-day-label { font-size:10px; color:var(--text3); margin-bottom:4px; }
+  .dna-dot {
+    height:32px; border-radius:4px;
+    background:rgba(124,111,255,0.15);
+  }
+  .dna-dot.active { background:var(--accent); }
+  .dna-lock {
+    margin-top:12px; padding:10px 14px;
+    background:rgba(124,111,255,0.06); border:1px solid var(--border);
+    border-radius:10px; font-size:12px; color:var(--text3); text-align:center;
+  }
+
+  /* PRICING */
+  .pricing-grid { display:grid; gap:16px; margin-top:32px; }
+  .price-card {
+    background:var(--bg2); border:1px solid var(--border);
+    border-radius:20px; padding:28px 24px;
+    position:relative;
+  }
+  .price-card.featured {
+    border-color:var(--accent);
+    box-shadow:0 0 40px rgba(124,111,255,0.15);
+  }
+  .price-popular {
+    position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+    background:var(--accent); color:#fff;
+    font-size:11px; font-weight:700; padding:4px 14px; border-radius:10px;
+    white-space:nowrap;
+  }
+  .price-plan { font-size:12px; color:var(--text3); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+  .price-amount { font-size:32px; font-weight:900; color:var(--text1); }
+  .price-unit { font-size:14px; color:var(--text3); }
+  .price-billing { font-size:12px; color:var(--text3); margin:6px 0 16px; }
+  .price-features { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:24px; }
+  .price-features li { font-size:14px; color:var(--text2); display:flex; align-items:center; gap:8px; }
+  .price-features li::before { content:'✓'; color:var(--free); font-weight:700; }
+  .btn-price {
+    display:block; width:100%; padding:14px;
+    border-radius:14px; text-align:center;
+    font-size:15px; font-weight:700;
+    text-decoration:none; cursor:pointer; border:none;
+    transition: all 0.2s;
+  }
+  .btn-price-primary { background:var(--accent); color:#fff; }
+  .btn-price-primary:hover { background:#9080ff; }
+  .btn-price-ghost { background:var(--bg3); color:var(--text2); border:1px solid var(--border); }
+  .price-compare {
+    background:var(--bg2); border:1px solid var(--border);
+    border-radius:20px; padding:24px; margin-top:24px;
+  }
+  .compare-title { font-size:14px; color:var(--text3); margin-bottom:16px; text-align:center; }
+  .compare-row {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04);
+    font-size:14px;
+  }
+  .compare-row:last-child { border-bottom:none; }
+  .compare-item { color:var(--text2); }
+  .compare-price { color:var(--text3); font-size:13px; }
+  .compare-rewake { color:var(--free); font-weight:700; }
+
+  /* EARLYBIRD */
+  .early-section {
+    background: linear-gradient(135deg, rgba(240,192,96,0.06), rgba(124,111,255,0.04));
+    border:1px solid rgba(240,192,96,0.2);
+    border-radius:24px; padding:36px 24px; text-align:center;
+  }
+  .early-tag {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(240,192,96,0.1); border:1px solid rgba(240,192,96,0.3);
+    border-radius:16px; padding:5px 12px;
+    font-size:12px; color:var(--gold);
+    margin-bottom:16px;
+  }
+  .early-count { font-size:14px; color:var(--text3); margin-top:20px; }
+  .early-bar {
+    height:6px; background:rgba(255,255,255,0.08); border-radius:3px;
+    margin:10px 0; overflow:hidden;
+  }
+  .early-bar-fill {
+    height:100%; width:63%; border-radius:3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2));
+  }
+  .early-num { font-size:42px; font-weight:900; color:var(--gold); }
+  .early-desc { font-size:13px; color:var(--text3); }
+  .btn-early {
+    display:inline-block; margin-top:24px;
+    padding:16px 36px; border-radius:32px;
+    background:linear-gradient(135deg, var(--gold), #e0a840);
+    color:#1a1000; font-size:16px; font-weight:800;
+    text-decoration:none; cursor:pointer; border:none;
+    box-shadow:0 6px 24px rgba(240,192,96,0.3);
+    transition:all 0.2s;
+  }
+  .btn-early:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(240,192,96,0.4); }
+
+  /* REVIEWS */
+  .review-grid { display:flex; flex-direction:column; gap:14px; margin-top:32px; }
+  .review-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:20px;
+  }
+  .review-stars { color:var(--gold); font-size:14px; margin-bottom:10px; }
+  .review-text { font-size:14px; color:var(--text2); line-height:1.6; margin-bottom:10px; }
+  .review-author { font-size:12px; color:var(--text3); font-weight:600; }
+
+  /* FAQ */
+  .faq-list { display:flex; flex-direction:column; gap:8px; margin-top:32px; }
+  .faq-item {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:14px; overflow:hidden;
+  }
+  .faq-q {
+    width:100%; background:none; border:none; color:var(--text1);
+    font-size:15px; font-weight:600; padding:18px 20px;
+    text-align:left; cursor:pointer; display:flex; justify-content:space-between; align-items:center;
+  }
+  .faq-q::after { content:'+'; color:var(--accent2); font-size:20px; flex-shrink:0; }
+  .faq-a { padding:0 20px 16px; font-size:14px; color:var(--text2); line-height:1.6; display:none; }
+  .faq-item.open .faq-q::after { content:'−'; }
+  .faq-item.open .faq-a { display:block; }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    background:rgba(255,140,66,0.04); border:1px solid rgba(255,140,66,0.15);
+    border-radius:14px; padding:16px 20px;
+    font-size:12px; color:#ffb07a; line-height:1.7;
+    margin: 32px 0;
+  }
+
+  /* CTA FINAL */
+  .final-cta {
+    padding:72px 20px; text-align:center;
+    background:radial-gradient(ellipse 80% 50% at 50% 100%, rgba(124,111,255,0.1), transparent);
+  }
+
+  /* FOOTER */
+  footer {
+    padding:32px 20px; text-align:center;
+    border-top:1px solid var(--border);
+    font-size:13px; color:var(--text3);
+  }
+  footer a { color:var(--text3); text-decoration:none; }
+  footer a:hover { color:var(--text2); }
+
+  /* PATENT BADGE */
+  .patent-badge {
+    display:flex; gap:12px; flex-wrap:wrap; margin-top:24px;
+  }
+  .patent-card {
+    flex:1; min-width:200px;
+    background:var(--card); border:1px solid var(--border);
+    border-radius:14px; padding:16px 18px;
+  }
+  .patent-icon { font-size:20px; margin-bottom:8px; }
+  .patent-title { font-size:13px; font-weight:700; color:var(--text1); margin-bottom:4px; }
+  .patent-desc { font-size:12px; color:var(--text2); line-height:1.4; }
+  .patent-status {
+    display:inline-block; margin-top:8px;
+    font-size:11px; color:var(--accent2);
+    background:rgba(124,111,255,0.1); border-radius:6px; padding:2px 8px;
+  }
+  .patent-note { font-size:11px; color:var(--text3); margin-top:16px; }
+
+  @media(min-width:600px) {
+    .pricing-grid { grid-template-columns:1fr 1fr; }
+    .blend-examples { flex-direction:row; flex-wrap:wrap; }
+    .blend-ex { flex:1; min-width:200px; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav aria-label="상단 네비게이션">
   <div class="nav-logo">Re<span>Wake</span></div>
-  <div class="nav-right">
-    <a class="nav-back" href="https://korahnchild-cmd.github.io/rewake/" aria-label="ReWake 앱으로 이동">
-      🌅 앱 열기
-    </a>
-    <button class="nav-cta" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
-      1주 무료 시작
-    </button>
+  <div class="nav-actions">
+    <a href="https://korahnchild-cmd.github.io/rewake/" class="btn-ghost">🌅 앱 열기</a>
+    <a href="#pricing" class="btn-primary">1주 무료 시작</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-eyebrow">✦ ReWake PRO</div>
-  <h1 class="hero-title">
-    못 잔 아침,<br>
-    <span class="grad">AI가 깨워준다</span>
-  </h1>
-  <p class="hero-sub">
-    수면 부족, 숙취, 밤샘, 스트레스 — 전날 상태를 입력하면<br>
-    AI가 최적의 뇌파를 분석해 맞춤 회복 루틴을 제공합니다
-  </p>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
-      2주 무료로 시작하기
-    </button>
-    <button class="btn-secondary" onclick="document.getElementById('routines').scrollIntoView({behavior:'smooth'})">
-      루틴 살펴보기
-    </button>
+<header class="hero">
+  <div class="hero-badge">✦ ReWake PRO</div>
+  <h1>못 잔 아침,<br><em>주파수로 깨워준다</em></h1>
+  <p>수면 부족, 숙취, 밤샘, 스트레스 — 전날 상태를 입력하면<br>적응형 주파수 엔진이 최적 회복 루틴을 제공합니다</p>
+  <div class="hero-cta">
+    <a href="#pricing" class="btn-hero">1주 무료로 시작하기</a>
+    <a href="#routines" class="btn-hero-ghost">루틴 살펴보기</a>
   </div>
-  <p class="hero-note">신용카드 불필요 · 언제든 해지 가능</p>
-
+  <p class="hero-sub">신용카드 불필요 · 언제든 해지 가능</p>
   <div class="hero-stats">
-    <div class="stat-item">
-      <div class="stat-num">14</div>
-      <div class="stat-label">상황별 맞춤 루틴</div>
+    <div class="stat-item"><span class="stat-num">14</span><span class="stat-label">상황별 맞춤 루틴</span></div>
+    <div class="stat-item"><span class="stat-num">5min</span><span class="stat-label">최단 루틴 시간</span></div>
+    <div class="stat-item"><span class="stat-num">실시간</span><span class="stat-label">주파수 합성 엔진</span></div>
+  </div>
+</header>
+
+<!-- PAIN POINTS -->
+<section>
+  <div class="max-w">
+    <div class="section-center">
+      <div class="section-tag">공감하시나요?</div>
+      <h2>매일 아침,<br><em>이런 상태로 하루를 시작하나요?</em></h2>
+      <p class="section-sub">에너지 드링크로 버티는 아침, 이제 그만해도 됩니다</p>
     </div>
-    <div class="stat-item">
-      <div class="stat-num">5min</div>
-      <div class="stat-label">최단 루틴 시간</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">AI</div>
-      <div class="stat-label">뇌파 분석 엔진</div>
+    <div class="pain-grid">
+      <div class="pain-card"><span class="pain-emoji">😴</span><p class="pain-text">알람이 울려도<br>몸이 안 일어남</p></div>
+      <div class="pain-card"><span class="pain-emoji">🍺</span><p class="pain-text">어젯밤 회식 후<br>두통과 구역감</p></div>
+      <div class="pain-card"><span class="pain-emoji">🖥️</span><p class="pain-text">밤샘 후 머리가<br>멍하고 집중 안 됨</p></div>
+      <div class="pain-card"><span class="pain-emoji">😰</span><p class="pain-text">중요한 일 앞두고<br>극도의 긴장감</p></div>
+      <div class="pain-card"><span class="pain-emoji">📝</span><p class="pain-text">시험·발표 직전<br>머리가 하얗게 됨</p></div>
+      <div class="pain-card"><span class="pain-emoji">🔥</span><p class="pain-text">운동 전인데<br>몸이 무겁고 의욕 없음</p></div>
     </div>
   </div>
 </section>
 
-<!-- PAIN -->
-<section class="pain">
-  <div class="pain-inner reveal">
-    <div class="section-label">공감하시나요?</div>
-    <h2 class="section-title">매일 아침,<br>이런 상태로 하루를 시작하나요?</h2>
-    <p class="section-sub">에너지 드링크로 버티는 아침, 이제 그만해도 됩니다</p>
-
-    <div class="pain-cards">
-      <div class="pain-card">
-        <div class="pain-card-emoji">😴</div>
-        <div class="pain-card-text">알람이 울려도<br>몸이 안 일어남</div>
+<!-- BRAINWAVE SCIENCE -->
+<section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="max-w">
+    <div class="section-tag">과학적 근거</div>
+    <h2>뇌파로 상태를 바꾼다는 게<br><em>정말 가능한가요?</em></h2>
+    <p class="section-sub">바이노럴 비트는 두 귀에 미세하게 다른 주파수를 들려줘 뇌가 그 차이를 인식하며 스스로 동조되는 청각 신경과학 기술입니다</p>
+    <div class="wave-grid">
+      <div class="wave-card">
+        <div class="wave-label">DELTA</div>
+        <div class="wave-hz">0.5 – 4Hz</div>
+        <div class="wave-desc">깊은 수면<br>이완 보조</div>
       </div>
-      <div class="pain-card">
-        <div class="pain-card-emoji">🍺</div>
-        <div class="pain-card-text">어젯밤 회식 후<br>두통과 구역감</div>
+      <div class="wave-card">
+        <div class="wave-label">THETA</div>
+        <div class="wave-hz">4 – 8Hz</div>
+        <div class="wave-desc">신체 회복<br>창의적 상태</div>
       </div>
-      <div class="pain-card">
-        <div class="pain-card-emoji">🖥️</div>
-        <div class="pain-card-text">밤샘 후 머리가<br>멍하고 집중 안 됨</div>
+      <div class="wave-card">
+        <div class="wave-label">ALPHA</div>
+        <div class="wave-hz">8 – 12Hz</div>
+        <div class="wave-desc">진정·집중<br>스트레스 완화</div>
       </div>
-      <div class="pain-card">
-        <div class="pain-card-emoji">😰</div>
-        <div class="pain-card-text">중요한 일 앞두고<br>극도의 긴장감</div>
+      <div class="wave-card">
+        <div class="wave-label">BETA</div>
+        <div class="wave-hz">12 – 30Hz</div>
+        <div class="wave-desc">각성·집중<br>논리적 사고</div>
       </div>
-      <div class="pain-card">
-        <div class="pain-card-emoji">📝</div>
-        <div class="pain-card-text">시험·발표 직전<br>머리가 하얗게 됨</div>
-      </div>
-      <div class="pain-card">
-        <div class="pain-card-emoji">🔥</div>
-        <div class="pain-card-text">운동 전인데<br>몸이 무겁고 의욕 없음</div>
+      <div class="wave-card">
+        <div class="wave-label">GAMMA</div>
+        <div class="wave-hz">30 – 100Hz</div>
+        <div class="wave-desc">고강도 각성<br>인지 능력 향상</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- BLEND SECTION -->
+<section>
+  <div class="max-w">
+    <div class="blend-section">
+      <div class="blend-tag">⚡ 적응형 주파수 블렌딩 기술</div>
+      <h2>복합 상태엔<br><em>최대 3가지 주파수를 동시에 합성</em></h2>
+      <p class="section-sub" style="margin-top:8px;">단일 루틴으로 커버하기 어려운 복합 상황 — 원하는 루틴을 최대 3개까지 선택하면 OscillatorNode가 각 주파수를 실시간으로 합성해 최적 조합을 생성합니다</p>
 
-<!-- SCIENCE + PATENT -->
-<section class="science">
-  <div class="science-inner reveal">
-    <div class="science-title">
-      <div class="section-label">과학적 근거</div>
-      <h2 class="section-title">뇌파로 상태를 바꾼다는 게<br>정말 가능한가요?</h2>
-      <p class="section-sub" style="margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;">바이노럴 비트는 두 귀에 미세하게 다른 주파수를 들려줘 뇌가 그 차이를 인식하며 스스로 동조되는 청각 신경과학 기술입니다</p>
-    </div>
+      <div class="blend-how">
+        <div class="blend-step">😴 수면부족<br>+ 🍺 숙취<br>+ 😰 스트레스</div>
+        <div class="blend-arrow">→</div>
+        <div class="blend-result">⚡ 실시간 3중<br>주파수 합성</div>
+        <div class="blend-arrow">→</div>
+        <div class="blend-step" style="background:rgba(124,111,255,0.08); border-color:rgba(124,111,255,0.25); color:var(--accent2);">나만의 맞춤<br>회복 루틴</div>
+      </div>
 
-    <div class="brainwave-grid">
-      <div class="bw-card">
-        <div class="bw-wave">
-          <svg viewBox="0 0 120 32" preserveAspectRatio="none">
-            <path d="M0,16 C10,4 20,28 30,16 C40,4 50,28 60,16 C70,4 80,28 90,16 C100,4 110,28 120,16" fill="none" stroke="#34d399" stroke-width="2"/>
-          </svg>
-        </div>
-        <div class="bw-name">DELTA</div>
-        <div class="bw-hz">0.5 – 4Hz</div>
-        <div class="bw-effect">깊은 수면<br>면역 회복</div>
-      </div>
-      <div class="bw-card">
-        <div class="bw-wave">
-          <svg viewBox="0 0 120 32" preserveAspectRatio="none">
-            <path d="M0,16 C7,6 14,26 21,16 C28,6 35,26 42,16 C49,6 56,26 63,16 C70,6 77,26 84,16 C91,6 98,26 105,16 C112,6 119,26 120,16" fill="none" stroke="#a78bfa" stroke-width="2"/>
-          </svg>
-        </div>
-        <div class="bw-name">THETA</div>
-        <div class="bw-hz">4 – 8Hz</div>
-        <div class="bw-effect">신체 회복<br>창의적 상태</div>
-      </div>
-      <div class="bw-card">
-        <div class="bw-wave">
-          <svg viewBox="0 0 120 32" preserveAspectRatio="none">
-            <path d="M0,16 C5,8 10,24 15,16 C20,8 25,24 30,16 C35,8 40,24 45,16 C50,8 55,24 60,16 C65,8 70,24 75,16 C80,8 85,24 90,16 C95,8 100,24 105,16 C110,8 115,24 120,16" fill="none" stroke="#60a5fa" stroke-width="2"/>
-          </svg>
-        </div>
-        <div class="bw-name">ALPHA</div>
-        <div class="bw-hz">8 – 12Hz</div>
-        <div class="bw-effect">진정·집중<br>스트레스 완화</div>
-      </div>
-      <div class="bw-card">
-        <div class="bw-wave">
-          <svg viewBox="0 0 120 32" preserveAspectRatio="none">
-            <path d="M0,16 C3,10 6,22 9,16 C12,10 15,22 18,16 C21,10 24,22 27,16 C30,10 33,22 36,16 C39,10 42,22 45,16 C48,10 51,22 54,16 C57,10 60,22 63,16 C66,10 69,22 72,16 C75,10 78,22 81,16 C84,10 87,22 90,16 C93,10 96,22 99,16 C102,10 105,22 108,16 C111,10 114,22 117,16 C119,10 120,16 120,16" fill="none" stroke="#fbbf24" stroke-width="2"/>
-          </svg>
-        </div>
-        <div class="bw-name">BETA</div>
-        <div class="bw-hz">12 – 30Hz</div>
-        <div class="bw-effect">각성·집중<br>논리적 사고</div>
-      </div>
-      <div class="bw-card" style="grid-column: span 1;">
-        <div class="bw-wave">
-          <svg viewBox="0 0 120 32" preserveAspectRatio="none">
-            <path d="M0,16 C2,12 4,20 6,16 C8,12 10,20 12,16 C14,12 16,20 18,16 C20,12 22,20 24,16 C26,12 28,20 30,16 C32,12 34,20 36,16 C38,12 40,20 42,16 C44,12 46,20 48,16 C50,12 52,20 54,16 C56,12 58,20 60,16 C62,12 64,20 66,16 C68,12 70,20 72,16 C74,12 76,20 78,16 C80,12 82,20 84,16 C86,12 88,20 90,16 C92,12 94,20 96,16 C98,12 100,20 102,16 C104,12 106,20 108,16 C110,12 112,20 114,16 C116,12 118,20 120,16" fill="none" stroke="#f87171" stroke-width="2"/>
-          </svg>
-        </div>
-        <div class="bw-name">GAMMA</div>
-        <div class="bw-hz">30 – 100Hz</div>
-        <div class="bw-effect">고강도 각성<br>인지 능력 최대화</div>
-      </div>
-    </div>
-
-
-    <!-- 블렌딩 설명 -->
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:40px;">
-      <div style="font-size:11px;color:var(--accent2);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;">⚡ AI 주파수 블렌딩 기술</div>
-      <div style="font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;">복합 상태엔 두 주파수를 혼합합니다</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:20px;">단일 루틴으로 커버하기 어려운 복합 상태 — AI가 두 주파수를 가중치 기반으로 블렌딩해 최적 조합을 실시간으로 생성합니다</div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
-        <div style="background:#ffffff06;border:1px solid #7c6fff18;border-radius:14px;padding:16px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-            <span style="background:#a78bfa20;color:#a78bfa;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;">알파 10Hz</span>
-            <span style="color:var(--text2);font-size:14px;">+</span>
-            <span style="background:#f8717120;color:#f87171;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;">감마 40Hz</span>
+      <div class="blend-examples">
+        <div class="blend-ex">
+          <div class="blend-ex-chips">
+            <span class="chip chip-alpha">알파 10Hz</span>
+            <span>+</span>
+            <span class="chip chip-gamma">감마 40Hz</span>
           </div>
-          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">진정 + 고강도 각성</div>
-          <div style="font-size:11px;color:var(--text2);line-height:1.6;">불안한 상태에서도 최고 집중력 발휘 — 시험·발표 직전에 최적</div>
+          <div class="blend-ex-title">진정 + 각성 보조</div>
+          <div class="blend-ex-desc">긴장된 상태에서도 집중 상태로의 전환을 보조합니다 — 시험·발표 직전 경험해보세요</div>
         </div>
-        <div style="background:#ffffff06;border:1px solid #7c6fff18;border-radius:14px;padding:16px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-            <span style="background:#34d39920;color:#34d399;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;">세타 6Hz</span>
-            <span style="color:var(--text2);font-size:14px;">+</span>
-            <span style="background:#60a5fa20;color:#60a5fa;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;">알파 8Hz</span>
+        <div class="blend-ex">
+          <div class="blend-ex-chips">
+            <span class="chip chip-theta">세타 6Hz</span>
+            <span>+</span>
+            <span class="chip chip-alpha">알파 8Hz</span>
           </div>
-          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">신체 회복 + 부드러운 각성</div>
-          <div style="font-size:11px;color:var(--text2);line-height:1.6;">과한 운동 후 몸을 달래면서 서서히 깨움 — 근육 피로 완화</div>
+          <div class="blend-ex-title">신체 회복 + 부드러운 각성 보조</div>
+          <div class="blend-ex-desc">과한 운동 후 편안하게 이완하면서 서서히 깨어나는 경험을 보조합니다</div>
         </div>
-        <div style="background:#ffffff06;border:1px solid #7c6fff18;border-radius:14px;padding:16px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-            <span style="background:#a78bfa20;color:#a78bfa;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;">알파 8Hz</span>
-            <span style="color:var(--text2);font-size:14px;">+</span>
-            <span style="background:#a78bfa20;color:#a78bfa;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;">알파 9Hz</span>
+        <div class="blend-ex">
+          <div class="blend-ex-chips">
+            <span class="chip chip-alpha">알파 8Hz</span>
+            <span>+</span>
+            <span class="chip chip-alpha">알파 9Hz</span>
+            <span>+</span>
+            <span class="chip chip-theta">세타 6Hz</span>
           </div>
-          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">두통 완화 + 숙취 회복</div>
-          <div style="font-size:11px;color:var(--text2);line-height:1.6;">두 가지 고통이 동시에 올 때 — 자극 없이 부드럽게 회복 유도</div>
-        </div>
-      </div>
-      <div style="margin-top:14px;padding:10px 14px;background:#f59e0b10;border:1px solid #f59e0b20;border-radius:10px;font-size:11px;color:#f59e0b;">
-        🔬 복합 상태 주파수 블렌딩 방식 — 특허 출원 중 (제2 클레임)
-      </div>
-    </div>
-
-    <!-- 특허 -->
-    <div class="patent-wrap">
-      <div class="patent-header">
-        <div class="patent-icon">🔬</div>
-        <div class="patent-title-wrap">
-          <div class="patent-eyebrow">특허 출원 중</div>
-          <div class="patent-title-text">ReWake만의 독자 기술, 특허로 증명합니다</div>
+          <div class="blend-ex-title">두통 + 숙취 + 피로 복합 이완 보조</div>
+          <div class="blend-ex-desc">세 가지 불편함이 동시에 올 때 — 자극 없이 부드러운 이완 상태를 경험해보세요</div>
         </div>
       </div>
 
-      <div class="patent-items">
-        <div class="patent-item">
-          <div class="patent-item-num">01</div>
-          <div class="patent-item-title">상황 분류 →<br>주파수 매핑 알고리즘</div>
-          <div class="patent-item-desc">사용자의 전날 컨디션 상태를 입력받아 AI가 최적 뇌파 주파수를 분석·선택하는 방법 및 시스템</div>
-        </div>
-        <div class="patent-item">
-          <div class="patent-item-num">02</div>
-          <div class="patent-item-title">복합 상태<br>주파수 블렌딩 방식</div>
-          <div class="patent-item-desc">숙취+두통 등 복합 상태 동시 입력 시 가중치 기반으로 두 주파수를 블렌딩해 최적 조합을 생성하는 방식</div>
-        </div>
+      <div class="blend-notice">
+        💡 <strong>직접 조합하세요</strong> — 위 예시는 참고용입니다. 앱에서 14개 루틴 중 최대 3개를 자유롭게 선택해 나만의 조합을 만들 수 있어요
       </div>
-
-      <div class="patent-cert-row">
-        <div class="patent-cert-placeholder">
-          <div class="cert-icon">📄</div>
-          <div class="cert-label">특허출원 확인서 (01)<br><span style="font-size:10px;color:#444466">출원 완료 후 이미지 교체 예정</span></div>
-          <span class="cert-badge">출원 준비 중</span>
-        </div>
-        <div class="patent-cert-placeholder">
-          <div class="cert-icon">📄</div>
-          <div class="cert-label">특허출원 확인서 (02)<br><span style="font-size:10px;color:#444466">출원 완료 후 이미지 교체 예정</span></div>
-          <span class="cert-badge">출원 준비 중</span>
-        </div>
-      </div>
-      <div class="patent-note">특허 출원일부터 <strong style="color:var(--text)">'특허출원중'</strong> 표기 효력이 발생합니다 · 출원 즉시 해당 이미지로 교체 예정</div>
     </div>
   </div>
 </section>
 
-<!-- COMPARE -->
-<section class="compare" id="compare">
-  <div class="compare-inner reveal">
-    <div class="compare-title">
-      <div class="section-label">무료 vs PRO</div>
-      <h2 class="section-title">PRO에서만 가능한 것들</h2>
+<!-- BLUETOOTH CAR SECTION -->
+<section style="padding-top:0;">
+  <div class="max-w">
+    <div class="car-section">
+      <div class="car-tag">🚗 이런 방법도 있어요</div>
+      <h2 style="font-size:clamp(18px,4vw,26px);">출퇴근 중 차량 스피커로도<br><em>충분히 경험할 수 있어요</em></h2>
+      <p class="car-body">
+        헤드폰이 가장 효과적이지만, 블루투스 차량 스피커에 연결해 출퇴근길에 틀어두는 것만으로도 꽤 좋은 경험을 하셨다는 분들이 있어요. 운전 중 따로 뭔가를 하지 않아도 — 그냥 음악 대신 틀어두면 됩니다.
+      </p>
+      <div class="car-tips">
+        <div class="car-tip">
+          <span class="car-tip-icon">🎵</span>
+          <span>출근 전 멍한 상태라면 <strong>알파 웨이크 프로토콜</strong>이나 <strong>데일리 부스터</strong>를 차 안에서 틀어보세요</span>
+        </div>
+        <div class="car-tip">
+          <span class="car-tip-icon">🌙</span>
+          <span>야근 후 퇴근길이라면 <strong>캄 포커스 트랜지션</strong>으로 긴장을 풀며 이동할 수 있어요</span>
+        </div>
+        <div class="car-tip">
+          <span class="car-tip-icon">📱</span>
+          <span>삼성 인터넷 또는 Safari에서 실행하면 블루투스 연결이 더 안정적으로 작동해요</span>
+        </div>
+      </div>
+      <div class="car-note">⚠️ 바이노럴 비트의 좌우 채널 분리 효과는 헤드폰 착용 시 극대화됩니다. 스피커 사용 시 효과는 개인차가 있을 수 있어요.</div>
     </div>
+  </div>
+</section>
 
-    <div class="compare-table">
-      <div class="compare-header">
-        <div class="compare-header-cell">기능</div>
-        <div class="compare-header-cell">무료</div>
-        <div class="compare-header-cell pro">PRO ✦</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell feature">기본 루틴 (5가지)</div>
-        <div class="compare-cell"><span class="check">✓</span></div>
-        <div class="compare-cell"><span class="check">✓</span></div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell feature">전체 14가지 루틴</div>
-        <div class="compare-cell"><span class="cross">—</span></div>
-        <div class="compare-cell pro-highlight">✓ 전체 개방</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell feature">🌙 드림게이트 (꿀잠)</div>
-        <div class="compare-cell"><span class="cross">—</span></div>
-        <div class="compare-cell pro-highlight">✓ 30분 수면 유도</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell feature">🎯 시험/발표 직전</div>
-        <div class="compare-cell"><span class="cross">—</span></div>
-        <div class="compare-cell pro-highlight">✓ 긴장 해소 특화</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell feature">🧬 컨디션 DNA 리포트</div>
-        <div class="compare-cell"><span class="cross">—</span></div>
-        <div class="compare-cell pro-highlight">✓ 나만의 회복 패턴</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell feature">히스토리 보관</div>
-        <div class="compare-cell" style="font-size:12px;color:var(--text2)">7일</div>
-        <div class="compare-cell pro-highlight">90일 + 분석</div>
-      </div>
-      <div class="compare-row">
-        <div class="compare-cell feature">AI 개인화 분석</div>
-        <div class="compare-cell"><span class="cross">—</span></div>
-        <div class="compare-cell pro-highlight">✓ 사용할수록 정교</div>
-      </div>
+<!-- FEATURE TABLE -->
+<section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="max-w">
+    <div class="section-center">
+      <div class="section-tag">무료 vs PRO</div>
+      <h2>PRO에서만 가능한 것들</h2>
     </div>
+    <table class="feature-table" aria-label="무료 vs PRO 기능 비교">
+      <thead>
+        <tr>
+          <th style="text-align:left;">기능</th>
+          <th>무료</th>
+          <th class="pro-col">PRO ✦</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>기본 루틴 (3가지)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>전체 14가지 루틴</td><td><span class="cross">—</span></td><td><span class="pro-val">✓ 전체 개방</span></td></tr>
+        <tr><td>🌙 드림게이트 (꿀잠)</td><td><span class="cross">—</span></td><td><span class="pro-val">✓ 30분 수면 유도</span></td></tr>
+        <tr><td>📝 시험/발표 직전</td><td><span class="cross">—</span></td><td><span class="pro-val">✓ 긴장 해소 특화</span></td></tr>
+        <tr><td>🧬 컨디션 DNA 리포트</td><td><span class="cross">—</span></td><td><span class="pro-val">✓ 나만의 회복 패턴</span></td></tr>
+        <tr><td>히스토리 보관</td><td>7일</td><td><span class="pro-val">90일 + 분석</span></td></tr>
+        <tr><td>적응형 개인화 분석</td><td><span class="cross">—</span></td><td><span class="pro-val">✓ 사용할수록 정교</span></td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
 <!-- ROUTINES -->
-<section class="routines" id="routines">
-  <div class="routines-inner reveal">
-    <div class="routines-title">
-      <div class="section-label">14가지 루틴</div>
-      <h2 class="section-title">모든 아침 상태를<br>커버합니다</h2>
+<section id="routines">
+  <div class="max-w">
+    <div class="section-center">
+      <div class="section-tag">14가지 루틴</div>
+      <h2>모든 아침 상태를<br><em>커버합니다</em></h2>
     </div>
-
     <div class="routine-grid">
-      <div class="routine-card rc-01">
-        <div class="r-emoji">😴</div>
-        <div class="r-name">수면 부족</div>
-        <span class="r-badge free-b">FREE</span>
-      </div>
-      <div class="routine-card rc-02">
-        <div class="r-emoji">🍺</div>
-        <div class="r-name">과음/숙취</div>
-        <span class="r-badge free-b">FREE</span>
-      </div>
-      <div class="routine-card rc-06">
-        <div class="r-emoji">😰</div>
-        <div class="r-name">스트레스/불안</div>
-        <span class="r-badge free-b">FREE</span>
-      </div>
-      <div class="routine-card rc-10">
-        <div class="r-emoji">😊</div>
-        <div class="r-name">컨디션 정상</div>
-        <span class="r-badge free-b">FREE</span>
-      </div>
-      <div class="routine-card rc-11">
-        <div class="r-emoji">🎯</div>
-        <div class="r-name">집중이 필요할 때</div>
-        <span class="r-badge free-b">FREE</span>
-      </div>
-      <div class="routine-card rc-03 locked">
-        <div class="r-emoji">🖥️</div>
-        <div class="r-name">밤샘 작업</div>
-        <span class="r-badge pro-b">PRO</span>
-      </div>
-      <div class="routine-card rc-04 locked">
-        <div class="r-emoji">💪</div>
-        <div class="r-name">과한 운동 후</div>
-        <span class="r-badge pro-b">PRO</span>
-      </div>
-      <div class="routine-card rc-05 locked">
-        <div class="r-emoji">🤒</div>
-        <div class="r-name">몸살/감기</div>
-        <span class="r-badge pro-b">PRO</span>
-      </div>
-      <div class="routine-card rc-07 locked">
-        <div class="r-emoji">💭</div>
-        <div class="r-name">꿈을 많이 꿈</div>
-        <span class="r-badge pro-b">PRO</span>
-      </div>
-      <div class="routine-card rc-08 locked">
-        <div class="r-emoji">🤕</div>
-        <div class="r-name">두통</div>
-        <span class="r-badge pro-b">PRO</span>
-      </div>
-      <div class="routine-card rc-09 locked">
-        <div class="r-emoji">😔</div>
-        <div class="r-name">우울/무기력</div>
-        <span class="r-badge pro-b">PRO</span>
-      </div>
-      <div class="routine-card rc-12 locked">
-        <div class="r-emoji">🎯</div>
-        <div class="r-name">시험/발표 직전</div>
-        <span class="r-badge pro-b">PRO</span>
-      </div>
-      <div class="routine-card rc-13 locked">
-        <div class="r-emoji">🌙</div>
-        <div class="r-name">잠들고 싶을 때</div>
-        <span class="r-badge pro-b">PRO</span>
-      </div>
-      <div class="routine-card rc-14 locked">
-        <div class="r-emoji">🔥</div>
-        <div class="r-name">운동 전 각성</div>
-        <span class="r-badge pro-b">PRO</span>
-      </div>
+      <div class="routine-card"><span class="routine-badge badge-free">FREE</span><span class="routine-emoji">😴</span><div class="routine-name">수면 부족</div></div>
+      <div class="routine-card"><span class="routine-badge badge-free">FREE</span><span class="routine-emoji">🍺</span><div class="routine-name">과음/숙취</div></div>
+      <div class="routine-card"><span class="routine-badge badge-free">FREE</span><span class="routine-emoji">😰</span><div class="routine-name">스트레스/불안</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">🖥️</span><div class="routine-name">밤샘 작업</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">💪</span><div class="routine-name">과한 운동 후</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">🤒</span><div class="routine-name">몸살/감기</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">💭</span><div class="routine-name">꿈을 많이 꿈</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">🤕</span><div class="routine-name">두통</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">😔</span><div class="routine-name">우울/무기력</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">😊</span><div class="routine-name">컨디션 정상</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">🎯</span><div class="routine-name">집중이 필요할 때</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">📝</span><div class="routine-name">시험/발표 직전</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">🌙</span><div class="routine-name">잠들고 싶을 때</div></div>
+      <div class="routine-card"><span class="routine-badge badge-pro">PRO</span><span class="routine-emoji">🔥</span><div class="routine-name">운동 전 각성</div></div>
     </div>
   </div>
 </section>
 
-
-<!-- BEFORE / AFTER -->
-<section class="before-after">
-  <div class="ba-inner reveal">
-    <div class="ba-title">
-      <div class="section-label">사용 흐름</div>
-      <h2 class="section-title">7분이면<br>아침이 달라집니다</h2>
-    </div>
-
-    <div class="ba-flow">
-      <div class="ba-step" style="--step-color:#f87171">
-        <div class="ba-emoji">😴</div>
-        <div class="ba-info">
-          <div class="ba-step-label">Before — 기상 직후</div>
-          <div class="ba-step-title">머리가 무겁고 몸이 안 일어나요</div>
-          <div class="ba-step-desc">수면 부족 / 어제 회식 / 밤샘 후 — 그 상태 그대로 하루를 시작하고 있었죠</div>
-          <div class="ba-card">
-            컨디션 점수
-            <div class="ba-score-row">
-              <span class="ba-score-before">2 / 5</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="ba-step" style="--step-color:#a78bfa">
-        <div class="ba-emoji">🎧</div>
-        <div class="ba-info">
-          <div class="ba-step-label">During — 루틴 실행</div>
-          <div class="ba-step-title">헤드폰 착용 후 상태 선택, 1탭</div>
-          <div class="ba-step-desc">AI가 오늘 상태에 맞는 뇌파를 즉시 분석합니다. 눈 감고 5~10분, 뇌파가 최적 상태로 유도됩니다</div>
-          <div class="ba-card" style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:20px">〰</span>
-            <span>알파 10Hz → 베타 18Hz 점진적 전환 중</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="ba-step" style="--step-color:#34d399">
-        <div class="ba-emoji">⚡</div>
-        <div class="ba-info">
-          <div class="ba-step-label">After — 루틴 완료</div>
-          <div class="ba-step-title">머리가 맑아지고 집중이 됩니다</div>
-          <div class="ba-step-desc">에너지 드링크 없이, 카페인 없이 — 뇌파로 깨어난 아침은 다릅니다</div>
-          <div class="ba-card">
-            컨디션 점수
-            <div class="ba-score-row">
-              <span class="ba-score-before">2</span>
-              <span class="ba-score-arrow">→</span>
-              <span class="ba-score-after">4 / 5</span>
-              <span class="ba-score-label">+2 개선</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DNA -->
-<section class="dna-section">
-  <div class="dna-inner reveal">
-    <div class="dna-title">
-      <div class="section-label">PRO 전용 기능</div>
-      <h2 class="section-title">사용할수록 나를 아는<br>컨디션 DNA</h2>
-      <p class="section-sub" style="margin-top:12px;">다른 앱은 절대 줄 수 없는 것 — 나만의 회복 패턴 데이터</p>
-    </div>
-
-    <div class="dna-showcase">
-
-      <!-- 브레인 어웨이크닝 일러스트 -->
-      <div style="position:absolute;top:20px;right:20px;width:110px;height:110px;pointer-events:none;">
-        <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <defs>
-            <radialGradient id="brainGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.3"/>
-              <stop offset="100%" stop-color="#7c6fff" stop-opacity="0"/>
-            </radialGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="2" result="blur"/>
-              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-            </filter>
-          </defs>
-
-          <!-- 글로우 배경 -->
-          <circle cx="55" cy="52" r="38" fill="url(#brainGlow)"/>
-
-          <!-- 뇌 외형 -->
-          <path d="M55 18
-            C44 14 33 20 30 30
-            C26 34 26 40 29 45
-            C25 50 26 58 31 62
-            C33 70 40 76 48 76
-            C50 80 52 82 55 82
-            C58 82 60 80 62 76
-            C70 76 77 70 79 62
-            C84 58 85 50 81 45
-            C84 40 84 34 80 30
-            C77 20 66 14 55 18Z"
-            stroke="#a78bfa" stroke-width="1.8" fill="#a78bfa0a" filter="url(#glow)"/>
-
-          <!-- 중앙 분리선 -->
-          <path d="M55 22 C54 38 55 58 55 78"
-            stroke="#7c6fff" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
-
-          <!-- 좌뇌 주름 -->
-          <path d="M36 36 C34 39 36 43 39 44" stroke="#c084fc" stroke-width="1.3" stroke-linecap="round"/>
-          <path d="M31 47 C30 51 33 55 37 56" stroke="#c084fc" stroke-width="1.3" stroke-linecap="round"/>
-          <path d="M34 61 C35 65 39 67 43 66" stroke="#c084fc" stroke-width="1.3" stroke-linecap="round"/>
-
-          <!-- 우뇌 주름 -->
-          <path d="M74 36 C76 39 74 43 71 44" stroke="#c084fc" stroke-width="1.3" stroke-linecap="round"/>
-          <path d="M79 47 C80 51 77 55 73 56" stroke="#c084fc" stroke-width="1.3" stroke-linecap="round"/>
-          <path d="M76 61 C75 65 71 67 67 66" stroke="#c084fc" stroke-width="1.3" stroke-linecap="round"/>
-
-          <!-- 뇌파 라인 (깨어나는 느낌) -->
-          <path d="M38 28 C40 24 43 32 46 28 C49 24 51 32 54 28"
-            stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" opacity="0.8">
-            <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
-          </path>
-          <path d="M56 28 C59 24 62 32 65 28 C68 24 71 32 74 28"
-            stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" opacity="0.8">
-            <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" begin="0.3s" repeatCount="indefinite"/>
-          </path>
-
-          <!-- 방사 에너지 파동 (깨어남 표현) -->
-          <circle cx="55" cy="52" r="42" stroke="#7c6fff" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.25">
-            <animateTransform attributeName="transform" type="rotate" from="0 55 52" to="360 55 52" dur="12s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="55" cy="52" r="48" stroke="#a78bfa" stroke-width="0.5" stroke-dasharray="1 6" opacity="0.15">
-            <animateTransform attributeName="transform" type="rotate" from="360 55 52" to="0 55 52" dur="18s" repeatCount="indefinite"/>
-          </circle>
-
-          <!-- 상단 전기 스파크 (각성 표현) -->
-          <path d="M48 14 L52 8 L54 13 L58 6 L60 12" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
-            <animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite"/>
-          </path>
-
-          <!-- 좌우 에너지 점들 -->
-          <circle cx="22" cy="45" r="2" fill="#7c6fff" opacity="0.6">
-            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2.5s" repeatCount="indefinite"/>
-            <animate attributeName="r" values="1.5;2.5;1.5" dur="2.5s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="88" cy="45" r="2" fill="#7c6fff" opacity="0.6">
-            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
-            <animate attributeName="r" values="1.5;2.5;1.5" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="28" cy="68" r="1.5" fill="#a78bfa" opacity="0.5">
-            <animate attributeName="opacity" values="0.1;0.7;0.1" dur="3s" begin="0.4s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="82" cy="68" r="1.5" fill="#a78bfa" opacity="0.5">
-            <animate attributeName="opacity" values="0.1;0.7;0.1" dur="3s" begin="1.2s" repeatCount="indefinite"/>
-          </circle>
-        </svg>
-      </div>
-
-      <div class="dna-badge-wrap">
-        <span class="dna-badge">🧬 컨디션 DNA 리포트</span>
-      </div>
-      <div class="dna-showcase-title">나만의 회복 패턴</div>
-      <div class="dna-showcase-sub">14회 사용 기반 분석 · 사용할수록 정교해집니다</div>
-
-      <div class="dna-metrics">
-        <div class="dna-metric">
-          <div class="dna-metric-val">+2.4</div>
-          <div class="dna-metric-label">평균 컨디션 개선도</div>
-        </div>
-        <div class="dna-metric">
-          <div class="dna-metric-val">92</div>
-          <div class="dna-metric-label">회복 점수 (100점)</div>
-        </div>
-      </div>
-
-      <div class="dna-best">
-        <div class="dna-best-emoji">😰</div>
+<!-- USER JOURNEY -->
+<section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="max-w">
+    <div class="section-tag">사용 흐름</div>
+    <h2>7분이면<br><em>아침이 달라집니다</em></h2>
+    <div class="journey">
+      <div class="journey-step">
+        <div class="journey-icon">😴</div>
         <div>
-          <div class="dna-best-label">나에게 가장 효과적인 루틴</div>
-          <div class="dna-best-name">캄 포커스 트랜지션 (+3.2)</div>
+          <div class="journey-label">Before — 기상 직후</div>
+          <div class="journey-title">머리가 무겁고 몸이 안 일어나요</div>
+          <div class="journey-desc">수면 부족 / 어제 회식 / 밤샘 후 — 그 상태 그대로 하루를 시작하고 있었죠</div>
+          <div class="score-badge">컨디션 점수 2 / 5</div>
         </div>
       </div>
-
-      <div class="dna-bars">
-        <div class="dna-bar-col"><div class="dna-bar" style="height:28px"></div><div class="dna-bar-lbl">월</div></div>
-        <div class="dna-bar-col"><div class="dna-bar" style="height:38px"></div><div class="dna-bar-lbl">화</div></div>
-        <div class="dna-bar-col"><div class="dna-bar" style="height:18px;opacity:0.4"></div><div class="dna-bar-lbl">수</div></div>
-        <div class="dna-bar-col"><div class="dna-bar" style="height:44px"></div><div class="dna-bar-lbl">목</div></div>
-        <div class="dna-bar-col"><div class="dna-bar" style="height:14px;opacity:0.3"></div><div class="dna-bar-lbl">금</div></div>
-        <div class="dna-bar-col"><div class="dna-bar" style="height:32px;opacity:0.6"></div><div class="dna-bar-lbl">토</div></div>
-        <div class="dna-bar-col"><div class="dna-bar" style="height:22px;opacity:0.4"></div><div class="dna-bar-lbl">일</div></div>
+      <div class="journey-step">
+        <div class="journey-icon">🎧</div>
+        <div>
+          <div class="journey-label">During — 루틴 실행</div>
+          <div class="journey-title">헤드폰 착용 후 상태 선택, 1탭</div>
+          <div class="journey-desc">적응형 주파수 엔진이 오늘 상태에 맞는 뇌파를 즉시 선택합니다. 눈 감고 5~10분, 원하는 상태로 전환을 보조합니다</div>
+          <div class="journey-chip">〰 알파 10Hz → 베타 18Hz 점진적 전환 중</div>
+        </div>
       </div>
-
-      <div class="dna-pro-lock">
-        🔒 컨디션 DNA는 PRO 전용 기능입니다 — 구독 후 즉시 활성화
+      <div class="journey-step">
+        <div class="journey-icon">⚡</div>
+        <div>
+          <div class="journey-label">After — 루틴 완료</div>
+          <div class="journey-title">머리가 맑아지고 집중이 됩니다</div>
+          <div class="journey-desc">에너지 드링크 없이, 카페인 없이 — 주파수로 깨어난 아침은 다릅니다</div>
+          <div class="score-badge">컨디션 점수 2 → 4 / 5 &nbsp;+2 개선</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- VALUE COMPARE -->
-<section class="value-compare">
-  <div class="vc-inner reveal">
-    <div class="vc-title">
-      <div class="section-label">가격 비교</div>
-      <h2 class="section-title">매일 아침 쓰는 돈,<br>ReWake로 바꿔보세요</h2>
+<!-- DNA REPORT -->
+<section>
+  <div class="max-w">
+    <div class="section-tag">PRO 전용 기능</div>
+    <h2>사용할수록 나를 아는<br><em>컨디션 DNA</em></h2>
+    <p class="section-sub">다른 앱은 절대 줄 수 없는 것 — 나만의 회복 패턴 데이터</p>
+    <div class="dna-card">
+      <div class="dna-header">
+        <div class="dna-icon">🧬</div>
+        <div>
+          <div class="dna-title">컨디션 DNA 리포트</div>
+          <div class="dna-sub">나만의 회복 패턴 · 14회 사용 기반 분석</div>
+        </div>
+      </div>
+      <div class="dna-stats">
+        <div class="dna-stat"><span class="dna-stat-num">+2.4</span><span class="dna-stat-label">평균 컨디션 개선도</span></div>
+        <div class="dna-stat"><span class="dna-stat-num">92</span><span class="dna-stat-label">회복 점수 (100점)</span></div>
+        <div class="dna-stat"><span class="dna-stat-num" style="color:var(--free);">😰</span><span class="dna-stat-label">효과적인 루틴<br>캄 포커스 (+3.2)</span></div>
+      </div>
+      <div class="dna-week">
+        <div class="dna-day"><div class="dna-day-label">월</div><div class="dna-dot active"></div></div>
+        <div class="dna-day"><div class="dna-day-label">화</div><div class="dna-dot active"></div></div>
+        <div class="dna-day"><div class="dna-day-label">수</div><div class="dna-dot active"></div></div>
+        <div class="dna-day"><div class="dna-day-label">목</div><div class="dna-dot"></div></div>
+        <div class="dna-day"><div class="dna-day-label">금</div><div class="dna-dot active"></div></div>
+        <div class="dna-day"><div class="dna-day-label">토</div><div class="dna-dot"></div></div>
+        <div class="dna-day"><div class="dna-day-label">일</div><div class="dna-dot active"></div></div>
+      </div>
+      <div class="dna-lock">🔒 컨디션 DNA는 PRO 전용 기능입니다 — 구독 후 즉시 활성화</div>
     </div>
-
-    <div class="vc-table">
-      <div class="vc-row header">
-        <div class="vc-header-cell" style="text-align:left">아침 각성 수단</div>
-        <div class="vc-header-cell">월 비용</div>
-        <div class="vc-header-cell rewake-col">ReWake PRO</div>
-      </div>
-      <div class="vc-row">
-        <div class="vc-item"><span class="vc-item-emoji">🥤</span>에너지 드링크 (월 8회)</div>
-        <div class="vc-cost vc-strikethrough">₩20,000</div>
-        <div class="vc-rewake">✓</div>
-      </div>
-      <div class="vc-row">
-        <div class="vc-item"><span class="vc-item-emoji">☕</span>카페인 보충제 (월 30정)</div>
-        <div class="vc-cost vc-strikethrough">₩15,000</div>
-        <div class="vc-rewake">✓</div>
-      </div>
-      <div class="vc-row">
-        <div class="vc-item"><span class="vc-item-emoji">💊</span>비타민/영양제 (월 1통)</div>
-        <div class="vc-cost vc-strikethrough">₩18,000</div>
-        <div class="vc-rewake">✓</div>
-      </div>
-      <div class="vc-row">
-        <div class="vc-item"><span class="vc-item-emoji">🎵</span>명상 앱 구독</div>
-        <div class="vc-cost vc-strikethrough">₩9,900</div>
-        <div class="vc-rewake">✓</div>
-      </div>
-      <div class="vc-row" style="background:linear-gradient(135deg,#1a1535,#12102a);border-top:1px solid #7c6fff25;">
-        <div class="vc-item" style="color:var(--accent2);font-weight:700;"><span class="vc-item-emoji">🌅</span>ReWake PRO (연간)</div>
-        <div class="vc-cost" style="color:var(--free);font-weight:700;">₩3,250</div>
-        <div class="vc-rewake" style="font-size:16px;">🏆</div>
-      </div>
-    </div>
-    <p style="text-align:center;font-size:12px;color:var(--text2);margin-top:14px;">월 3,250원으로 위의 모든 것을 대체할 수 있습니다</p>
   </div>
 </section>
 
-<!-- REVIEWS -->
-<section class="reviews">
-  <div class="reviews-inner reveal">
-    <div class="reviews-title">
-      <div class="section-label">베타 테스터 후기</div>
-      <h2 class="section-title">직접 써본 사람들의 이야기</h2>
-    </div>
-
-    <div class="reviews-grid">
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">"숙취 다음날 출근 전에 써봤는데 진짜로 머리가 좀 맑아지는 느낌이에요. 헤드폰 끼고 10분인데 신기하게 달라요."</div>
-        <div class="review-author"><strong>김OO</strong> · 직장인, 32세</div>
+<!-- PATENT -->
+<section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="max-w">
+    <div class="section-tag">🔬 특허 출원 준비 중</div>
+    <h2>ReWake만의 독자 기술,<br><em>특허로 증명합니다</em></h2>
+    <div class="patent-badge">
+      <div class="patent-card">
+        <div class="patent-icon">📋</div>
+        <div class="patent-title">상황 분류 → 주파수 매핑 알고리즘</div>
+        <div class="patent-desc">사용자의 전날 컨디션 상태를 입력받아 적응형 주파수 엔진이 최적 뇌파 주파수를 선택하는 방법 및 시스템</div>
+        <span class="patent-status">출원 준비 중</span>
       </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">"시험 직전에 제로아워 루틴 썼는데 긴장이 확 풀리면서 집중이 됐어요. 이거 진짜 수험생한테 필요한 앱이에요."</div>
-        <div class="review-author"><strong>박OO</strong> · 수험생, 24세</div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★☆</div>
-        <div class="review-text">"컨디션 DNA 리포트가 제일 신기해요. 내가 수요일 아침에 항상 컨디션이 낮다는 걸 앱이 먼저 알려줬어요."</div>
-        <div class="review-author"><strong>이OO</strong> · 마케터, 29세</div>
+      <div class="patent-card">
+        <div class="patent-icon">📋</div>
+        <div class="patent-title">복합 상태 주파수 블렌딩 방식</div>
+        <div class="patent-desc">복합 상태 동시 입력 시 가중치 기반으로 최대 3개 주파수를 블렌딩해 최적 조합을 생성하는 방식</div>
+        <span class="patent-status">출원 준비 중</span>
       </div>
     </div>
+    <p class="patent-note">특허 출원 완료 후 해당 섹션이 업데이트될 예정입니다</p>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="pricing-inner reveal">
-    <div class="pricing-title">
-      <div class="section-label">요금제</div>
-      <h2 class="section-title">하루 커피 한 잔보다<br>저렴한 아침 회복</h2>
+<section id="pricing">
+  <div class="max-w">
+    <div class="section-center">
+      <div class="section-tag">요금제</div>
+      <h2>하루 커피 한 잔보다<br><em>저렴한 아침 회복</em></h2>
     </div>
 
     <div class="pricing-grid">
-      <!-- 무료 -->
       <div class="price-card">
-        <span class="price-tag tag-free">무료</span>
-        <div class="price-name">Free</div>
-        <div class="price-amount">0<span>원</span></div>
-        <div class="price-desc">기본 5가지 루틴으로 ReWake를 경험해보세요</div>
+        <div class="price-plan">무료</div>
+        <div class="price-amount">0<span class="price-unit">원</span></div>
+        <div class="price-billing">기본 3가지 루틴으로 ReWake를 경험해보세요</div>
         <ul class="price-features">
-          <li>기본 루틴 5가지</li>
+          <li>기본 루틴 3가지</li>
           <li>히스토리 7일</li>
           <li>기본 통계</li>
         </ul>
-        <button class="price-btn outline">무료로 시작</button>
+        <a href="https://korahnchild-cmd.github.io/rewake/" class="btn-price btn-price-ghost">무료로 시작</a>
       </div>
 
-      <!-- 연간 (추천) -->
       <div class="price-card featured">
-        <div class="featured-badge">✦ 가장 인기</div>
-        <span class="price-tag tag-yearly">연간 구독 <span class="save-badge">34% 절약</span></span>
-        <div class="price-name">Annual</div>
-        <div class="price-amount">3,250<span>원/월</span></div>
-        <div class="price-desc">연 39,000원 일괄 결제 · 첫 2주 무료체험</div>
+        <div class="price-popular">✦ 가장 인기 · 연간 34% 절약</div>
+        <div class="price-plan">연간 구독</div>
+        <div class="price-amount">3,250<span class="price-unit">원/월</span></div>
+        <div class="price-billing">연 39,000원 일괄 결제 · 첫 1주 무료체험</div>
         <ul class="price-features">
           <li>전체 14가지 루틴</li>
           <li>컨디션 DNA 리포트</li>
           <li>히스토리 90일</li>
-          <li>AI 개인화 분석</li>
+          <li>적응형 개인화 분석</li>
           <li>신규 루틴 우선 제공</li>
         </ul>
-        <button class="price-btn primary">2주 무료로 시작</button>
-      </div>
-
-      <!-- 월간 -->
-      <div class="price-card">
-        <span class="price-tag tag-monthly">월간 구독</span>
-        <div class="price-name">Monthly</div>
-        <div class="price-amount">4,900<span>원/월</span></div>
-        <div class="price-desc">부담 없이 월별로 · 첫 2주 무료체험</div>
-        <ul class="price-features">
-          <li>전체 14가지 루틴</li>
-          <li>컨디션 DNA 리포트</li>
-          <li>히스토리 90일</li>
-          <li>AI 개인화 분석</li>
-        </ul>
-        <button class="price-btn outline">2주 무료로 시작</button>
+        <a href="#" class="btn-price btn-price-primary">1주 무료로 시작</a>
       </div>
     </div>
 
-    <p class="anchor-text">
-      <strong>얼리어답터 한정</strong> — 평생이용권 이벤트 별도 진행 예정
-    </p>
-  </div>
-</section>
+    <div class="price-card" style="margin-top:16px;">
+      <div class="price-plan">월간 구독</div>
+      <div class="price-amount">4,900<span class="price-unit">원/월</span></div>
+      <div class="price-billing">부담 없이 월별로 · 첫 1주 무료체험</div>
+      <ul class="price-features">
+        <li>전체 14가지 루틴</li>
+        <li>컨디션 DNA 리포트</li>
+        <li>히스토리 90일</li>
+        <li>적응형 개인화 분석</li>
+      </ul>
+      <a href="#" class="btn-price btn-price-ghost">1주 무료로 시작</a>
+    </div>
 
+    <p style="text-align:center; font-size:13px; color:var(--text3); margin-top:16px;">⭐ 얼리어답터 한정 — 평생이용권 이벤트 별도 진행 예정</p>
 
-
-<!-- TARGET SECTION -->
-<section style="padding: 0 24px 60px;">
-  <div style="max-width:600px; margin:0 auto;" class="reveal">
-    <div style="background:linear-gradient(135deg,#0f0f1f,#141428);border:1px solid var(--border2);border-radius:20px;padding:28px 24px;text-align:center;">
-      
-      <div style="font-size:11px;color:var(--accent2);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">이런 분들께 특히 추천합니다</div>
-      
-      <div style="font-family:'Noto Sans KR',sans-serif;font-size:18px;font-weight:700;line-height:1.5;margin-bottom:8px;">
-        맑은 머리가 곧 <span style="background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">경쟁력</span>인 분들을 위해<br>만들었습니다
-      </div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:24px;">
-        시험장에 들어가기 전, 중요한 PT 직전, 야근 다음날 아침<br>— ReWake는 그 결정적 순간을 위한 앱입니다
-      </div>
-
-      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
-        <span style="background:#7c6fff15;border:1px solid #7c6fff30;color:var(--accent2);font-size:13px;padding:8px 14px;border-radius:20px;font-weight:600;">📚 수험생</span>
-        <span style="background:#60a5fa15;border:1px solid #60a5fa30;color:#60a5fa;font-size:13px;padding:8px 14px;border-radius:20px;font-weight:600;">💼 직장인·야근러</span>
-        <span style="background:#34d39915;border:1px solid #34d39930;color:#34d399;font-size:13px;padding:8px 14px;border-radius:20px;font-weight:600;">🎤 발표·면접 앞둔 분</span>
-        <span style="background:#fb923c15;border:1px solid #fb923c30;color:#fb923c;font-size:13px;padding:8px 14px;border-radius:20px;font-weight:600;">🏋️ 헬스인</span>
-        <span style="background:#f8717115;border:1px solid #f8717130;color:#f87171;font-size:13px;padding:8px 14px;border-radius:20px;font-weight:600;">🌙 교대근무자</span>
-        <span style="background:#fbbf2415;border:1px solid #fbbf2430;color:#fbbf24;font-size:13px;padding:8px 14px;border-radius:20px;font-weight:600;">👨‍💻 개발자·프리랜서</span>
-      </div>
+    <div class="price-compare">
+      <div class="compare-title">매일 아침 쓰는 돈, ReWake로 바꿔보세요</div>
+      <div class="compare-row"><span class="compare-item">🥤 에너지 드링크 (월 8회)</span><span class="compare-price">₩20,000</span></div>
+      <div class="compare-row"><span class="compare-item">☕ 카페인 보충제 (월 30정)</span><span class="compare-price">₩15,000</span></div>
+      <div class="compare-row"><span class="compare-item">💊 비타민/영양제 (월 1통)</span><span class="compare-price">₩18,000</span></div>
+      <div class="compare-row"><span class="compare-item">🎵 명상 앱 구독</span><span class="compare-price">₩9,900</span></div>
+      <div class="compare-row"><span class="compare-item">🌅 ReWake PRO (연간)</span><span class="compare-rewake">₩3,250 🏆</span></div>
     </div>
   </div>
 </section>
 
-<!-- URGENCY / EARLY BIRD -->
-<section class="urgency">
-  <div class="urgency-inner reveal">
-    <div class="urgency-card">
-      <div class="urgency-badge">⚡ 얼리어답터 한정</div>
-      <h2 class="urgency-title">평생이용권<br>100자리 한정 이벤트</h2>
-      <p class="urgency-sub">ReWake가 성장할수록 가격은 올라갑니다.<br>지금 얼리어답터로 참여하면 평생 PRO를 가장 저렴하게 이용할 수 있어요.</p>
-
-      <div class="counter-wrap">
-        <div class="counter-label">남은 자리</div>
-        <div class="counter-remain" id="remainCount">37</div>
-        <div class="counter-remain-label">/ 100자리 중</div>
-        <div class="counter-bar-bg">
-          <div class="counter-bar-fill" id="counterFill"></div>
-        </div>
-        <div class="counter-nums">
-          <span>0</span>
-          <span style="color:#f59e0b;font-weight:700">63자리 마감</span>
-          <span>100</span>
-        </div>
+<!-- REVIEWS -->
+<section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="max-w">
+    <div class="section-center">
+      <div class="section-tag">베타 테스터 후기</div>
+      <h2>직접 써본 사람들의 이야기</h2>
+    </div>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"숙취 다음날 출근 전에 써봤는데 진짜로 머리가 좀 맑아지는 느낌이에요. 헤드폰 끼고 10분인데 신기하게 달라요."</div>
+        <div class="review-author">김OO · 직장인, 32세</div>
       </div>
-
-      <div class="lifetime-price">
-        <div class="lifetime-amount">49,000<span>원 일시불</span></div>
-        <div class="lifetime-desc">월 구독 없이 평생 PRO · 신규 루틴 영구 무료 추가</div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"시험 직전에 제로아워 루틴 썼는데 긴장이 확 풀리면서 집중이 됐어요. 수험생한테 진짜 필요한 앱이에요."</div>
+        <div class="review-author">박OO · 수험생, 24세</div>
       </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <div class="review-text">"컨디션 DNA 리포트가 제일 신기해요. 내가 수요일 아침에 항상 컨디션이 낮다는 걸 앱이 먼저 알려줬어요."</div>
+        <div class="review-author">이OO · 마케터, 29세</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <button class="btn-primary" style="width:100%;padding:16px;font-size:15px;" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
-        얼리어답터로 참여하기 →
-      </button>
+<!-- EARLYBIRD -->
+<section>
+  <div class="max-w">
+    <div class="early-section">
+      <div class="early-tag">⚡ 얼리어답터 한정</div>
+      <h2>평생이용권<br><em>100자리 한정 이벤트</em></h2>
+      <p class="section-sub" style="margin:12px auto 0;">ReWake가 성장할수록 가격은 올라갑니다.<br>지금 얼리어답터로 참여하면 평생 PRO를 가장 저렴하게 이용할 수 있어요.</p>
+      <div class="early-count">남은 자리</div>
+      <div class="early-num">37</div>
+      <div class="early-desc">/ 100자리 중</div>
+      <div class="early-bar"><div class="early-bar-fill"></div></div>
+      <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text3);">
+        <span>0</span><span>63자리 마감</span><span>100</span>
+      </div>
+      <p style="font-size:15px; color:var(--text2); margin-top:20px;">49,000원 일시불 · 월 구독 없이 평생 PRO · 신규 루틴 영구 무료 추가</p>
+      <a href="#" class="btn-early">얼리어답터로 참여하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TARGET -->
+<section style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="max-w section-center">
+    <div class="section-tag">이런 분들께 특히 추천합니다</div>
+    <h2>맑은 머리가 곧 경쟁력인<br><em>분들을 위해 만들었습니다</em></h2>
+    <p class="section-sub">시험장에 들어가기 전, 중요한 PT 직전, 야근 다음날 아침<br>— ReWake는 그 결정적 순간을 위한 앱입니다</p>
+    <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+      <span style="background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:8px 16px; font-size:14px; color:var(--text2);">📚 수험생</span>
+      <span style="background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:8px 16px; font-size:14px; color:var(--text2);">💼 직장인·야근러</span>
+      <span style="background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:8px 16px; font-size:14px; color:var(--text2);">🎤 발표·면접 앞둔 분</span>
+      <span style="background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:8px 16px; font-size:14px; color:var(--text2);">🏋️ 헬스인</span>
+      <span style="background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:8px 16px; font-size:14px; color:var(--text2);">🌙 교대근무자</span>
+      <span style="background:var(--bg3); border:1px solid var(--border); border-radius:20px; padding:8px 16px; font-size:14px; color:var(--text2);">👨‍💻 개발자·프리랜서</span>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq">
-  <div class="faq-inner reveal">
-    <div class="faq-title">
-      <div class="section-label">자주 묻는 질문</div>
-      <h2 class="section-title">궁금한 점이 있으신가요?</h2>
+<section>
+  <div class="max-w">
+    <div class="section-center">
+      <div class="section-tag">자주 묻는 질문</div>
+      <h2>궁금한 점이<br><em>있으신가요?</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')" aria-expanded="false">바이노럴 비트가 정말 효과가 있나요?</button>
+        <div class="faq-a">바이노럴 비트는 두 귀에 살짝 다른 주파수를 들려줘 뇌파를 유도하는 청각 기술입니다. 다수의 신경과학 연구에서 집중력, 수면, 스트레스 완화에 유의미한 효과가 확인됐습니다. 단, 헤드폰 착용이 필수이며 개인차가 있을 수 있습니다.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')" aria-expanded="false">헤드폰이 없으면 안 되나요?</button>
+        <div class="faq-a">바이노럴 비트는 좌우 채널이 분리돼야 효과가 납니다. 스피커나 일반 이어폰은 스테레오 분리가 완벽하지 않아 효과가 줄어들 수 있어요. 헤드폰(또는 무선 이어폰)을 권장합니다. 단, 차량 블루투스 스피커로도 어느 정도 경험하신 분들이 있어요.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')" aria-expanded="false">무료체험 후 자동 결제가 되나요?</button>
+        <div class="faq-a">1주 무료체험 종료 후 선택하신 플랜으로 자동 전환됩니다. 체험 기간 중 언제든지 해지하실 수 있으며, 해지 시 체험 종료일까지 정상 이용 가능합니다.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')" aria-expanded="false">해지는 어떻게 하나요?</button>
+        <div class="faq-a">앱 내 프로필 → 구독 관리에서 언제든지 해지 가능합니다. 위약금이나 추가 비용은 없습니다.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')" aria-expanded="false">컨디션 DNA는 어떻게 만들어지나요?</button>
+        <div class="faq-a">루틴 사용 전후 컨디션 점수, 사용 요일, 가장 효과적인 루틴 등을 자동으로 분석합니다. 5회 이상 사용하면 기본 패턴이, 30회 이상 사용하면 정교한 개인화 리포트가 생성됩니다.</div>
+      </div>
     </div>
 
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">바이노럴 비트가 정말 효과가 있나요? <span class="faq-icon">+</span></div>
-      <div class="faq-a">바이노럴 비트는 두 귀에 살짝 다른 주파수를 들려줘 뇌파를 유도하는 청각 기술입니다. 다수의 신경과학 연구에서 집중력, 수면, 스트레스 완화에 유의미한 효과가 확인됐습니다. 단, 헤드폰 착용이 필수이며 개인차가 있을 수 있습니다.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">헤드폰이 없으면 안 되나요? <span class="faq-icon">+</span></div>
-      <div class="faq-a">바이노럴 비트는 좌우 채널이 분리돼야 효과가 납니다. 스피커나 일반 이어폰은 스테레오 분리가 완벽하지 않아 효과가 줄어들 수 있어요. 헤드폰(또는 무선 이어폰)을 권장합니다.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">무료체험 후 자동 결제가 되나요? <span class="faq-icon">+</span></div>
-      <div class="faq-a">2주 무료체험 종료 후 선택하신 플랜으로 자동 전환됩니다. 체험 기간 중 언제든지 해지하실 수 있으며, 해지 시 체험 종료일까지 정상 이용 가능합니다.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">해지는 어떻게 하나요? <span class="faq-icon">+</span></div>
-      <div class="faq-a">앱 내 프로필 → 구독 관리에서 언제든지 해지 가능합니다. 위약금이나 추가 비용은 없습니다.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">컨디션 DNA는 어떻게 만들어지나요? <span class="faq-icon">+</span></div>
-      <div class="faq-a">루틴 사용 전후 컨디션 점수, 사용 요일, 가장 효과적인 루틴 등을 자동으로 분석합니다. 5회 이상 사용하면 기본 패턴이, 30회 이상 사용하면 정교한 개인화 리포트가 생성됩니다.</div>
+    <div class="disclaimer">
+      ⚠️ <strong>이용 안내</strong><br>
+      본 서비스는 의료기기가 아니며, 질병의 치료·예방을 목적으로 하지 않습니다.<br>
+      바이노럴 비트의 효과는 개인차가 크며, 주관적 경험을 보조하는 도구입니다.<br>
+      모든 효과 설명은 보조 목적이며 의학적 효과를 보장하지 않습니다.
     </div>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<section class="final-cta">
-  <div class="reveal">
-    <h2 class="final-cta-title">지금 바로<br><span style="background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">2주 무료로 경험하세요</span></h2>
-    <p class="final-cta-sub">신용카드 불필요 · 언제든 해지 가능 · 14가지 루틴 전체 개방</p>
-    <div class="final-btn-group">
-      <a href="#pricing" class="final-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'});return false;">
-        무료로 시작하기 →
-      </a>
-      <a href="https://korahnchild-cmd.github.io/rewake/" class="final-btn" style="background:transparent;border:1px solid #7c6fff40;color:var(--accent2);box-shadow:none;">
-        🌅 앱 바로 열기
-      </a>
+<div class="final-cta">
+  <div class="max-w section-center">
+    <h2>지금 바로<br><em>1주 무료로 경험하세요</em></h2>
+    <p class="section-sub" style="margin:16px auto 32px;">신용카드 불필요 · 언제든 해지 가능 · 14가지 루틴 전체 개방</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="#pricing" class="btn-hero">무료로 시작하기 →</a>
+      <a href="https://korahnchild-cmd.github.io/rewake/" class="btn-hero-ghost">🌅 앱 바로 열기</a>
     </div>
-    <p class="final-note">이미 아침을 바꾸고 있는 베타 유저들과 함께하세요</p>
+    <p style="margin-top:24px; font-size:13px; color:var(--text3);">이미 아침을 바꾸고 있는 베타 유저들과 함께하세요</p>
   </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <strong>ReWake</strong> · 못 잔 아침도, AI가 깨워준다<br>
-  <span style="margin-top:8px;display:block">© 2026 ReWake · 이용약관 · 개인정보처리방침</span>
+  <p style="font-size:16px; font-weight:700; margin-bottom:8px;"><strong>ReWake</strong> · 못 잔 아침도, 주파수로 깨워준다</p>
+  <p style="margin-bottom:12px;">© 2026 ReWake · <a href="#">이용약관</a> · <a href="#">개인정보처리방침</a></p>
+  <p style="font-size:11px; line-height:1.6; color:var(--text3); max-width:480px; margin:0 auto;">
+    본 서비스는 의료기기가 아니며, 질병의 치료·예방을 목적으로 하지 않습니다. 바이노럴 비트의 효과는 개인차가 크며, 주관적 경험을 보조하는 도구입니다.
+  </p>
 </footer>
 
-<script>
-// FAQ 토글
-function toggleFaq(el) {
-  el.classList.toggle('open');
-}
-
-// 스크롤 reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// 카운터 애니메이션
-function animateCounter() {
-  const fill = document.getElementById('counterFill');
-  const count = document.getElementById('remainCount');
-  if (fill) {
-    setTimeout(() => { fill.style.width = '63%'; }, 300);
-  }
-  if (count) {
-    let n = 100;
-    const target = 37;
-    const step = () => {
-      n = Math.max(target, n - 3);
-      count.textContent = n;
-      if (n > target) setTimeout(step, 30);
-    };
-    setTimeout(step, 500);
-  }
-}
-const urgencyObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCounter(); urgencyObserver.unobserve(e.target); } });
-}, { threshold: 0.3 });
-const urgencyEl = document.querySelector('.urgency-card');
-if (urgencyEl) urgencyObserver.observe(urgencyEl);
-
-</script>
 </body>
 </html>
