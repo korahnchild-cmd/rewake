@@ -494,17 +494,11 @@
 
   /* animations */
   @keyframes fadeUp {
-    from { opacity:0; transform:translateY(20px); }
-    to { opacity:1; transform:translateY(0); }
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
   }
-  .card { animation: fadeUp 0.4s ease both; }
-  .card:nth-child(1){animation-delay:0.05s} .card:nth-child(2){animation-delay:0.1s}
-  .card:nth-child(3){animation-delay:0.15s} .card:nth-child(4){animation-delay:0.2s}
-  .card:nth-child(5){animation-delay:0.25s} .card:nth-child(6){animation-delay:0.3s}
-  .card:nth-child(7){animation-delay:0.35s} .card:nth-child(8){animation-delay:0.4s}
-  .card:nth-child(9){animation-delay:0.45s} .card:nth-child(10){animation-delay:0.5s}
-  .card:nth-child(11){animation-delay:0.55s} .card:nth-child(12){animation-delay:0.6s}
-  .card:nth-child(13){animation-delay:0.65s} .card:nth-child(14){animation-delay:0.7s}
+  /* animation-delay는 JS renderGrid에서 인라인으로 주입 — nth-child 제거 */
+  .card { animation: fadeUp 0.35s ease backwards; }
 
   /* ── PAGES ── */
   .page { display: none; }
@@ -2075,8 +2069,9 @@ function toggleAiMode() {
 // ─────────────────────────────────────────────
 function renderGrid() {
   const grid = document.getElementById('routineGrid');
-  grid.innerHTML = routines.map(r => `
-    <div class="card card-${r.id}" 
+  grid.innerHTML = routines.map((r, idx) => `
+    <div class="card card-${r.id}"
+      style="animation-delay:${(idx * 0.04 + 0.02).toFixed(2)}s"
       onclick="openRoutine('${r.id}')"
       role="listitem button"
       tabindex="0"
@@ -2485,7 +2480,9 @@ function updateWaveUI(playing) {
   const TOTAL   = 4;
   let current   = 0;
   let startX    = 0;
-  let isDragging = false;
+  let startY    = 0;
+  let isDragging  = false;
+  let isHorizontal = false;
 
   const track    = document.getElementById('obTrack');
   const dots     = document.querySelectorAll('.ob-dot');
@@ -2544,20 +2541,36 @@ function updateWaveUI(playing) {
   };
   window.obSkip = function() { finish(); };
 
-  // 터치 스와이프
+  // 터치 스와이프 — 수직 스크롤 방지 + 수평/수직 방향 구분
   const wrap = document.querySelector('.ob-track-wrap');
   wrap.addEventListener('touchstart', e => {
-    startX    = e.touches[0].clientX;
-    isDragging = true;
+    startX       = e.touches[0].clientX;
+    startY       = e.touches[0].clientY;
+    isDragging   = true;
+    isHorizontal = false;
   }, { passive: true });
+
+  wrap.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+    // 8px 이상 움직였을 때 방향 최초 판정
+    if (!isHorizontal && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+      isHorizontal = true;
+    }
+    // 수평 스와이프로 확정됐을 때만 페이지 스크롤 차단
+    if (isHorizontal) e.preventDefault();
+  }, { passive: false }); // passive:false 필수 — preventDefault를 위해
+
   wrap.addEventListener('touchend', e => {
     if (!isDragging) return;
     const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
+    if (isHorizontal && Math.abs(diff) > 50) {
       if (diff > 0 && current < TOTAL - 1) goTo(current + 1);
       else if (diff < 0 && current > 0)    goTo(current - 1);
     }
-    isDragging = false;
+    isDragging   = false;
+    isHorizontal = false;
   }, { passive: true });
 
   // 초기화
@@ -2854,8 +2867,18 @@ updateSliderTrack(3);
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/rewake/service-worker.js')
-        .then(reg => console.log('SW 등록 완료:', reg.scope))
+        .then(reg => {
+          console.log('SW 등록 완료:', reg.scope);
+          // 새 SW가 있으면 즉시 활성화
+          reg.update();
+          if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+        })
         .catch(err => console.warn('SW 등록 실패:', err));
+    });
+    // 새 SW 활성화 시 페이지 새로고침
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      // 첫 설치가 아닌 업데이트 시에만 새로고침
+      if (navigator.serviceWorker.controller) window.location.reload();
     });
   }
 </script>
