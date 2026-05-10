@@ -288,6 +288,10 @@
     padding: 28px 24px 40px;
     transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
     border-top: 1px solid var(--border);
+    /* 내용이 길어도 화면 안에 수용 — body 스크롤 방지 */
+    max-height: 92vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .overlay.open .player-modal { transform: translateY(0); }
 
@@ -369,8 +373,8 @@
   .headphone-note {
     background: #f59e0b10; border: 1px solid #f59e0b30;
     border-radius: 10px; padding: 10px 14px;
-    font-size: 11px; color: #f59e0b; line-height: 1.5;
-    margin-bottom: 16px; display: flex; gap: 8px; align-items: flex-start;
+    font-size: 11px; color: #f59e0b; line-height: 1.6;
+    margin-bottom: 10px;
   }
 
   .done-btn {
@@ -507,7 +511,6 @@
     from { opacity:0; transform:translateY(16px); }
     to   { opacity:1; transform:translateY(0); }
   }
-  /* animation-delay는 renderGrid에서 인라인으로 주입 */
   .card { animation: fadeUp 0.35s ease backwards; }
 
   /* ── PAGES ── */
@@ -1022,7 +1025,6 @@
   /* 슬라이드 래퍼 */
   .ob-track-wrap {
     flex: 1; overflow: hidden; position: relative;
-    /* 브라우저 네이티브 수직 스크롤이 슬라이드 스와이프를 가로채지 못하게 차단 */
     touch-action: pan-y;
   }
   .ob-track {
@@ -1036,24 +1038,19 @@
     align-items: center; justify-content: center;
     padding: 48px 32px 16px;
     text-align: center; position: relative;
-    /* 각 슬라이드 자체도 넘치지 않게 */
     overflow: hidden;
   }
   .ob-slide-1 { background: radial-gradient(ellipse at 50% 25%, #1a1045 0%, var(--bg) 65%); }
   .ob-slide-2 { background: radial-gradient(ellipse at 50% 25%, #0d2012 0%, var(--bg) 65%); }
   .ob-slide-3 {
     background: radial-gradient(ellipse at 50% 25%, #1a0f35 0%, var(--bg) 65%);
-    justify-content: flex-start;
-    overflow-y: auto;
-    padding-top: 32px;
-    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start; overflow-y: auto;
+    padding-top: 32px; -webkit-overflow-scrolling: touch;
   }
   .ob-slide-4 {
     background: radial-gradient(ellipse at 50% 25%, #1a1408 0%, var(--bg) 65%);
-    justify-content: flex-start;
-    overflow-y: auto;
-    padding-top: 28px;
-    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start; overflow-y: auto;
+    padding-top: 28px; -webkit-overflow-scrolling: touch;
   }
 
   /* 비주얼 영역 */
@@ -1062,13 +1059,13 @@
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 36px; flex-shrink: 0;
   }
-  /* 슬라이드3/4 — 아이콘 작게 줄여서 콘텐츠 공간 확보 */
-  .ob-visual-sm {
-    margin-bottom: 16px;
-  }
-  .ob-visual-sm .ob-icon-wrap {
-    width: 80px; height: 80px; border-radius: 22px; font-size: 38px;
-  }
+  .ob-visual-sm { margin-bottom: 16px; }
+  .ob-visual-sm .ob-icon-wrap { width: 80px; height: 80px; border-radius: 22px; font-size: 38px; }
+  /* 블루투스·차량 안내 박스 */
+  .ob-bt-box { width: 100%; margin-top: 10px; display: flex; flex-direction: column; gap: 7px; margin-bottom: 6px; }
+  .ob-bt-row { background: #34d39912; border: 1px solid #34d39930; border-radius: 10px; padding: 9px 13px; font-size: 11px; color: #3fda9f; line-height: 1.6; text-align: left; }
+  .ob-bt-row strong { color: #3fda9f; }
+  .ob-bt-row-car { background: #7c6fff10; border-color: #7c6fff30; color: var(--accent2); }
   .ob-icon-wrap {
     width: 140px; height: 140px; border-radius: 36px;
     display: flex; align-items: center; justify-content: center;
@@ -1154,23 +1151,6 @@
   .ob-hp-icon { font-size: 38px; flex-shrink: 0; }
   .ob-hp-text strong { display: block; font-size: 14px; color: #f59e0b; margin-bottom: 6px; }
   .ob-hp-text span { font-size: 12px; color: var(--text2); line-height: 1.7; }
-
-  /* 블루투스/차량 안내 박스 (슬라이드4) */
-  .ob-bt-box {
-    width: 100%; margin-top: 10px;
-    display: flex; flex-direction: column; gap: 7px;
-    margin-bottom: 6px;
-  }
-  .ob-bt-row {
-    background: #34d39912; border: 1px solid #34d39930;
-    border-radius: 10px; padding: 9px 13px;
-    font-size: 11px; color: #3fda9f; line-height: 1.6;
-    text-align: left;
-  }
-  .ob-bt-row strong { color: #3fda9f; }
-  .ob-bt-row-car {
-    background: #7c6fff10; border-color: #7c6fff30; color: var(--accent2);
-  }
 
   /* 공통 텍스트 */
   .ob-chip {
@@ -1711,7 +1691,7 @@
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">🌐 블루투스 이어폰 사용 시 주의사항</div>
-        <div class="faq-a"><strong style="color:#3fda9f">삼성 인터넷</strong> 또는 <strong style="color:#3fda9f">Safari</strong>를 권장합니다. 크롬(Chrome)은 Android에서 블루투스 오디오 출력이 제한될 수 있어요.</div>
+        <div class="faq-a"><strong style="color:#3fda9f">삼성 인터넷</strong> 또는 <strong style="color:#3fda9f">Safari</strong>를 권장합니다. 크롬(Chrome)은 Android에서 블루투스 출력이 제한될 수 있어요.</div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">🔊 차량 블루투스 스피커로 들어도 되나요?</div>
@@ -1719,7 +1699,7 @@
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">루틴은 몇 번 들어야 효과가 있나요?</div>
-        <div class="faq-a">개인차가 있지만 <strong>3~5회</strong> 꾸준히 사용하면 효과를 느끼는 분들이 많아요. 매일 아침 반복하면 컨디션 DNA에 패턴이 쌓여 더 정교한 추천을 받을 수 있습니다.</div>
+        <div class="faq-a">개인차가 있지만 <strong>3~5회</strong> 꾸준히 사용하면 효과를 느끼는 분들이 많아요.</div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">바이노럴 비트는 의학적으로 검증됐나요?</div>
@@ -1779,7 +1759,7 @@
 
     <div class="modal-effect" id="modalEffect"></div>
 
-    <div class="headphone-note" style="background:#7c6fff15; border-left-color:#7c6fff; margin-bottom:8px;">
+    <div class="headphone-note" style="background:#7c6fff15; border-color:#7c6fff; margin-bottom:8px;">
       ⚡ <strong>전체 재생 시 효과 극대화</strong> — 주파수 동조는 <strong>마지막 1분</strong>에 완성됩니다
     </div>
     <div class="headphone-note">
@@ -2166,7 +2146,6 @@ function renderGrid() {
       role="listitem button" tabindex="0"
       aria-label="${r.situation} — ${r.mode}, ${r.duration}, ${r.free ? '무료' : '프리미엄'}"
       onkeydown="if(event.key==='Enter'||event.key===' ')openRoutine('${r.id}')">
-      <div class="card-device-hint" aria-hidden="true"><span>🎧</span><span>🔊</span></div>
       <div class="card-emoji-wrap" aria-hidden="true">${r.emoji}</div>
       <div class="card-name">${r.situation}</div>
       <div class="card-mode">${r.mode}</div>
@@ -2254,6 +2233,39 @@ function closePlayer() {
 function handleOverlayClick(e) {
   if (e.target === document.getElementById('playerOverlay')) closePlayer();
 }
+
+// ── 플레이어 모달 스와이프 다운 → 닫기 ──
+(function initPlayerSwipe() {
+  const modal = document.getElementById('playerModal');
+  let pyStart = 0;
+  let pyDragging = false;
+
+  modal.addEventListener('touchstart', e => {
+    // 모달 최상단(핸들 영역)에서 시작한 경우만 닫기 제스처로 처리
+    pyStart    = e.touches[0].clientY;
+    pyDragging = true;
+  }, { passive: true });
+
+  modal.addEventListener('touchmove', e => {
+    if (!pyDragging) return;
+    const dy = e.touches[0].clientY - pyStart;
+    // 아래로 10px 이상이고, 모달이 최상단 스크롤 위치일 때만 제스처
+    if (dy > 10 && modal.scrollTop === 0) {
+      // 수직 스크롤은 모달 내부에서 처리 — 페이지 스크롤만 차단
+      e.stopPropagation();
+    }
+  }, { passive: true });
+
+  modal.addEventListener('touchend', e => {
+    if (!pyDragging) return;
+    const dy = e.changedTouches[0].clientY - pyStart;
+    // 아래로 80px 이상 스와이프 + 모달 최상단 위치일 때 닫기
+    if (dy > 80 && modal.scrollTop < 10) {
+      closePlayer();
+    }
+    pyDragging = false;
+  }, { passive: true });
+})();
 
 // ─────────────────────────────────────────────
 // 재생 / 정지 통합
@@ -2631,30 +2643,18 @@ function updateWaveUI(playing) {
   };
   window.obSkip = function() { finish(); };
 
-  // ── 터치 스와이프 ──
-  // ob-track-wrap이 아닌 #onboarding 전체에 등록
-  // → 슬라이드3/4 내부 스크롤 영역에서도 수평 스와이프 감지 가능
   const obRoot = document.getElementById('onboarding');
-
   obRoot.addEventListener('touchstart', e => {
-    startX       = e.touches[0].clientX;
-    startY       = e.touches[0].clientY;
-    isDragging   = true;
-    isHorizontal = false;
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    isDragging = true; isHorizontal = false;
   }, { passive: true });
-
   obRoot.addEventListener('touchmove', e => {
     if (!isDragging) return;
     const dx = Math.abs(e.touches[0].clientX - startX);
     const dy = Math.abs(e.touches[0].clientY - startY);
-    // 8px 이상 움직인 시점에 방향 확정
-    if (!isHorizontal && dx + dy > 8) {
-      isHorizontal = dx > dy;
-    }
-    // 수평으로 확정됐으면 페이지/내부 스크롤 모두 차단
+    if (!isHorizontal && dx + dy > 8) isHorizontal = dx > dy;
     if (isHorizontal) e.preventDefault();
-  }, { passive: false }); // passive:false 필수
-
+  }, { passive: false });
   obRoot.addEventListener('touchend', e => {
     if (!isDragging) return;
     const diff = startX - e.changedTouches[0].clientX;
@@ -2662,8 +2662,7 @@ function updateWaveUI(playing) {
       if (diff > 0 && current < TOTAL - 1) goTo(current + 1);
       else if (diff < 0 && current > 0)    goTo(current - 1);
     }
-    isDragging   = false;
-    isHorizontal = false;
+    isDragging = false; isHorizontal = false;
   }, { passive: true });
 
   // 초기화
